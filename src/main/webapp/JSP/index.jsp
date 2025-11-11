@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>GardenLog</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css">
 </head>
 <body>
 	<header class="header">
@@ -18,7 +18,7 @@
             <a href="#">커뮤니티</a>
             <a href="#">마이페이지</a>
         </nav>
-        <button class="login-btn">로그아웃</button>
+        <button class="logout-btn">로그아웃</button>
     </header>
 
     <div class="container">
