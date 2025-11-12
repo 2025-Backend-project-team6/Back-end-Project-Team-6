@@ -4,8 +4,6 @@
 /target/
 
 # IDE settings (Eclipse)
-.project
-.classpath
 .settings/
 
 # Tomcat server config (Do not share!)
