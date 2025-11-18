@@ -1,14 +1,14 @@
 package com.gardenlog.servlet.dto;
 
 public class UserDTO {
-	private String userid;
-	private String password;
-	private String username;
-	private String email;
-	private String level;
-	private String profile_path;
-	private String role;
-	private String create_at;
+	private String userid; // 아이디
+	private String password; // 비밀번호
+	private String username; // 이름
+	private String email; // 이메일
+	private String level; // 회원 등급 
+	private String profile_path; // 프로필 사진 경로
+	private String role; // 관리자 / 회원 구분
+	private String create_at; // 회원 생성 일자
 	
 	public String getUserid() {
 		return userid;
