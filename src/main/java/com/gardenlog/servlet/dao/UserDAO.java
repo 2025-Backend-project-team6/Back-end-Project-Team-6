@@ -12,8 +12,7 @@ public class UserDAO {
 	ResultSet rs = null;
 	final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
 	
-	
-	public int userJoin(UserDTO udto){
+	public int userJoin(UserDTO udto) {
 		int result = 0;
 
 		try {
@@ -36,4 +35,23 @@ public class UserDAO {
 		return result;	
 	}
 	
+	public boolean checkId(UserDTO udto) {
+		String sql = "select userid from users where userid=?;";
+
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, udto.getUserid());
+			
+			rs = pstmt.executeQuery();
+			
+			return rs.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt, rs);
+		}
+		return false;
+	}
 }
