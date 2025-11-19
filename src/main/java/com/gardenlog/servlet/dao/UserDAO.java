@@ -11,6 +11,7 @@ public class UserDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
+	final String USER_CHECKID = "select userid from users where userid=?;";
 	
 	public int userJoin(UserDTO udto) {
 		int result = 0;
@@ -36,11 +37,9 @@ public class UserDAO {
 	}
 	
 	public boolean checkId(UserDTO udto) {
-		String sql = "select userid from users where userid=?;";
-
 		try {
 			conn = JdbcConnectUtil.getConnection();
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(USER_CHECKID);
 			pstmt.setString(1, udto.getUserid());
 			
 			rs = pstmt.executeQuery();

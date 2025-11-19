@@ -14,7 +14,7 @@ import com.gardenlog.servlet.dto.UserDTO;
 import com.mysql.cj.jdbc.JdbcConnection;
 
 @WebServlet("/checkId.do")
-public class CheckIdServlet extends HttpServlet {
+public class CheckIdController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = request.getParameter("userid");
@@ -24,6 +24,7 @@ public class CheckIdServlet extends HttpServlet {
 		
 		UserDAO udao = new UserDAO();
 		Boolean result = udao.checkId(udto);
+		
 		if(result==false) {
 			request.setAttribute("idCheckMessage", "사용 가능한 아이디입니다.");
 		} else {
