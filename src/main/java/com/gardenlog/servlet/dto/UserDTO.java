@@ -5,7 +5,7 @@ public class UserDTO {
 	private String password;
 	private String username;
 	private String email;
-	private String level;
+	private Integer level;
 	private String profile_path;
 	private String role;
 	private String create_at;
@@ -34,10 +34,10 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
-	public void setLevel(String level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 	public String getProfile_path() {
@@ -57,7 +57,5 @@ public class UserDTO {
 	}
 	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
-	}
-	
-	
+	}	
 }
