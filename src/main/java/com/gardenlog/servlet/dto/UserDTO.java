@@ -5,7 +5,7 @@ public class UserDTO {
 	private String password; // 비밀번호
 	private String username; // 이름
 	private String email; // 이메일
-	private int level; // 회원 등급 
+	private String level; // 회원 등급 
 	private String profile_path; // 프로필 사진 경로
 	private String role; // 관리자 / 회원 구분
 	private String create_at; // 회원 생성 일자
@@ -34,11 +34,11 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getLevel() {
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
-		this.level = level;
+	public void setLevel(String string) {
+		this.level = string;
 	}
 	public String getProfile_path() {
 		return profile_path;
