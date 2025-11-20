@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>GardenLog - 로그인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/userLoginForm.css">
 </head>
 <body>
 
@@ -17,9 +17,7 @@
 
             <form action="login.do" method="post">
                 <div class="input-group">
-                    <%-- "이메일" -> "아이디"로 변경 --%>
                     <label for="userid">아이디</label>
-                    <%-- type, id, name, placeholder 변경 --%>
                     <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요" required>
                 </div>
                 <div class="input-group">
