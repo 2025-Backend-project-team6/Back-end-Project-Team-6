@@ -8,7 +8,7 @@ public class UserDTO {
 	private Integer level;
 	private String profile_path;
 	private String role;
-	private String create_at;
+	private String created_at;
 	
 	public String getUserid() {
 		return userid;
@@ -52,10 +52,10 @@ public class UserDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public String getCreate_at() {
-		return create_at;
+	public String getCreated_at() {
+		return created_at;
 	}
-	public void setCreate_at(String create_at) {
-		this.create_at = create_at;
-	}	
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
 }
