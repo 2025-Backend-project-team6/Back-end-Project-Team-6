@@ -38,7 +38,7 @@ public class GardenManageController extends HttpServlet {
 		
 		if("addGarden".equals(action)) {			
 			HttpSession session = request.getSession();
-			session.setAttribute("userid", "leenayeon"); // 테스트 코드
+			session.setAttribute("userid", "testuser"); // 테스트 코드
 			String userid = (String) session.getAttribute("userid"); // 테스트 코드
 			// UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
 			// String userid = loginUser.getUserid();
