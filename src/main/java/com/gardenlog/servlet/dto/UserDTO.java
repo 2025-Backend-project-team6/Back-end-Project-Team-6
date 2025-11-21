@@ -1,5 +1,7 @@
 package com.gardenlog.servlet.dto;
 
+import java.time.LocalDateTime;
+
 public class UserDTO {
 	private String userid; // 아이디
 	private String password; // 비밀번호
@@ -8,7 +10,8 @@ public class UserDTO {
 	private int level; // 회원 등급 
 	private String profile_path; // 프로필 사진 경로
 	private String role; // 관리자 / 회원 구분
-	private String create_at; // 회원 생성 일자
+	private String user_status; // 회원 상태 - 활성/비활성
+	private LocalDateTime created_at; // 회원 생성 일자
 	
 	public String getUserid() {
 		return userid;
@@ -52,12 +55,19 @@ public class UserDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public String getCreate_at() {
-		return create_at;
+	public String getUser_status() {
+		return user_status;
 	}
-	public void setCreate_at(String create_at) {
-		this.create_at = create_at;
+	public void setUser_status(String user_status) {
+		this.user_status = user_status;
 	}
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
+	
 	
 	
 }
