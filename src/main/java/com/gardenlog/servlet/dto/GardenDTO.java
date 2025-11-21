@@ -1,5 +1,7 @@
 package com.gardenlog.servlet.dto;
 
+import java.sql.Date;
+
 public class GardenDTO {
 	private Integer gardenid;
 	private String userid;
@@ -7,7 +9,8 @@ public class GardenDTO {
 	private String location;
 	private Integer area;
 	private Integer crop_count;
-	
+	private Date start_date;
+		
 	public Integer getGardenid() {
 		return gardenid;
 	}
@@ -43,6 +46,12 @@ public class GardenDTO {
 	}
 	public void setCrop_count(Integer crop_count) {
 		this.crop_count = crop_count;
+	}
+	public Date getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
 	}
 	
 }

@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import com.gardenlog.servlet.dao.GardenDAO;
 import com.gardenlog.servlet.dto.GardenDTO;
+import com.gardenlog.servlet.dto.UserDTO;
 
 @WebServlet("/gardenmanage.do")
 public class GardenManageController extends HttpServlet {
@@ -29,12 +31,44 @@ public class GardenManageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String userid = (String)session.getAttribute("userid");
+		String action = request.getParameter("action");		
 		
-		GardenDAO gdao = new GardenDAO();
-		int count = gdao.checkCropCount(userid);
-		request.setAttribute("count", count);
+		if("addGarden".equals(action)) {			
+			HttpSession session = request.getSession();
+			session.setAttribute("userid", "testuser"); // 테스트 코드
+			String userid = (String) session.getAttribute("userid"); // 테스트 코드
+			// UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+			// String userid = loginUser.getUserid();
+			
+			String gardenname = request.getParameter("gardenname");
+			String location = request.getParameter("location");
+			String areaStr = request.getParameter("area");
+			String start_date_Str = request.getParameter("start_date");
+			
+			int area = Integer.parseInt(areaStr);
+			Date start_date = Date.valueOf(start_date_Str);
+			
+			GardenDTO gdto = new GardenDTO();
+			gdto.setUserid(userid); // 테스트 코드
+			// gdto.setUserid(userid);
+			gdto.setGardenname(gardenname);
+			gdto.setLocation(location);
+			gdto.setArea(area);
+			gdto.setStart_date(start_date);
+			
+			GardenDAO gdao = new GardenDAO();
+			int result = gdao.addGarden(gdto);
+			
+			if(result==1) {
+				response.sendRedirect(request.getContextPath() + "/JSP/gardenManage.jsp");
+				return ;
+			}
+		}
+		
+		// GardenDAO gdao = new GardenDAO();
+		// int count = gdao.gardenCount(userid);
+		// request.setAttribute("count", count);
+				
 	}
 
 }
