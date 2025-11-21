@@ -1,18 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/addGarden.css">
+
 </head>
 <body>
 	<%@ include file="/JSP/header.jsp" %>
+	
 	<h1>새 텃밭 추가</h1>
 	<p>새로운 텃밭 정보를 입력해주세요.</p>
 	
 	<form action="${pageContext.request.contextPath}/gardenmanage.do" method="post">
 		<label>텃밭 이름 *</label>
+		<c:if test="${not empty nullMessage}">
+			<p>${nullMessage}</p>
+		</c:if>
 		<input type="text" name="gardenname"
 			   placeholder="예: 우리집 옥상 텃밭">
 		<br>
@@ -23,7 +32,7 @@
 		<br>
 		
 		<label>크기</label>
-		<input type="number" name="area"
+		<input type="number" name="area" min=0
 			   placeholder="텃밭 크기를 입력하세요">
 		<br>
 			   
