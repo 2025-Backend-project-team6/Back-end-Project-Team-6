@@ -58,6 +58,7 @@ body {
     font-size: 14px;
     outline: none;
     transition: border-color .2s, box-shadow .2s;
+    box-sizing: border-box;
 }
 
 /* 인풋 포커스 효과 */
