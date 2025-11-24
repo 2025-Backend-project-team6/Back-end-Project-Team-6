@@ -15,7 +15,7 @@
             <h2>🌱GardenLog</h2>
             <p class="subtitle">농사 일지를 기록하고 관리하세요</p>
 
-            <form action="login.do" method="post">
+            <form action="${pageContext.request.contextPath}/login.do" method="post">
                 <div class="input-group">
                     <label for="userid">아이디</label>
                     <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요" required>
@@ -43,6 +43,13 @@
             <div class="register-link">
                 아직 계정이 없으신가요? <a href="userJoinForm.jsp">회원가입</a>
             </div>
+            <hr>
+            <div class="admin-login-area">
+    			관리자이신가요? 
+    			<a href="index.jsp" class="admin-link">
+        			관리자 로그인
+    			</a>
+			</div>
         </div>
     </div>
 
