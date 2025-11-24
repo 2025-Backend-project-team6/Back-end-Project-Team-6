@@ -23,6 +23,7 @@ public class MyPageController extends HttpServlet {
         fakeUser.setUsername("김동양");
         fakeUser.setLevel("새싹 농부");
         fakeUser.setEmail("garden@test.com");
+        fakeUser.setPassword("123");
         
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", fakeUser);
