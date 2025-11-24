@@ -5,7 +5,7 @@
     	<span>🌱</span> GardenLog
     </div>
     <nav class="nav-menu">
-        <a href="#">텃밭 관리</a>
+        <a href="${pageContext.request.contextPath}/gardenmanage.do">텃밭 관리</a>
         <a href="#">작물 관리</a>
         <a href="#">작물 검색</a>
         <a href="#">농사 일지</a>

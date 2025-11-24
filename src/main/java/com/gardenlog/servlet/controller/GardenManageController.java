@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
+import java.util.List;
 
 import com.gardenlog.servlet.dao.GardenDAO;
 import com.gardenlog.servlet.dto.GardenDTO;
@@ -19,30 +20,83 @@ import com.gardenlog.servlet.dto.UserDTO;
 @WebServlet("/gardenmanage.do")
 public class GardenManageController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
-       
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("userid", "testuser"); // 테스트 코드
+		String userid = (String)session.getAttribute("userid"); // 테스트 코드
+		// UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		// String userid = loginUser.getUserid();
 		String action = request.getParameter("action");
 		
-		if("addGarden".equals(action)) {
+		GardenDAO gdao = new GardenDAO();
+		
+		if("addGardenBtn".equals(action)) {
 			response.sendRedirect(request.getContextPath() + "/JSP/addGarden.jsp");
 			return ;
 		}
-		if("viewGarden".equals(action)) {
+		
+		if("viewGardenBtn".equals(action)) {
 			response.sendRedirect(request.getContextPath() + "/JSP/viewGarden.jsp");
 			return ;
-		}		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");		
+		}
 		
-		if("addGarden".equals(action)) {			
-			HttpSession session = request.getSession();
-			session.setAttribute("userid", "testuser"); // 테스트 코드
-			String userid = (String) session.getAttribute("userid"); // 테스트 코드
-			// UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
-			// String userid = loginUser.getUserid();
+		if("searchGardenBtn".equals(action)) {
+			String keyword = request.getParameter("keyword");
+			List<GardenDTO> searchGardenList = gdao.searchGarden(userid, keyword);
 			
+			if(searchGardenList==null || searchGardenList.isEmpty()) {
+				request.setAttribute("nullMessage", "해당하는 텃밭이 없습니다.");			
+			}
+			
+			request.setAttribute("searchGardenList", searchGardenList);
+			request.setAttribute("keyword", keyword);
+			
+			setTotalInfo(request, userid, gdao);
+			
+			dispatcher = request.getRequestDispatcher("/JSP/gardenManage.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		} 	
+		
+		if("detailGardenBtn".equals(action)) {			
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
+			GardenDTO gdto = gdao.getDetailGarden(gardenid);
+			
+			request.setAttribute("garden", gdto);
+			
+			dispatcher = request.getRequestDispatcher("/JSP/detailGarden.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		}
+		
+		List<GardenDTO> userGardenList = gdao.getAllGarden(userid);
+		
+		request.setAttribute("userGardenList", userGardenList);
+		setTotalInfo(request, userid, gdao);
+		
+		dispatcher = request.getRequestDispatcher("/JSP/gardenManage.jsp");
+		dispatcher.forward(request, response);
+		
+	}
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("userid", "testuser"); // 테스트 코드
+		String userid = (String) session.getAttribute("userid"); // 테스트 코드
+		// UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		// String userid = loginUser.getUserid();
+		String action = request.getParameter("action");	
+		
+		GardenDTO gdto = new GardenDTO();
+		
+		if("cancel".equals(action)) {
+			response.sendRedirect(request.getContextPath() + "/gardenmanage.do");
+			return ;
+		}
+				
+		if("addGarden".equals(action)) {			
 			String gardenname = request.getParameter("gardenname");
 			String location = request.getParameter("location");
 			String areaStr = request.getParameter("area");
@@ -66,9 +120,7 @@ public class GardenManageController extends HttpServlet {
 				 start_date = Date.valueOf(start_date_Str);
 			}
 			
-			GardenDTO gdto = new GardenDTO();
-			gdto.setUserid(userid); // 테스트 코드
-			// gdto.setUserid(userid);
+			gdto.setUserid(userid);
 			gdto.setGardenname(gardenname);
 			gdto.setLocation(location);
 			gdto.setArea(area);
@@ -78,15 +130,25 @@ public class GardenManageController extends HttpServlet {
 			int result = gdao.addGarden(gdto);
 			
 			if(result==1) {
-				response.sendRedirect(request.getContextPath() + "/JSP/gardenManage.jsp");
+				response.sendRedirect(request.getContextPath() + "/gardenmanage.do");
 				return ;
 			}
+		}		
+	}
+	
+	
+	private void setTotalInfo(HttpServletRequest request, String userid, GardenDAO gdao) {
+		List<GardenDTO> userGardenList = gdao.getAllGarden(userid);
+		int totalArea = 0;
+		int totalCropCount = 0;
+		
+		for(GardenDTO g: userGardenList) {
+			totalArea += g.getArea();
+			totalCropCount += g.getCrop_count();
 		}
 		
-		// GardenDAO gdao = new GardenDAO();
-		// int count = gdao.gardenCount(userid);
-		// request.setAttribute("count", count);
-				
+		request.setAttribute("totalArea", totalArea);
+		request.setAttribute("totalCropCount", totalCropCount);
+		request.setAttribute("totalGardenCount", userGardenList.size());
 	}
-
 }

@@ -41,7 +41,7 @@
                 <input type="date" name="start_date" class="input-field">
 
                 <div class="btn-group">
-                    <button type="reset" class="btn cancel-btn">취소</button>
+                    <button type="submit" name="action" value="cancel" class="btn cancel-btn">취소</button>
                     <button type="submit" name="action" value="addGarden" class="btn submit-btn">추가하기</button>
                 </div>
             </form>

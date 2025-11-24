@@ -10,6 +10,7 @@ public class GardenDTO {
 	private Integer area;
 	private Integer crop_count;
 	private Date start_date;
+	private Date expected_harvest_date;
 		
 	public Integer getGardenid() {
 		return gardenid;
@@ -52,6 +53,12 @@ public class GardenDTO {
 	}
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
+	}
+	public Date getExpected_harvest_date() {
+		return expected_harvest_date;
+	}
+	public void setExpected_harvest_date(Date expected_harvest_date) {
+		this.expected_harvest_date = expected_harvest_date;
 	}
 	
 }
