@@ -14,9 +14,11 @@ public class UserDAO {
 	final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
 	
 	// 관리자 페이지 조회, 수정, 삭제
+	final String USER_SELECT_ONE = "SELECT userid, username, email, level, user_status, created_at FROM users WHERE userid = ?";
 	final String SELECT_USER_LIST = "select * from users;";
 	final String USER_DELETE = "DELETE FROM users WHERE userid = ?";
 	final String USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
+	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
 	
 	
 	public int userJoin(UserDTO udto){
@@ -40,6 +42,35 @@ public class UserDAO {
 		}
 		
 		return result;	
+	}
+	
+	public UserDTO getUserByIdAdmin(String userId){
+	    UserDTO user = null;
+	    try {
+	        conn = JdbcConnectUtil.getConnection();
+	        pstmt = conn.prepareStatement(USER_SELECT_ONE);
+	        pstmt.setString(1, userId);
+	        rs = pstmt.executeQuery();
+	        
+	        // 1개만 조회하므로 if(rs.next()) 사용
+	        if(rs.next()){ 
+	            user = new UserDTO();
+	            user.setUserid(rs.getString("userid"));
+	            user.setUsername(rs.getString("username"));
+	            user.setEmail(rs.getString("email"));
+	            user.setLevel(rs.getInt("level"));
+	            user.setUser_status(rs.getString("user_status"));
+	            
+	            Timestamp ts = rs.getTimestamp("created_at");
+	            user.setCreated_at(ts.toLocalDateTime());
+	            
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcConnectUtil.close(conn, pstmt, rs); 
+	    }
+	    return user;
 	}
 	
 	public List<UserDTO> selectUserListAdmin(){
@@ -75,7 +106,7 @@ public class UserDAO {
 	}
 	
 	
-public int deleteUserAdmmin(String userId){
+public int deleteUserAdmin(String userId){
 		
 		int result = 0;
 		
@@ -99,13 +130,12 @@ public int deleteUserAdmmin(String userId){
 public int updateUserAdmin(UserDTO udto){
 	
 	int result = 0;
-	UserDTO udto1 = new UserDTO();
 	try {
 		conn = JdbcConnectUtil.getConnection();
 		pstmt = conn.prepareStatement(USER_UPDATE);
-		pstmt.setInt(1, udto1.getLevel());
-		pstmt.setString(2, udto1.getRole());
-		pstmt.setString(3, udto1.getUser_status());
+		pstmt.setInt(1, udto.getLevel());
+		pstmt.setString(2, udto.getRole());
+		pstmt.setString(3, udto.getUser_status());
 		
 		pstmt.setString(4, udto.getUserid());
 		
@@ -119,6 +149,27 @@ public int updateUserAdmin(UserDTO udto){
 	}
 
 	return result;
+}
+
+public int updateUserStatus(String userId, String status){
+    int result = 0;
+    
+    try {
+        conn = JdbcConnectUtil.getConnection();
+        pstmt = conn.prepareStatement(USER_UPDATE_STATUS);
+        
+        pstmt.setString(1, status); // 바꿀 상태 값
+        pstmt.setString(2, userId); // 대상 ID
+        
+        result = pstmt.executeUpdate();
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        JdbcConnectUtil.close(conn, pstmt);
+    }
+    
+    return result;
 }
 	
 	
