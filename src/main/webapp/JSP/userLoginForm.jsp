@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>GardenLog - 로그인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/userLoginForm.css">
 </head>
 <body>
 
