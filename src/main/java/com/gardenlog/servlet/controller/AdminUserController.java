@@ -15,30 +15,44 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/admin/user.do")
-public class AdminUserServlet extends HttpServlet {
+public class AdminUserController extends HttpServlet {
 	
 	private UserDAO dao = new UserDAO();
 	
 	// 단순 조회에 사용
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String userId = request.getParameter("userId");
-		
-		if (userId != null && !userId.isEmpty()) {
-	        //ID가 있으면 상세 페이지로 이동
-			UserDTO user = dao.getUserByIdAdmin(userId);
-			request.setAttribute("userDetail", user);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/ADMIN/admin_User_Detail.jsp");
-	        dispatcher.forward(request, response);
-		
-		} else {
-	        // ID가 없으면 목록 페이지로 이동
+	    
+	    String command = request.getParameter("command");
+	    String userId = request.getParameter("userId");
+	    
+	    // 1. 수정 페이지 이동 로직 
+	    if ("edit".equals(command) && userId != null) {
 	        
+	        // 여기서 만든 'user'는 이 if문 안에서만 살아있음
+	        UserDTO user = dao.getUserByIdAdmin(userId);
+	        request.setAttribute("user", user); 
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/ADMIN/admin_User_Edit.jsp");
+	        dispatcher.forward(request, response);
+	        
+	        return; // ★중요★ 여기서 메소드를 끝내야 아래쪽 코드가 실행 안 됨!
+	    }
+
+	    // 2. 상세 페이지 이동 로직
+	    if (userId != null && !userId.isEmpty()) {
+	        
+	        // 위에서 return으로 끝냈기 때문에, 여기서 다시 'user'를 만들어도 됨
+	        UserDTO user = dao.getUserByIdAdmin(userId);
+	        request.setAttribute("userDetail", user);
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/ADMIN/admin_User_Detail.jsp");
+	        dispatcher.forward(request, response);
+	    
+	    } else {
+	        // 3. 목록 페이지 이동 로직
 	        List<UserDTO> memberList = dao.selectUserListAdmin(); 
 	        request.setAttribute("memberList", memberList);
 	        
-	     
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/ADMIN/admin_User_List.jsp");
 	        dispatcher.forward(request, response);
 	    }
