@@ -2,10 +2,7 @@
 *.class
 /build/
 /target/
-<<<<<<< HEAD
-=======
 /bin/
->>>>>>> 7506cd3 (docs: .gitignore & MySQL Dump file)
 
 # IDE settings (Eclipse)
 .settings/
@@ -15,10 +12,6 @@
 *.server
 
 # Packaged files
-<<<<<<< HEAD
-*.jar
-=======
->>>>>>> 7506cd3 (docs: .gitignore & MySQL Dump file)
 *.war
 *.ear
 
