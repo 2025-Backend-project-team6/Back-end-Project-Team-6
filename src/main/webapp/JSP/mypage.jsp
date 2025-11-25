@@ -20,7 +20,7 @@
                 <img src="${pageContext.request.contextPath}/images/profile_default.png" alt="프로필" class="profile-img">
                 
                 <div class="user-name">${loginUser.username} 님</div>
-                <span class="user-level">Lv.${user.level} 새싹 농부</span>
+                <span class="user-level">Lv.${loginUser.level} 새싹 농부</span>
                 
                 <div class="level-progress-container">
                     <div class="level-progress-bar" style="width: 60%;"></div>
@@ -43,7 +43,9 @@
             </div>
 
             <div class="side-menu">
-                <button onclick="location.href='${pageContext.request.contextPath}/updateUser.do'">🔒 개인정보 수정</button>
+                <form action="${pageContext.request.contextPath}/updateUser.do" method="get">
+                    <button type="submit">🔒 개인정보 수정</button>
+                </form>
             </div>
         </div>
 
@@ -80,9 +82,11 @@
                             </div>
                         </div>
                         
-                        <button class="manage-btn" onclick="location.href='cropDetail.do?cropId=${crop.cropId}'">
-                            관리 >
-                        </button>
+
+                        <form action="cropDetail.do" method="get">
+                            <input type="hidden" name="cropId" value="${crop.cropId}">
+                            <button type="submit" class="manage-btn">관리 ></button>
+                        </form>
                     </div>
                 </c:forEach>
             </div>
@@ -93,28 +97,29 @@
                     <div class="section-title">🗓️ 11월 출석부</div>
                     <div class="calendar-grid">
                         <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-                        
                         <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div> <div class="cal-day">1</div>
                         <div class="cal-day visited">2 ☘️</div> <div class="cal-day">3</div>
                         <div class="cal-day">4</div>
                         <div class="cal-day visited">5 ☘️</div>
                         <div class="cal-day">6</div>
                         <div class="cal-day">7</div>
-                        </div>
+                    </div>
                     <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #4a7c59;">
                         이번 달은 텃밭에 <strong>2번</strong> 방문했어요!
                     </p>
                 </div>
 
                 <div class="dashboard-card">
-    				<div class="section-title">📹 내 농장 실시간 (CCTV)</div>
-    
-    				<div class="cctv-view">
-        				<img src="${pageContext.request.contextPath}/images/cctv_placeholder.jpg" 
-             				alt="CCTV 실시간 화면" 
-             				class="cctv-img-full">
-    				</div>
-				</div>
+                    <div class="section-title">📹 내 농장 실시간 (CCTV)</div>
+                    <div class="cctv-view">
+                        <img src="${pageContext.request.contextPath}/images/cctv_placeholder.jpg" 
+                             alt="CCTV 실시간 화면" 
+                             class="cctv-img-full">
+                    </div>
+                </div>
 
-            </div> </div> </div> </body>
+            </div> 
+        </div> 
+    </div> 
+</body>
 </html>
