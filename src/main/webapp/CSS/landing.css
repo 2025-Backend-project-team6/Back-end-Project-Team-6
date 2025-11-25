@@ -1,0 +1,287 @@
+@charset "UTF-8";
+
+/* --- 기본 설정 --- */
+body {
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+button { cursor: pointer; font-family: inherit; }
+
+/* --- 공통 레이아웃 --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 1. 헤더 --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    /* 스크롤 내려도 위에 붙어있게 하려면 아래 주석 해제 */
+    /* position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); */
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50; /* 메인 로고색 */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-btns .btn-login {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #555;
+}
+
+
+/* --- 2. 히어로 섹션 (메인 배너) --- */
+.hero-section {
+    background-color: #f9fdf9; /* 아주 연한 초록 배경 */
+    text-align: center;
+    padding: 80px 0 60px;
+}
+
+.hero-badge {
+    background-color: #558b2f;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero-title h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.hero-btns button {
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.btn-main-start {
+    background-color: #558b2f;
+    color: white;
+    border: none;
+}
+
+.btn-main-login {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.hero-icons {
+    margin-top: 50px;
+    font-size: 30px; /* 이모지 크기 */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* --- 3. 통계 바 (Stats) --- */
+.stats-bar {
+    background-color: #4b6b3c; /* 짙은 올리브색 */
+    color: white;
+    padding: 40px 0;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 32px;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+
+.stat-item p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* --- 4. 주요 기능 (Features) --- */
+.features-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #fff;
+}
+
+.section-title h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #888;
+    margin-bottom: 60px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4열 */
+    gap: 20px;
+}
+
+.feature-card {
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 40px 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #558b2f;
+}
+
+.feature-card h4 { margin: 0 0 15px 0; font-size: 18px; }
+.feature-card p { font-size: 13px; color: #777; line-height: 1.5; }
+
+
+/* --- 5. 미리보기 섹션 (App Preview) --- */
+.preview-section {
+    background-color: #f9fdf9;
+    padding: 80px 0;
+}
+
+.preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.preview-text { flex: 1; padding-right: 50px; }
+.preview-text h3 { font-size: 28px; margin-bottom: 20px; color: #333; }
+.preview-list li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+.check-icon {
+    color: #558b2f;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.preview-image-box {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+/* (이미지 대신 CSS로 흉내 낸 알림 카드들) */
+.mock-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.mock-icon { width: 40px; height: 40px; background: #e8f5e9; border-radius: 50%; display:flex; align-items:center; justify-content:center; margin-right: 15px; font-size: 20px;}
+.mock-info h5 { margin: 0; font-size: 14px; }
+.mock-info span { font-size: 12px; color: #999; }
+.mock-badge { margin-left: auto; font-size: 12px; padding: 3px 8px; border-radius: 10px; background: #eee; }
+
+
+/* --- 6. 후기 섹션 (Reviews) --- */
+.reviews-section { padding: 80px 0; text-align: center; }
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.review-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+.reviewer-info { display: flex; align-items: center; margin-bottom: 15px; }
+.reviewer-img { width: 40px; height: 40px; border-radius: 50%; background: #eee; margin-right: 10px; }
+.reviewer-name { font-weight: bold; font-size: 14px; }
+.reviewer-level { font-size: 11px; color: #888; display: block; }
+.review-text { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 15px; }
+.stars { color: #ff5252; /* 빨간 하트/별 색 */ }
+
+
+/* --- 7. 하단 CTA (Call to Action) --- */
+.cta-section {
+    background-color: #4b6b3c;
+    color: white;
+    text-align: center;
+    padding: 60px 0;
+}
+.cta-section h2 { font-size: 28px; margin-bottom: 10px; }
+.cta-section p { opacity: 0.9; margin-bottom: 30px; }
+.btn-cta-white {
+    background: white;
+    color: #4b6b3c;
+    padding: 15px 40px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+/* --- 8. 푸터 --- */
+.footer {
+    background-color: #1a2516; /* 아주 어두운 색 */
+    color: #888;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 12px;
+}
+.footer-logo { color: white; font-weight: bold; font-size: 18px; margin-bottom: 10px; }

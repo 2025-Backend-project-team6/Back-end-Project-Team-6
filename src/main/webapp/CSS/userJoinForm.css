@@ -1,0 +1,136 @@
+/* 전체 페이지 배경 */
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f1f5f1;
+    margin: 0;
+    padding: 0;
+}
+
+/* 회원가입 전체 박스 */
+.signup-container {
+    width: 420px;
+    margin: 50px auto;
+    padding: 40px 45px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+/* 로고 영역 */
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* 가운데 정렬 */
+    gap: 8px;
+    margin-bottom: 20px;       /* 고 아래 간격 추가 */
+}
+
+/* 설명 텍스트 */
+.signup-sub {
+    color: #777;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* 라벨 공통 */
+label {
+    text-align: left;
+    display: block;
+    margin: 10px 0 6px 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* 인풋 스타일 */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #6bb56b;
+}
+
+/* 중복확인 버튼 + 메시지 정렬 */
+.check-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+/* 중복확인 버튼 더 작게 */
+.small-btn {
+    padding: 5px 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #3e6b3e;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.small-btn:hover {
+    background: #345c34;
+}
+
+/* 메시지 글씨 더 작게 */
+.check-msg {
+    font-size: 12px;
+    color: red;
+}
+
+/* 체크박스 영역 */
+.checkbox-area {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.checkbox-area label {
+    font-weight: 400;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 회원가입 버튼 */
+.submit-btn {
+    width: 100%;
+    background: #3e6b3e;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #345c34;
+}
+
+/* 로그인 링크 */
+.login-link {
+	color: #777;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #3e6b3e;
+    font-weight: 600;
+    text-decoration: none;
+}

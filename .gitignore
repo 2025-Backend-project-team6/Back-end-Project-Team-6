@@ -1,0 +1,29 @@
+# Compiled Java class files
+*.class
+/build/
+/target/
+<<<<<<< HEAD
+=======
+/bin/
+>>>>>>> 7506cd3 (docs: .gitignore & MySQL Dump file)
+
+# IDE settings (Eclipse)
+.settings/
+
+# Tomcat server config (Do not share!)
+.metadata
+*.server
+
+# Packaged files
+<<<<<<< HEAD
+*.jar
+=======
+>>>>>>> 7506cd3 (docs: .gitignore & MySQL Dump file)
+*.war
+*.ear
+
+# Log files
+*.log
+
+# Temp files
+*.tmp
