@@ -39,7 +39,7 @@ public class UserLoginController extends HttpServlet {
 			fakeUser.setPassword("123");
 			fakeUser.setUsername("김동양");
 			fakeUser.setEmail("garden@test.com");
-			fakeUser.setLevel("새싹 농부");
+			fakeUser.setLevel(1);
 			fakeUser.setRole("USER");
 			
 			HttpSession session = request.getSession();

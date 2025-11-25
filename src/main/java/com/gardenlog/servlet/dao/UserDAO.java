@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import com.gardenlog.servlet.dto.UserDTO;
 import com.gardenlog.servlet.util.JdbcConnectUtil;
@@ -63,9 +64,10 @@ public class UserDAO {
 				user.setPassword(rs.getString("password"));
 				user.setUsername(rs.getString("username"));
 				user.setEmail(rs.getString("email"));
-				user.setLevel(rs.getString("level"));
+				user.setLevel(rs.getInt("level"));
 				user.setProfile_path(rs.getString("profile_path"));
-				user.setCreate_at(rs.getString("create_at"));
+				user.setCreated_at(rs.getObject("created_at", LocalDateTime.class));
+
 			}
 			
 		} catch (SQLException e) {
