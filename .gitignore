@@ -1,0 +1,22 @@
+# Compiled Java class files
+*.class
+/build/
+/target/
+/bin/
+
+# IDE settings (Eclipse)
+.settings/
+
+# Tomcat server config (Do not share!)
+.metadata
+*.server
+
+# Packaged files
+*.war
+*.ear
+
+# Log files
+*.log
+
+# Temp files
+*.tmp
