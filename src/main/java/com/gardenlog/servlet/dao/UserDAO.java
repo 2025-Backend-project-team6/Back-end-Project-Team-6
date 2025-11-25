@@ -23,7 +23,7 @@ public class UserDAO {
 	private final String USER_GET = "SELECT * FROM users WHERE userid = ?";
 	
 	// 회원 정보 수정 (비밀번호, 이메일, 이름 수정)
-    private final String USER_UPDATE = "UPDATE users SET password = ?, email = ?, username = ? WHERE userid = ?";
+	private final String USER_UPDATE = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?";
 
 	
 	/**
