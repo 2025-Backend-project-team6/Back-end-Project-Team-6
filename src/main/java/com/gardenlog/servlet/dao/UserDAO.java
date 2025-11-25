@@ -18,7 +18,7 @@ public class UserDAO {
 	final String USER_LOGIN = "select * from users where userid = ? and password = ?";
 	
 	// 관리자 페이지 조회, 수정, 삭제
-	final String USER_SELECT_ONE = "SELECT userid, username, email, level, user_status, created_at FROM users WHERE userid = ?";
+	final String USER_SELECT_ONE = "SELECT userid, username, email, level, role, user_status, created_at FROM users WHERE userid = ?";
 	final String SELECT_USER_LIST = "select * from users;";
 	final String USER_DELETE = "DELETE FROM users WHERE userid = ?";
 	final String USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
@@ -67,6 +67,8 @@ public class UserDAO {
 	            user.setEmail(rs.getString("email"));
 	            user.setLevel(rs.getInt("level"));
 	            user.setProfile_path(rs.getString("profile_path"));
+	            user.setRole(rs.getString("role"));
+	            user.setUser_status(rs.getString("user_status"));
 	            user.setCreated_at(rs.getObject("created_at", LocalDateTime.class));
 
 	         }
@@ -123,8 +125,9 @@ public class UserDAO {
 				udto.setPassword(rs.getString("password")); 
 				udto.setUsername(rs.getString("username"));
 				udto.setEmail(rs.getString("email"));
-				udto.setRole(rs.getString("user_role")); 
+				udto.setLevel(rs.getInt("level"));
 				udto.setProfile_path(rs.getString("profile_path"));
+				udto.setRole(rs.getString("role")); 
 				udto.setUser_status(rs.getString("user_status"));
 				Timestamp ts = rs.getTimestamp("created_at");
 				udto.setCreated_at(ts.toLocalDateTime());
@@ -169,6 +172,7 @@ public int updateUserAdmin(UserDTO udto){
 	try {
 		conn = JdbcConnectUtil.getConnection();
 		pstmt = conn.prepareStatement(USER_UPDATE);
+		
 		pstmt.setInt(1, udto.getLevel());
 		pstmt.setString(2, udto.getRole());
 		pstmt.setString(3, udto.getUser_status());

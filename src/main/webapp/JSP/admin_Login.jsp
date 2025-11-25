@@ -21,15 +21,15 @@
                 <p>관리자 로그인</p>
             </div>
 
-            <form action="/admin/login.do" method="post">
+            <form action="${pageContext.request.contextPath}/adminlogin.do" method="post">
                 <div class="form-group">
-                    <label for="adminEmail">관리자 이메일</label>
-                    <input type="text" id="adminId" name="adminId" placeholder="아이디를 입력하세요" required>
+                    <label for="adminId">관리자 아이디</label>
+                    <input type="text" id="adminId" name="adminid" placeholder="아이디를 입력하세요" required>
                 </div>
 
                 <div class="form-group">
                     <label for="adminPw">비밀번호</label>
-                    <input type="password" id="adminPw" name="adminPw" placeholder="비밀번호를 입력하세요" required>
+                    <input type="password" id="adminPw" name="adminpw" placeholder="비밀번호를 입력하세요" required>
                 </div>
 
                 <button type="submit" class="submit-btn">

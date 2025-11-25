@@ -60,46 +60,59 @@ public class AdminUserController extends HttpServlet {
 
 	// 수정 경고 정지 탈퇴
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String command = request.getParameter("command");
-	    String userId = request.getParameter("userId");
-	    int result = 0;
-	    
-	    if (command == null || userId == null || userId.isEmpty()) {
-	        // command나 ID가 없으면 처리 불가, 목록으로 리다이렉트
-	        response.sendRedirect(request.getContextPath() + "/admin/user.do");
-	        return;
-	    }
-	    
-	    if ("update".equals(command)) {
-	        // 회원 정보 수정 로직 
-	        
-	        //JSP 폼에서 넘어온 모든 파라미터를 받아서 새로운 DTO
-	        UserDTO updatedDto = new UserDTO();
-	        
-	        updatedDto.setUserid(userId); // WHERE 절에 사용될 ID
-	        updatedDto.setPassword(request.getParameter("password")); 
-	        updatedDto.setUsername(request.getParameter("username"));
-	        updatedDto.setEmail(request.getParameter("email"));
-	        updatedDto.setLevel(Integer.parseInt(request.getParameter("level")));
-	        updatedDto.setRole(request.getParameter("role"));
-	        updatedDto.setUser_status(request.getParameter("user_status"));
-	        
-	        // DAO 호출: DTO 전체 업데이트
-	        result = dao.updateUserAdmin(updatedDto);
-	        
-	    } else if ("suspend".equals(command)) {
-	        // 계정 정지/활성 로직
-	        String status = request.getParameter("status"); // 'SUSPENDED' 또는 'ACTIVE'
-	        result = dao.updateUserStatus(userId, status); // (DAO의 updateUserStatus 메소드를 호출합니다)
-
-	    }  else if ("delete".equals(command)) {
-	        // 회원 삭제 로직
-	        result = dao.deleteUserAdmin(userId); 
-	        
-	    }
-	    response.sendRedirect(request.getContextPath() + "/admin/user.do");
 	
-	}
+		    
+		    // 1. 공통 변수 받기
+		    String command = request.getParameter("command");
+		    String userId = request.getParameter("userId");
+		    
+		    // 2. 유효성 검사 (이상하면 목록으로 튕겨냄)
+		    if (command == null || userId == null || userId.isEmpty()) {
+		        response.sendRedirect(request.getContextPath() + "/admin/user.do");
+		        return; 
+		    }
+		    
+		    // DAO 객체 생성
+		    UserDAO dao = new UserDAO();
+		    int result = 0;
+		    
+		    // 3. 명령어(command)에 따라 로직 분기
+		    if ("update".equals(command)) {
+		        // --- [수정 로직] ---
+		        System.out.println("=== 🛠️ 회원 정보 수정 ===");
+		        
+		        String levelStr = request.getParameter("level");
+		        String role = request.getParameter("role");
+		        String status = request.getParameter("user_status");
+
+		        UserDTO updatedDto = new UserDTO();
+		        updatedDto.setUserid(userId);
+		        updatedDto.setRole(role);
+		        updatedDto.setUser_status(status);
+		        
+		        if(levelStr != null && !levelStr.isEmpty()) {
+		             updatedDto.setLevel(Integer.parseInt(levelStr));
+		        }
+		        
+		        result = dao.updateUserAdmin(updatedDto);
+		        
+		       
+
+		    } else if ("suspend".equals(command)) {
+		        // --- [정지 로직] ---
+		        System.out.println("=== 🚫 회원 정지/해제 ===");
+		        String status = request.getParameter("status");
+		        result = dao.updateUserStatus(userId, status);
+
+		    } else if ("delete".equals(command)) {
+		        // --- [삭제 로직] ---
+		        System.out.println("=== 🗑️ 회원 삭제 ===");
+		        result = dao.deleteUserAdmin(userId);
+		    }
+		    
+		    // 4. 모든 처리가 끝나면 여기서 이동
+		    // (어떤 작업을 했든, 결국은 사용자 목록 페이지로 돌아감)
+		    response.sendRedirect(request.getContextPath() + "/admin/user.do");
+		}
 
 }

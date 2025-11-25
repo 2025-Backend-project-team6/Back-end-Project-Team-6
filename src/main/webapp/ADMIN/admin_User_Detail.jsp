@@ -25,94 +25,95 @@
         <aside class="detail-sidebar">
             <div class="profile-header">
                 <a href="${pageContext.request.contextPath}/admin/user.do" style="text-decoration: none;">
-                    <p style="text-align: left; font-size: 12px; color: #666;">⬅️ 돌아가기</p>
+                    <p style="text-align: left; font-size: 12px; color: #666;">⬅️ 목록으로 돌아가기</p>
                 </a>
                 <h4 style="margin: 0;">회원 상세 정보</h4>
-                <!-- EL로 데이터 출력 -->
                 <p style="font-size: 12px; color: #999;">사용자 ID: ${userDetail.userid}</p>
             </div>
             
-            <form action="${pageContext.request.contextPath}/admin/user.do" method="post">
-                <input type="hidden" name="command" value="update">
-                <input type="hidden" name="userId" value="${userDetail.userid}">
-
-                <div class="profile-main">
-                    <div class="profile-icon">👤</div>
-                    <div class="profile-name">
-                        <input type="text" name="username" value="${userDetail.username}" class="edit-input" style="text-align: center; font-weight: bold;">
-                    </div>
-                    <div class="profile-level">
-                        Level <input type="number" name="level" value="${userDetail.level}" class="edit-input" style="width: 50px;">
-                    </div>
-                    <div style="margin-top: 5px;">
-                      
-                        <select name="user_status" class="edit-input">
-                            <option value="ACTIVE" ${userDetail.user_status == 'ACTIVE' ? 'selected' : ''}>활성</option>
-                            <option value="SUSPENDED" ${userDetail.user_status == 'SUSPENDED' ? 'selected' : ''}>정지</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="user-bio">
-                    도시 텃밭에서 토마토와 상추를 키우고 있습니다.<br>
-                    초보 농부의 일상을 기록합니다.
-                </div>
-
-                <ul class="user-info-list">
-                    <li class="info-item">📧<span class="detail-label">이메일:</span>
-                        <input type="email" name="email" value="${userDetail.email}" class="edit-input">
-                    </li>
-                    <li class="info-item">🔒<span class="detail-label">비번:</span>
-                        <input type="password" name="password" value="${userDetail.password}" class="edit-input">
-                    </li>
-                    <li class="info-item">🔑<span class="detail-label">권한:</span>
-                        <select name="role" class="edit-input">
-                            <option value="USER" ${userDetail.role == 'USER' ? 'selected' : ''}>일반회원</option>
-                            <option value="ADMIN" ${userDetail.role == 'ADMIN' ? 'selected' : ''}>관리자</option>
-                        </select>
-                    </li>
-                    
-                    <li class="info-item">📍<span class="detail-label">주소:</span><span>서울 구로구</span></li>
-                    <li class="info-item">📅<span class="detail-label">가입일:</span><span>2024.03.15</span></li>
-                </ul>
-
-                <div class="admin-menu-section">
-                    <h4>회원 관리</h4>
-                    
-                    <div class="action-form">
-                        <button type="submit" class="menu-item-btn btn-success">회원 정보 수정 저장</button>
-                    </div>
-            </form> 
-
-            <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
-                <input type="hidden" name="command" value="suspend">
-                <input type="hidden" name="userId" value="${userDetail.userid}">
+            <div class="profile-main">
+                <div class="profile-icon">👤</div>
                 
-                <c:choose>
-                    <c:when test="${userDetail.user_status == 'ACTIVE'}">
-                        <!-- 활성 상태일 때: 정지 버튼 표시 -->
-                        <input type="hidden" name="status" value="SUSPENDED">
-                        <button type="submit" class="menu-item-btn btn-danger">🚫 계정 정지</button>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- 정지 상태일 때: 해제 버튼 표시 -->
-                        <input type="hidden" name="status" value="ACTIVE">
-                        <button type="submit" class="menu-item-btn btn-success">✅ 정지 해제</button>
-                    </c:otherwise>
-                </c:choose>
-            </form>
+                <div class="profile-name-text">
+                    ${userDetail.username}
+                </div>
+                
+                <div class="profile-level">
+                    Level <span style="color: #27ae60; font-weight: bold;">${userDetail.level}</span>
+                </div>
+                
+                <div style="margin-top: 10px;">
+                    <span class="badge ${statusBadgeClass}">
+                        ${statusText}
+                    </span>
+                </div>
+            </div>
 
-            <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
-                <input type="hidden" name="command" value="delete">
-                <input type="hidden" name="userId" value="${userDetail.userid}">
-                <button type="submit" class="menu-item-btn btn-danger">🗑️ 회원 탈퇴 처리</button>
-            </form>
+            <div class="user-bio">
+                도시 텃밭에서 토마토와 상추를 키우고 있습니다.<br>
+                초보 농부의 일상을 기록합니다.
+            </div>
+
+            <ul class="user-info-list">
+                <li class="info-item">
+                    📧 <span class="detail-label">이메일:</span>
+                    <span class="info-value">${userDetail.email}</span>
+                </li>
+                
+                
+                <li class="info-item">
+                    🔑 <span class="detail-label">권한:</span>
+                    <span class="info-value">
+                        <c:choose>
+                            <c:when test="${userDetail.role == 'ADMIN'}">
+                                <span style="color:red; font-weight:bold;">관리자</span>
+                            </c:when>
+                            <c:otherwise>일반회원</c:otherwise>
+                        </c:choose>
+                    </span>
+                </li>
+                
+                <li class="info-item">📍 <span class="detail-label">주소:</span><span>서울 구로구</span></li>
+                <li class="info-item">📅 <span class="detail-label">가입일:</span><span>2024.03.15</span></li>
+            </ul>
+
+            <div class="admin-menu-section">
+                <h4>회원 관리</h4>
+                
+                <div class="action-form">
+                    <a href="${pageContext.request.contextPath}/admin/user.do?command=edit&userId=${userDetail.userid}" 
+                       class="menu-item-btn btn-success" 
+                       style="text-decoration: none; display: inline-block; text-align: center; line-height: 35px; width: 100%; box-sizing: border-box;">
+                       ✏️ 회원 정보 수정 페이지로 이동
+                    </a>
+                </div>
+
+                <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
+                    <input type="hidden" name="command" value="suspend">
+                    <input type="hidden" name="userId" value="${userDetail.userid}">
+                    
+                    <c:choose>
+                        <c:when test="${userDetail.user_status == 'ACTIVE'}">
+                            <input type="hidden" name="status" value="SUSPENDED">
+                            <button type="submit" class="menu-item-btn btn-danger">🚫 계정 정지 시키기</button>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="hidden" name="status" value="ACTIVE">
+                            <button type="submit" class="menu-item-btn btn-success">✅ 정지 해제 하기</button>
+                        </c:otherwise>
+                    </c:choose>
+                </form>
+
+                <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
+                    <input type="hidden" name="command" value="delete">
+                    <input type="hidden" name="userId" value="${userDetail.userid}">
+                    <button type="submit" class="menu-item-btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?');">🗑️ 강제 탈퇴 처리</button>
+                </form>
 
             </div> 
         </aside>
 
         <main class="detail-content">
-
             <div class="activity-stats">
                 <h4 style="font-size: 16px; color: #666; margin-bottom: 15px;">📊 활동 통계</h4>
                 <div class="stats-grid">

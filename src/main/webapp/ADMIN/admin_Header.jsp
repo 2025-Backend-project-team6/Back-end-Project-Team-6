@@ -26,19 +26,19 @@
 
 <div class="container">
     <div class="tabs">
-        <a href="admin_Main.jsp" class="tab-btn ${fn:contains(currentUri, 'admin_Main.jsp') ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/ADMIN/admin_Main.jsp" class="tab-btn">
             대시보드
         </a>
         
-        <a href="admin_User_List.jsp" class="tab-btn ${fn:contains(currentUri, 'admin_User_List.jsp') ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/admin/user.do" class="tab-btn">
             사용자 관리
         </a>
         
-        <a href="admin_Post.jsp" class="tab-btn ${fn:contains(currentUri, 'admin_Post.jsp') ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/ADMIN/admin_Post.jsp" class="tab-btn">
             게시글 관리
         </a>
         
-        <a href="admin_Reports.jsp" class="tab-btn ${fn:contains(currentUri, 'admin_Reports.jsp') ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/ADMIN/admin_Reports.jsp" class="tab-btn">
             신고 관리
         </a>
     </div>

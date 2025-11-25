@@ -29,17 +29,23 @@ public class AdminCheckFilter implements Filter {
 		HttpServletRequest request1 = (HttpServletRequest) request;
 		HttpServletResponse response1 = (HttpServletResponse) response;
 		
-		// 2. 세션 가져오기
+		// 2 로그인이나 그 외 파일은 허락
+		String uri = request1.getRequestURI();
+		if (uri.endsWith("login.jsp") || uri.contains("login.do") ||uri.contains("/css/") || uri.contains("/js/") || uri.contains("/img/")){
+			chain.doFilter(request, response);
+            return;
+		}
+		// 3. 세션 가져오기
 		HttpSession session = request1.getSession(false);
 		
-		// 3. 로그인,권한 여부 확인
+		// 4. 로그인,권한 여부 확인
 		boolean isAdmin = false;
 		
 		if(session != null) { // 로그인 되어있다면
 			// 로그인 된 정보 가져오기
 			UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 			
-			if(loginUser != null && "Admin".equals(loginUser.getRole())) { // 로그인을 했고 && 그 사람의 등급이 Admin이라면
+			if(loginUser != null && "admin".equals(loginUser.getRole())) { // 로그인을 했고 && 그 사람의 등급이 Admin이라면
 				isAdmin = true; // 관리자 여부 true 로
 			}
 		}
@@ -49,7 +55,7 @@ public class AdminCheckFilter implements Filter {
 		} else {
             // ❌ 거절! (메인 페이지나 로그인 페이지로 쫓아냄)
             // "관리자만 접근 가능합니다" 같은 알림을 띄우고 싶다면 여기서 처리 가능
-            response1.sendRedirect(request1.getContextPath() + "/index.jsp");
+            response1.sendRedirect(request1.getContextPath() + "/admin_Login.jsp");
         }
 		
 	}
