@@ -17,7 +17,7 @@
                     <p class="header-subtitle">관리자 대시보드</p>
                 </div>
             </div>
-            <form action="logout.do" method="post" style="margin: 0;">
+            <form action="${pageContext.request.contextPath}/JSP/landing.jsp" method="post" style="margin: 0;">
                 <button type="submit" class="logout-btn">로그아웃</button>
             </form>
         </div>
