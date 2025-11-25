@@ -2,7 +2,6 @@ package com.gardenlog.servlet.controller;
 
 import java.io.IOException;
 
-// 'javax' -> 'jakarta'로 모두 변경
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,44 +31,21 @@ public class UserLoginController extends HttpServlet {
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		
+		UserDAO dao = new UserDAO();
+		UserDTO user = dao.login(userid, password);
 		
-		if("testUser".equals(userid) && "123".equals(password)) {
-			UserDTO fakeUser = new UserDTO();
-			fakeUser.setUserid("testUser");
-			fakeUser.setPassword("123");
-			fakeUser.setUsername("김동양");
-			fakeUser.setEmail("garden@test.com");
-			fakeUser.setLevel(1);
-			fakeUser.setRole("USER");
-			
+		if(user != null) {
+			// 2. 로그인 성공
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", fakeUser);
-			
+			session.setAttribute("loginUser", user);
+
 			response.sendRedirect(request.getContextPath() + "/JSP/index.jsp");
 			
 		} else {
-			request.setAttribute("loginError", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다."); 
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/JSP/userLoginForm.jsp");
 			rd.forward(request, response);
 		}
-		
-		//후에 db 연결하면 주석 풀 예정
-//		UserDAO dao = new UserDAO();
-//		UserDTO user = dao.login(userid, password);
-//		
-//		if(user != null) {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("loginUser", user);
-//			session.setAttribute("username", user.getUsername()); 
-//			
-//			response.sendRedirect("index.jsp");
-//			
-//		} else {
-//			request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다."); 
-//			
-//			RequestDispatcher rd = request.getRequestDispatcher("loginForm.jsp");
-//			rd.forward(request, response);
-//		}
 	}
 }
