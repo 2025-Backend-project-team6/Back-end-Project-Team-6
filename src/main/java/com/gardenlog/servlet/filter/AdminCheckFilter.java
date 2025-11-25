@@ -37,9 +37,9 @@ public class AdminCheckFilter implements Filter {
 		
 		if(session != null) { // 로그인 되어있다면
 			// 로그인 된 정보 가져오기
-			UserDTO loginMember = (UserDTO) session.getAttribute("loginMember");
+			UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 			
-			if(loginMember != null && "Admin".equals(loginMember.getRole())) { // 로그인을 했고 && 그 사람의 등급이 Admin이라면
+			if(loginUser != null && "Admin".equals(loginUser.getRole())) { // 로그인을 했고 && 그 사람의 등급이 Admin이라면
 				isAdmin = true; // 관리자 여부 true 로
 			}
 		}

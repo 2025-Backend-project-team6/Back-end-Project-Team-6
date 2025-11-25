@@ -1,6 +1,7 @@
 package com.gardenlog.servlet.dao;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import com.gardenlog.servlet.dto.UserDTO;
 import com.gardenlog.servlet.util.JdbcConnectUtil;
@@ -12,6 +13,9 @@ public class UserDAO {
 	ResultSet rs = null;
 	// 회원가입
 	final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
+	
+	// 로그인
+	final String USER_LOGIN = "select * from users where userid = ? and password = ?";
 	
 	// 관리자 페이지 조회, 수정, 삭제
 	final String USER_SELECT_ONE = "SELECT userid, username, email, level, user_status, created_at FROM users WHERE userid = ?";
@@ -43,6 +47,38 @@ public class UserDAO {
 		
 		return result;	
 	}
+	
+	public UserDTO login(String userid, String password) { 
+	      UserDTO user = null;
+	      
+	      try {
+	         conn = JdbcConnectUtil.getConnection();
+	         pstmt = conn.prepareStatement(USER_LOGIN);
+	         pstmt.setString(1, userid);
+	         pstmt.setString(2, password);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if (rs.next()) {
+	            user = new UserDTO();
+	            user.setUserid(rs.getString("userid"));
+	            user.setPassword(rs.getString("password"));
+	            user.setUsername(rs.getString("username"));
+	            user.setEmail(rs.getString("email"));
+	            user.setLevel(rs.getInt("level"));
+	            user.setProfile_path(rs.getString("profile_path"));
+	            user.setCreated_at(rs.getObject("created_at", LocalDateTime.class));
+
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         JdbcConnectUtil.close(conn, pstmt, rs);
+	      }
+	      
+	      return user;
+	   }
 	
 	public UserDTO getUserByIdAdmin(String userId){
 	    UserDTO user = null;
