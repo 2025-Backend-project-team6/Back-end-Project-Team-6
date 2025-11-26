@@ -17,14 +17,51 @@ import com.gardenlog.servlet.dto.UserDTO;
 public class UserJoinController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String userid = request.getParameter("userid");
+		
+		if(userid==null || userid.isEmpty()) {
+			session.removeAttribute("idCheckMessage");
+			dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		}
+		
+		UserDTO udto = new UserDTO();
+		udto.setUserid(userid);
+		
+		UserDAO udao = new UserDAO();
+		Boolean result = udao.checkId(udto);
+		
+		if(result==false) {
+			session.setAttribute("idCheckMessage", "사용 가능한 아이디입니다.");
+		} else {
+			session.setAttribute("idCheckMessage", "이미 사용 중인 아이디입니다.");
+		}
+		
+		request.setAttribute("userid", userid);
+		dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
+		dispatcher.forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String agreeRequired = request.getParameter("agreeRequired");
+		
+		String idCheckMessage = (String)session.getAttribute("idCheckMessage");
+		
+		if(idCheckMessage==null) {
+			request.setAttribute("idCheckNullMessage", "아이디를 중복 확인 해주세요.");
+			
+			dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		}
 		
 		if(userid==null || userid.isEmpty() || 
 		   password==null || password.isEmpty() || 
@@ -63,7 +100,13 @@ public class UserJoinController extends HttpServlet {
 		UserDAO udao = new UserDAO();
 		int result = udao.userJoin(udto);
 		if (result==1) {
+			session.removeAttribute("idCheckMessage");
+			
 			dispatcher = request.getRequestDispatcher("/JSP/userLoginForm.jsp");
+			dispatcher.forward(request, response);
+			
+		} else {
+			dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
 			dispatcher.forward(request, response);
 		}
 		

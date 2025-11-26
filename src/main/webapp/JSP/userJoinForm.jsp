@@ -19,7 +19,7 @@
     </div>
     <div class="signup-sub">GardenLog와 함께 농사를 시작하세요</div>
 
-    <form action="${pageContext.request.contextPath}/checkId.do" method="get">
+    <form action="${pageContext.request.contextPath}/join.do" method="get">
         <label>아이디</label>
             <input type="text" name="userid"
                    value="${userid}"
@@ -60,6 +60,10 @@
                 [선택] 마케팅 정보 수신에 동의합니다.
             </label>
         </div>
+
+		<c:if test="${not empty idCheckNullMessage}">
+			<span class="check-msg">${idCheckNullMessage}</span>
+		</c:if>
 
         <c:if test="${not empty joinCheckMessage}">
             <span class="check-msg">${joinCheckMessage}</span>
