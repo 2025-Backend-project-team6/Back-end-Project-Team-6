@@ -1,0 +1,51 @@
+package com.gardenlog.servlet.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import com.gardenlog.servlet.dao.UserDAO;
+import com.gardenlog.servlet.dto.UserDTO;
+
+@WebServlet("/login.do")
+public class UserLoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public UserLoginController() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher("/JSP/userLoginForm.jsp");
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userid = request.getParameter("userid");
+		String password = request.getParameter("password");
+		
+		UserDAO dao = new UserDAO();
+		UserDTO user = dao.login(userid, password);
+		
+		if(user != null) {
+			// 2. 로그인 성공
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", user);
+
+			response.sendRedirect(request.getContextPath() + "/JSP/index.jsp");
+			
+		} else {
+			request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다."); 
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/JSP/userLoginForm.jsp");
+			rd.forward(request, response);
+		}
+	}
+}
