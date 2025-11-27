@@ -1,0 +1,62 @@
+/* admin_dashboard.css */
+
+/* 통계 카드 그리드 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.stat-card {
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+.stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.stat-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: white;
+}
+/* 아이콘 배경색 */
+.green-bg { background-color: #466D1D; }
+.blue-bg { background-color: #3b82f6; }
+.purple-bg { background-color: #8b5cf6; }
+.orange-bg { background-color: #f97316; }
+
+/* 텍스트 스타일 */
+.stat-label { font-size: 0.875rem; color: #6b7280; margin-bottom: 0.25rem; }
+.stat-value { font-size: 1.875rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
+.stat-change { font-size: 0.75rem; }
+.stat-change.green { color: #16a34a; }
+.stat-change.gray { color: #6b7280; }
+
+/* 차트 그리드 */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+.chart-card {
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+.chart-header {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+    .stats-grid, .charts-grid { grid-template-columns: 1fr; }
+}
+.chart-card canvas {
+    max-height: 300px; /* 높이가 300px을 넘지 않게 막아줘! (숫자 조절 가능) */
+    width: auto !important; /* 비율이 깨지지 않게 너비는 자동으로 */
+    margin: 0 auto; /* 작은 차트는 가운데로 예쁘게 오도록 */
+    display: block;
+}

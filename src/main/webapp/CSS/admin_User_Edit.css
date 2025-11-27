@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif; /* 폰트 없으면 기본 고딕 */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* 전체 배경: 연한 회색 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 카드 컨테이너 */
+.edit-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.edit-card {
+    background-color: white;
+    width: 100%;
+    max-width: 600px; /* 카드 최대 너비 */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+}
+
+/* 헤더 스타일 */
+.card-header {
+    margin-bottom: 30px;
+}
+
+.card-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.card-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 폼 스타일 */
+.form-group {
+    margin-bottom: 24px;
+}
+
+/* 가로 배치용 (이름, 이메일) */
+.form-row {
+    display: flex;
+    gap: 20px; /* 사이 간격 */
+}
+
+.form-group.half {
+    flex: 1; /* 반반씩 차지 */
+}
+
+/* 라벨 */
+label {
+    display: block;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* 입력창 공통 스타일 */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: white; /* select 배경 흰색 고정 */
+}
+
+/* 입력창 포커스 효과 */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #3b8c56; /* 포커스 시 초록색 테두리 */
+}
+
+textarea {
+    resize: vertical; /* 세로 크기 조절만 허용 */
+}
+
+/* 버튼 영역 */
+.button-group {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    gap: 10px;
+    margin-top: 40px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+/* 취소 버튼 */
+.btn-cancel {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background-color: #f9f9f9;
+}
+
+/* 저장 버튼 (초록색) */
+.btn-save {
+    background-color: #387c44; /* 이미지와 비슷한 짙은 초록색 */
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #2e6638;
+}

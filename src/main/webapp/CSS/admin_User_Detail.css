@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+/* --- 기본 폰트 및 배경 --- */
+body {
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0;
+}
+
+/* --- 메인 레이아웃 --- */
+.detail-wrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    gap: 30px;
+    padding: 0 20px; /* 모바일 대응용 여백 */
+    box-sizing: border-box;
+}
+
+/* --- 1. 왼쪽 사이드바 (정보 + 메뉴) --- */
+.detail-sidebar {
+    width: 350px;
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    height: fit-content; /* 내용물만큼만 높이 잡기 */
+}
+
+.profile-header {
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+/* 텍스트 형태의 프로필 이름 (Detail 페이지용) */
+.profile-name-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* 입력창 형태의 프로필 이름 (Edit 페이지용) */
+.profile-name input {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.profile-level {
+    font-size: 14px;
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* 상태 배지 */
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.status-active { background-color: #e8f5e9; color: #388E3C; }
+.status-suspended { background-color: #ffebee; color: #c62828; }
+
+.user-bio {
+    font-size: 14px;
+    color: #666;
+    margin: 20px 0;
+    padding: 0 10px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.user-info-list {
+    margin-bottom: 30px;
+    padding-top: 15px;
+    list-style: none; /* 점 제거 */
+    padding-left: 0;
+}
+
+.info-item {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #555;
+    margin-right: 8px;
+    min-width: 50px; /* 라벨 정렬 */
+}
+
+.info-value {
+    font-weight: 500;
+    color: #333;
+}
+
+/* --- 회원 관리 메뉴 (버튼 영역) --- */
+.admin-menu-section {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.admin-menu-section h4 {
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.action-form {
+    margin-bottom: 10px; /* 버튼 사이 간격 */
+}
+
+/* 버튼 스타일 (a태그 및 button 공통) */
+.menu-item-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: opacity 0.2s;
+}
+
+.menu-item-btn:hover {
+    opacity: 0.9;
+}
+
+/* 버튼 색상 */
+.btn-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+/* --- 2. 오른쪽 콘텐츠 --- */
+.detail-content {
+    flex-grow: 1;
+}
+
+/* 활동 통계 카드 */
+.activity-stats {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    text-align: center;
+}
+
+.stat-item {
+    border: 1px solid #f0f0f0;
+    padding: 15px 5px;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.stat-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #777;
+}
+
+/* 텃밭 목록 */
+.garden-list-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.garden-item {
+    border-bottom: 1px dashed #eee;
+    padding: 20px 0;
+}
+
+.garden-item:last-child {
+    border-bottom: none;
+}
+
+.garden-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.garden-details-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: 14px;
+    color: #666;
+    margin-top: 12px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.crop-count-tag {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 수정 페이지용 Input 스타일 (혹시 필요할 때를 대비해 유지) */
+.edit-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}

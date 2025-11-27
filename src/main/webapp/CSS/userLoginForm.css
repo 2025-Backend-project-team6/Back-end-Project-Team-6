@@ -181,4 +181,27 @@ button {
 }
 .register-link a:hover {
     text-decoration: underline;
+<<<<<<< HEAD
+=======
+}
+
+/* 관리자 로그인 링크 스타일 */
+.admin-login-area {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+}
+
+.admin-link {
+    color: #777;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.admin-link:hover {
+    color: #333;
+>>>>>>> main
 }

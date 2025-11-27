@@ -1,15 +1,28 @@
 @charset "UTF-8";
 
 /* --- 헤더 (네비게이션 바) --- */
+.full-width-wrapper {
+    width: 100%; /* 창 끝까지 늘임 */
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box; 
+    padding: 15px 0; /* 내부 .header로 padding 이동 */
+}
+
 .header {
-    width: 100%;
-    padding: 15px 40px;
+    max-width:1280px;
+    margin : 0 auto;
+    padding: 0px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
     box-sizing: border-box; /* 패딩 포함해서 너비 100% */
+	text-decoration: none;
+}
+
+.header a {
+    text-decoration: none; 
+    /* color: inherit; <- 링크의 파란색 방지 (필요 시 추가) */
 }
 
 .header .logo {
@@ -19,6 +32,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
+}
+ a.logo { 
+    text-decoration: none;
+    color: inherit;
 }
 
 .header .nav-menu a {
@@ -40,4 +57,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+html {
+    overflow-y: scroll; 
 }
