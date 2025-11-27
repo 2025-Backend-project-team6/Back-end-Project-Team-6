@@ -27,7 +27,7 @@ CREATE TABLE `users` (
   `password` varchar(20) NOT NULL,
   `username` varchar(10) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `address` varchar(200) DEFAULT NULL,
+  `address` varchar(200) NOT NULL,
   `level` int NOT NULL DEFAULT '1',
   `profile_path` varchar(255) DEFAULT NULL,
   `role` varchar(45) NOT NULL DEFAULT 'user',
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-27  2:28:40
+-- Dump completed on 2025-11-27  9:59:50
