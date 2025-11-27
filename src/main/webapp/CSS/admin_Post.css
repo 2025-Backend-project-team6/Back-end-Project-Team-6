@@ -24,3 +24,7 @@
     .post-actions { width: 100%; }
     .btn-view, .btn-delete { flex: 1; text-align: center; }
 }
+html {
+    /* overflow-y 속성을 'scroll'로 설정하여 세로 스크롤바를 항상 표시 */
+    overflow-y: scroll;
+}
