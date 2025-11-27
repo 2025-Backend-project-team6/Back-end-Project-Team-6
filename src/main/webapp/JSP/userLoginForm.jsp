@@ -41,12 +41,12 @@
             </form>
 
             <div class="register-link">
-                아직 계정이 없으신가요? <a href="userJoinForm.jsp">회원가입</a>
+                아직 계정이 없으신가요? <a href="${pageContext.request.contextPath}/JSP/userJoinForm.jsp">회원가입</a>
             </div>
             <hr>
             <div class="admin-login-area">
     			관리자이신가요? 
-    			<a href="index.jsp" class="admin-link">
+    			<a href="${pageContext.request.contextPath}/JSP/admin_Login.jsp" class="admin-link">
         			관리자 로그인
     			</a>
 			</div>

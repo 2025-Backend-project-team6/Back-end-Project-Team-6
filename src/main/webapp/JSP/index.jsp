@@ -8,18 +8,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css">
 </head>
 <body>
-	<header class="header">
-        <div class="logo">GardenLog</div>
-        <nav class="nav-menu">
-            <a href="#">텃밭 관리</a>
-            <a href="#">작물 관리</a>
-            <a href="#">작물 검색</a>
-            <a href="#">농사 일지</a>
-            <a href="#">커뮤니티</a>
-            <a href="#">마이페이지</a>
-        </nav>
-        <button class="logout-btn">로그아웃</button>
-    </header>
+
+	<%@ include file="header.jsp" %>
 
     <div class="container">
 
@@ -162,15 +152,6 @@
 
     </div>
 
-    <footer class="footer">
-        <p class="footer-links">
-            <a href="#">이용약관</a> |
-            <a href="#">개인정보처리방침</a> |
-            <a href="#">고객센터</a> |
-            <a href="#">개발자 정보</a>
-        </p>
-        <p>Copyright &copy; 2025 GardenLog. All rights reserved.</p>
-        <p>이 웹사이트는 포트폴리오 목적으로 제작되었습니다.</p>
-    </footer>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

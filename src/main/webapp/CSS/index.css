@@ -30,40 +30,7 @@ button {
     margin-bottom: 20px;
 }
 
-/* --- 헤더 (네비게이션 바) --- */
-.header {
-    width: 100%;
-    padding: 15px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    box-sizing: border-box; /* 패딩 포함해서 너비 100% */
-}
 
-.header .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50; /* 메인 그린 색상 */
-}
-
-.header .nav-menu a {
-    margin-left: 25px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-}
-.header .nav-menu a:hover {
-    color: #4CAF50;
-}
-
-.header .logout-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
-}
 
 /* --- 메인 컨테이너 (사이드바 + 콘텐츠) --- */
 .container {
@@ -264,27 +231,4 @@ button {
 }
 .view-log-btn:hover {
     background-color: #388E3C;
-}
-
-/* --- 푸터 --- */
-.footer {
-    width: 100%;
-    text-align: center;
-    padding: 30px 40px;
-    background-color: #f0f0f0;
-    border-top: 1px solid #ddd;
-    margin-top: 40px;
-    font-size: 14px;
-    color: #777;
-    box-sizing: border-box;
-}
-.footer p {
-    margin: 5px 0;
-}
-.footer .footer-links a {
-    margin: 0 10px;
-    color: #555;
-}
-.footer .footer-links a:hover {
-    text-decoration: underline;
 }
