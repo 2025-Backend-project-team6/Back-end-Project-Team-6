@@ -1,17 +1,16 @@
 package com.gardenlog.servlet.controller;
 
+import java.io.IOException;
+
+import com.gardenlog.servlet.dao.UserDAO;
+import com.gardenlog.servlet.dto.UserDTO;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-
-import com.gardenlog.servlet.dao.UserDAO;
-import com.gardenlog.servlet.dto.UserDTO;
-import com.mysql.cj.jdbc.JdbcConnection;
 
 @WebServlet("/checkId.do")
 public class CheckIdController extends HttpServlet {

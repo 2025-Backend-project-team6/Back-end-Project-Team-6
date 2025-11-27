@@ -87,27 +87,12 @@
                        ✏️ 회원 정보 수정 페이지로 이동
                     </a>
                 </div>
-
-                <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
-                    <input type="hidden" name="command" value="suspend">
-                    <input type="hidden" name="userId" value="${userDetail.userid}">
                     
-                    <c:choose>
-                        <c:when test="${userDetail.user_status == 'ACTIVE'}">
-                            <input type="hidden" name="status" value="SUSPENDED">
-                            <button type="submit" class="menu-item-btn btn-danger">🚫 계정 정지 시키기</button>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="hidden" name="status" value="ACTIVE">
-                            <button type="submit" class="menu-item-btn btn-success">✅ 정지 해제 하기</button>
-                        </c:otherwise>
-                    </c:choose>
-                </form>
 
                 <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
                     <input type="hidden" name="command" value="delete">
                     <input type="hidden" name="userId" value="${userDetail.userid}">
-                    <button type="submit" class="menu-item-btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?');">🗑️ 강제 탈퇴 처리</button>
+                    <button type="submit" class="menu-item-btn btn-danger" onclick="return confirm('정말로 탈퇴시키시겠습니까?');">🗑️ 강제 탈퇴 처리</button>
                 </form>
 
             </div> 

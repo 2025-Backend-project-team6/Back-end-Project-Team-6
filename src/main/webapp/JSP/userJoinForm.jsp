@@ -72,6 +72,5 @@
         <a href="${pageContext.request.contextPath}/JSP/userLoginForm.jsp">로그인</a>
     </div>
 </div>
-
 </body>
 </html>

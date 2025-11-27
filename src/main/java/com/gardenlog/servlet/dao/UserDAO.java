@@ -26,30 +26,6 @@ public class UserDAO {
 	final String ADMIN_USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
 	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
 	
-	
-	public int userJoin(UserDTO udto){
-		int result = 0;
-
-		try {
-			conn = JdbcConnectUtil.getConnection();
-			pstmt = conn.prepareStatement(USER_JOIN);
-			
-			pstmt.setString(1, udto.getUserid());
-			pstmt.setString(2, udto.getPassword());
-			pstmt.setString(3, udto.getUsername());
-			pstmt.setString(4, udto.getEmail());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcConnectUtil.close(conn, pstmt);
-		}
-		
-		return result;	
-	}
-
     /* 로그인 */
 	public UserDTO login(String userid, String password) { 
 	      UserDTO user = null;
