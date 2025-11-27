@@ -15,7 +15,7 @@
             <span>🌱</span> GardenLog
         </div>
         <div class="header-btns">
-            <button class="btn-login" onclick="location.href='login.jsp'">로그인</button>
+            <button class="btn-login" onclick="location.href='userLoginForm.jsp'">로그인</button>
         </div>
     </header>
 
@@ -30,8 +30,8 @@
                 작물 재배부터 일지 관리, 커뮤니티 활동까지 한 곳에서
             </p>
             <div class="hero-btns">
-                <button class="btn-main-start" onclick="location.href='register.jsp'">지금 시작하기 ></button>
-                <button class="btn-main-login" onclick="location.href='login.jsp'">로그인하기</button>
+                <button class="btn-main-start" onclick="location.href='userJoinForm.jsp'">지금 시작하기 ></button>
+                <button class="btn-main-login" onclick="location.href='userLoginForm.jsp'">로그인하기</button>
             </div>
             <div class="hero-icons">
                 <span>🍅</span>

@@ -2,7 +2,7 @@
 *.class
 /build/
 /target/
-
+/bin/
 # IDE settings (Eclipse)
 .settings/
 
@@ -11,7 +11,6 @@
 *.server
 
 # Packaged files
-*.jar
 *.war
 *.ear
 
@@ -19,5 +18,4 @@
 *.log
 
 # Temp files
-*.tmp
-/src/main/webapp/WEB-INF/lib
+*.tmp"bin/" 

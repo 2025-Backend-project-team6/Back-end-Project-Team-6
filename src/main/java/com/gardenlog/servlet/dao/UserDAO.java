@@ -8,20 +8,22 @@ import com.gardenlog.servlet.util.JdbcConnectUtil;
 
 
 public class UserDAO {
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	// 회원가입
-	final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
 	
-	// 로그인
-	final String USER_LOGIN = "select * from users where userid = ? and password = ?";
-	
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
+    
+	private final String USER_CHECKID = "SELECT userid FROM users WHERE userid = ?;";
+	private final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
+	private final String USER_LOGIN = "select * from users where userid = ? and password = ?;";
+	private final String USER_GET = "SELECT * FROM users WHERE userid = ?;";
+	private final String USER_UPDATE = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?;";
+
 	// 관리자 페이지 조회, 수정, 삭제
 	final String USER_SELECT_ONE = "SELECT userid, username, email, level, role, user_status, created_at FROM users WHERE userid = ?";
 	final String SELECT_USER_LIST = "select * from users;";
 	final String USER_DELETE = "DELETE FROM users WHERE userid = ?";
-	final String USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
+	final String ADMIN_USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
 	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
 	
 	
@@ -47,7 +49,8 @@ public class UserDAO {
 		
 		return result;	
 	}
-	
+
+    /* 로그인 */
 	public UserDTO login(String userid, String password) { 
 	      UserDTO user = null;
 	      
@@ -70,18 +73,111 @@ public class UserDAO {
 	            user.setRole(rs.getString("role"));
 	            user.setUser_status(rs.getString("user_status"));
 	            user.setCreated_at(rs.getObject("created_at", LocalDateTime.class));
-
-	         }
-	         
+	          }
 	      } catch (SQLException e) {
-	         e.printStackTrace();
+		         e.printStackTrace();
 	      } finally {
 	         JdbcConnectUtil.close(conn, pstmt, rs);
 	      }
-	      
+
 	      return user;
-	   }
+	}  
+    
+	/* 아이디로 회원 정보 1명 조회하기 (마이페이지용) */
+    public UserDTO getUser(String userid) {
+        UserDTO user = null;
+        
+        try {
+            conn = JdbcConnectUtil.getConnection();
+            pstmt = conn.prepareStatement(USER_GET);
+            pstmt.setString(1, userid);
+            rs = pstmt.executeQuery();
+            
+            if(rs.next()) {
+                user = new UserDTO();
+                user.setUserid(rs.getString("userid"));
+                user.setPassword(rs.getString("password"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setLevel(rs.getInt("level"));
+                // user.setRole(rs.getString("role")); // 필요하면 추가
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcConnectUtil.close(conn, pstmt, rs);
+        }
+        
+        return user;
+    }
+    
+
+	/* 회원가입 */
+	public int userJoin(UserDTO udto) {
+		int result = 0;
+
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(USER_JOIN);
+			
+			pstmt.setString(1, udto.getUserid());
+			pstmt.setString(2, udto.getPassword());
+			pstmt.setString(3, udto.getUsername());
+			pstmt.setString(4, udto.getEmail());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		
+		return result;	
+	}
 	
+	/* 회원가입 - 아이디중복확인 */
+	public boolean checkId(UserDTO udto) {
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(USER_CHECKID);
+			pstmt.setString(1, udto.getUserid());
+			
+			rs = pstmt.executeQuery();
+			
+			return rs.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt, rs);
+		}
+		return false;
+	}
+
+    /* 회원 정보 수정하기 */
+    public int updateUser(UserDTO user) {
+        int result = 0;
+        try {
+            conn = JdbcConnectUtil.getConnection();
+            pstmt = conn.prepareStatement(USER_UPDATE);
+            pstmt.setString(1, user.getPassword());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getUserid()); // WHERE 절의 userid
+            
+            result = pstmt.executeUpdate(); // 쿼리 실행! (성공하면 1 반환)
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcConnectUtil.close(conn, pstmt);
+        }
+        return result;
+    }
+    
+    /* 관리자: 회원 1명 조회 */
 	public UserDTO getUserByIdAdmin(String userId){
 	    UserDTO user = null;
 	    try {
@@ -111,6 +207,7 @@ public class UserDAO {
 	    return user;
 	}
 	
+	/* 관리자: 회원 리스트 조회 */
 	public List<UserDTO> selectUserListAdmin(){
 		
 		List<UserDTO> memberList = new ArrayList<>();
@@ -144,73 +241,59 @@ public class UserDAO {
 		return memberList;
 	}
 	
-	
-public int deleteUserAdmin(String userId){
-		
+	/* 관리자: 회원 삭제 */
+	public int deleteUserAdmin(String userId){
 		int result = 0;
-		
 		try {
 			conn = JdbcConnectUtil.getConnection();
 			pstmt = conn.prepareStatement(USER_DELETE);
 			pstmt.setString(1, userId);
 			result = pstmt.executeUpdate();
 			
-				
-		 } catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcConnectUtil.close(conn, pstmt);
 		}
-	
 		return result;
 	}
 	
-public int updateUserAdmin(UserDTO udto){
-	
-	int result = 0;
-	try {
-		conn = JdbcConnectUtil.getConnection();
-		pstmt = conn.prepareStatement(USER_UPDATE);
-		
-		pstmt.setInt(1, udto.getLevel());
-		pstmt.setString(2, udto.getRole());
-		pstmt.setString(3, udto.getUser_status());
-		
-		pstmt.setString(4, udto.getUserid());
-		
-		result = pstmt.executeUpdate();
-		
-	 } catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} finally {
-		JdbcConnectUtil.close(conn, pstmt);
+	/* 관리자: 회원 정보 수정 (level, role, status) */
+	public int updateUserAdmin(UserDTO udto){
+		int result = 0;
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(ADMIN_USER_UPDATE);
+			pstmt.setInt(1, udto.getLevel());
+			pstmt.setString(2, udto.getRole());
+			pstmt.setString(3, udto.getUser_status());
+			pstmt.setString(4, udto.getUserid());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		return result;
 	}
 
-	return result;
+	/* 관리자 / 기타: 상태만 변경 */
+	public int updateUserStatus(String userId, String status){
+	    int result = 0;
+	    try {
+	        conn = JdbcConnectUtil.getConnection();
+	        pstmt = conn.prepareStatement(USER_UPDATE_STATUS);
+	        pstmt.setString(1, status);
+	        pstmt.setString(2, userId);
+	        result = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcConnectUtil.close(conn, pstmt);
+	    }
+	    return result;
+	}
 }
 
-public int updateUserStatus(String userId, String status){
-    int result = 0;
-    
-    try {
-        conn = JdbcConnectUtil.getConnection();
-        pstmt = conn.prepareStatement(USER_UPDATE_STATUS);
-        
-        pstmt.setString(1, status); // 바꿀 상태 값
-        pstmt.setString(2, userId); // 대상 ID
-        
-        result = pstmt.executeUpdate();
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        JdbcConnectUtil.close(conn, pstmt);
-    }
-    
-    return result;
-}
-	
-	
-}
