@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /* --- 헤더 (네비게이션 바) --- */
+
 .full-width-wrapper {
     width: 100%; /* 창 끝까지 늘임 */
     background-color: #fff;
@@ -23,6 +24,7 @@
 .header a {
     text-decoration: none; 
     /* color: inherit; <- 링크의 파란색 방지 (필요 시 추가) */
+
 }
 
 .header .logo {
@@ -32,10 +34,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    
 }
  a.logo { 
     text-decoration: none;
     color: inherit;
+    
 }
 
 .header .nav-menu a {

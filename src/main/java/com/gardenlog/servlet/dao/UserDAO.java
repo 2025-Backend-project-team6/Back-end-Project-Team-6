@@ -3,11 +3,9 @@ package com.gardenlog.servlet.dao;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.time.LocalDateTime;
-
-
 import com.gardenlog.servlet.dto.UserDTO;
 import com.gardenlog.servlet.util.JdbcConnectUtil;
+
 
 public class UserDAO {
 	
@@ -27,7 +25,6 @@ public class UserDAO {
 	final String USER_DELETE = "DELETE FROM users WHERE userid = ?";
 	final String ADMIN_USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
 	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
-
 	
     /* 로그인 */
 	public UserDTO login(String userid, String password) { 

@@ -15,9 +15,13 @@ import com.gardenlog.servlet.dto.UserDTO;
 
 @WebServlet("/join.do")
 public class UserJoinController extends HttpServlet {
+
 	RequestDispatcher dispatcher = null;
-	
-	
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = request.getParameter("userid");

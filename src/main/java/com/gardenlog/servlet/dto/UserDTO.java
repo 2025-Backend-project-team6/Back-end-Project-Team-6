@@ -67,7 +67,5 @@ public class UserDTO {
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	
-	
-	
 }
+

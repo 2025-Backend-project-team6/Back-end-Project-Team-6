@@ -167,3 +167,28 @@ body {
     background-color: #f3f4f6;
     color: #1f2937;
 }
+
+/* 신고된 게시글 제목 영역 스타일 */
+.reports-title {
+    display: flex; /* 자식 요소들을 한 줄에 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 0.5rem; /* 아이콘, 제목, 배지 사이의 간격 */
+}
+
+/* 제목 텍스트 (h3)와 배지(span)의 크기 조절 방지 */
+.reports-title h3 {
+    margin: 0; /* 불필요한 마진 제거 */
+    /* font-size: 1rem; (기존 card-header h3에 있음, 재확인) */
+}
+
+/* '2건 대기중' 배지에만 상단 마진 추가 */
+.report-badge {
+    margin-top: 5px; /* 원하는 만큼 픽셀(px) 값 조정 */
+    width: 100px;
+    text-align: center;
+}
+
+html {
+    /* overflow-y 속성을 'scroll'로 설정하여 세로 스크롤바를 항상 표시 */
+    overflow-y: scroll;
+}
