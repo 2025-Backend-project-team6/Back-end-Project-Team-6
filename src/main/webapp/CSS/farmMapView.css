@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* =======================================
+ * CSS for farmMapView.jsp
+ * ======================================= */
+
+/* 지도가 표시될 영역 스타일 */
+#map {
+    width: 100%;
+    height: 600px; /* 지도의 높이를 뷰포트 크기에 맞게 설정 */
+    border: 1px solid #ddd; /* 지도 영역을 구분하기 위한 옅은 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+}
+
+/* 지도 제목 스타일 */
+h2 {
+    color: #38761d; /* 농장 테마에 맞는 초록색 계열 */
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #38761d;
+    padding-bottom: 5px;
+    display: inline-block; /* 내용만큼만 영역을 차지하도록 */
+}
+
+/* 마커 클릭 시 나타나는 정보창(InfoWindow) 스타일 */
+.iw_content {
+    /* 네이버 지도 API 기본 스타일과 충돌을 피하기 위해 최소한의 스타일만 적용 */
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 200px; /* 정보창 너비 제한 */
+}
+
+.iw_content b {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #007bff; /* 농장 이름 강조 */
+}
+
+.iw_content p {
+    margin: 0;
+    color: #555;
+}
