@@ -129,6 +129,7 @@ public class UserDAO {
 		} finally {
 			JdbcConnectUtil.close(conn, pstmt, rs);
 		}
+		
 		return false;
 	}
 
