@@ -4,7 +4,7 @@
 /target/
 /bin/
 # IDE settings (Eclipse)
-.settings/
+
 
 # Tomcat server config (Do not share!)
 .metadata
