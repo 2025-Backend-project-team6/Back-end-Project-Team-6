@@ -6,10 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.gardenlog.servlet.dto.ApiFarmDTO;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,127 +14,135 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 @WebServlet("/api/farms")
 public class FarmSearchServlet extends HttpServlet {
-	
-	private static final String CLIENT_ID = "wPjSjpqQSNytJ4eJcQCV"; 
-    private static final String CLIENT_SECRET = "Uz8F8K3YOF";
+    private static final long serialVersionUID = 1L;
     
-    // 에러 발생 시 포워딩할 JSP 경로
-    private static final String ERROR_VIEW = "/error.jsp";
-    // 정상 작동 시 포워딩할 JSP 경로
-    private static final String SUCCESS_VIEW = "/farmMapView.jsp";
- 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 1. JSP에서 이 이름(lat, lng)으로 파라미터를 넘겨줘야함
-		String userLatitudeParam = request.getParameter("lat"); // y (위도)
-        String userLongitudeParam = request.getParameter("lng"); // x (경도)
-        String searchKeyword = "주말농장";
+    // [보안 주의] Client ID와 Secret을 실제 값으로 변경하세요.
+    private final String CLIENT_ID = "wPjSjpqQSNytJ4eJcQCV"; 
+    private final String CLIENT_SECRET = "Uz8F8K3YOF";
+    // 네이버 지도 API ID/KEY는 지역 검색 API와 다를 수 있습니다.
+    private final String MAPS_CLIENT_ID = "YOUR_MAPS_CLIENT_ID"; 
+    private final String MAPS_CLIENT_SECRET = "YOUR_MAPS_CLIENT_SECRET"; 
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         
-     // 2. 위도/경도 값이 없거나 유효하지 않으면 사용자에게 추가 정보 요청
-        if (userLatitudeParam == null || userLongitudeParam == null || userLatitudeParam.isEmpty() || userLongitudeParam.isEmpty()) {
-            // 확실하지 않음: 위치 정보가 없으므로 API 호출을 할 수 없습니다.
-            request.setAttribute("errorMessage", "위치 정보(위도, 경도)가 요청에 포함되지 않았습니다. 사용자 위치를 확인해주세요.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ERROR_VIEW);
-            dispatcher.forward(request, response);
-            return; // 서블릿 실행 중지
+        // 1. URL 파라미터로 전달된 WGS84 좌표를 가져옵니다.
+        String wgsLat = request.getParameter("lat"); // WGS84 위도
+        String wgsLng = request.getParameter("lng"); // WGS84 경도
+        
+        String btmCoord = null;
+        
+        // 2. WGS84 좌표를 네이버 검색에 사용될 BTM 좌표로 변환합니다. (핵심)
+        if (wgsLat != null && wgsLng != null) {
+            try {
+                btmCoord = convertWgsToBtm(wgsLng, wgsLat);
+            } catch (Exception e) {
+                System.err.println("좌표 변환 중 오류 발생: " + e.getMessage());
+                // 변환 실패 시 btmCoord는 null로 유지
+            }
         }
         
-     // Double.parseDouble() 시 발생할 수 있는 NumberFormatException 처리를 위한 try-catch
-        double userLatitude;
-        double userLongitude;
+        // 3. 지역 검색 API 요청 URL 생성
+        String query = URLEncoder.encode("주말농장", "UTF-8");
+        String apiURL = "https://openapi.naver.com/v1/search/local.json?query=" + query + "&display=50";
+
+        // 💡 4. 변환된 BTM 좌표를 사용하여 검색 기준을 지정 (주변 검색 효과)
+        if (btmCoord != null) {
+            // target=BTM_X,BTM_Y 형식으로 추가합니다.
+            apiURL += "&target=" + btmCoord;
+        }
+
+        // 5. HTTP 연결 설정 및 요청 (지역 검색 API)
+        URL url = new URL(apiURL);
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("X-Naver-Client-Id", CLIENT_ID);
+        con.setRequestProperty("X-Naver-Client-Secret", CLIENT_SECRET);
         
-        try {
-            userLatitude = Double.parseDouble(userLatitudeParam);
-            userLongitude = Double.parseDouble(userLongitudeParam);
-        } catch (NumberFormatException e) {
-            // 확실하지 않음: 위도/경도 값이 숫자가 아님
-            request.setAttribute("errorMessage", "위치 정보의 형식이 올바르지 않습니다. 숫자 형식으로 전달해주세요.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ERROR_VIEW);
-            dispatcher.forward(request, response);
-            return; // 서블릿 실행 중지
+        // 6. 응답 데이터 읽기
+        int responseCode = con.getResponseCode();
+        BufferedReader br;
+        if(responseCode == 200) { 
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } else {
+            br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
         }
         
-        try {
-            // 💡 3. 네이버 지역 검색 API URL 구성
-            String encodedQuery = URLEncoder.encode(searchKeyword, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/local.json?query=" + encodedQuery
-                            + "&x=" + userLongitude   // 경도 (Longitude)
-                            + "&y=" + userLatitude    // 위도 (Latitude)
-                            + "&sort=distance"        // 거리순 정렬
-                            + "&display=10";          // 10개 검색 (최대)
-
-            // 4. API 연결 및 인증 헤더 설정
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("X-Naver-Client-Id", CLIENT_ID);
-            con.setRequestProperty("X-Naver-Client-Secret", CLIENT_SECRET);
-
-            // 5. 응답 코드 확인 및 데이터 읽기
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if (responseCode == 200) { // 정상 호출 (확실한 정보)
-                br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-            } else {  // 에러 발생 (확실하지 않음: API 인증 실패, 요청 오류 등)
-                // 에러 발생 시 상세 응답을 읽어 에러 메시지를 확인합니다.
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
-                
-                request.setAttribute("errorMessage", "네이버 API 호출에 실패했습니다. 응답 코드: " + responseCode);
-                RequestDispatcher dispatcher = request.getRequestDispatcher(ERROR_VIEW);
-                dispatcher.forward(request, response);
-                return; // 에러 발생 시 서블릿 실행 중지
-            }
-            
-         // 6. JSON 응답 전문(Full String) 읽기
-            String inputLine;
-            StringBuffer jsonResponse = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                jsonResponse.append(inputLine);
-            }
-            br.close();
-            con.disconnect();
-            
-         // 7. 핵심: Gson을 사용한 JSON 파싱 및 데이터 추출
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(jsonResponse.toString(), JsonObject.class);
-            JsonArray items = jsonObject.getAsJsonArray("items"); // 'items' 배열 추출
-            
-            List<ApiFarmDTO> farmList = new ArrayList<>();
-            for (int i = 0; i < items.size(); i++) {
-                // 'items' 배열의 각 JSON 객체를 우리가 만든 FarmInfo 클래스에 바로 매핑
-                JsonObject item = items.get(i).getAsJsonObject();
-                ApiFarmDTO farm = gson.fromJson(item, ApiFarmDTO.class);
-                farmList.add(farm);
-                // System.out.println("파싱된 농장: " + farm); // 콘솔 디버그용
-            }
-            
-         //  8. 파싱된 데이터를 JSP로 전달하고 포워딩
-            request.setAttribute("farmList", farmList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(SUCCESS_VIEW);
-            dispatcher.forward(request, response);
-            
-        } catch (IOException e) {
-            // 네트워크 오류, URL 오류 등 IO 관련 예외 처리
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "네트워크 연결 또는 API 주소 설정에 오류가 발생했습니다: " + e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ERROR_VIEW);
-            dispatcher.forward(request, response);
+        String inputLine;
+        StringBuffer responseData = new StringBuffer();
+        while ((inputLine = br.readLine()) != null) {
+            responseData.append(inputLine);
         }
-	}
-	
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
-		
-	}
-
+        br.close();
+        
+        // 7. JSP로 데이터 전달 및 포워딩
+        request.setAttribute("farmDataJson", responseData.toString());
+        // 지도의 중심 설정을 위해 원본 WGS84 좌표를 그대로 전달합니다.
+        request.setAttribute("currentLat", wgsLat); 
+        request.setAttribute("currentLng", wgsLng);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/farmMapView.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    
+    // 💡 8. WGS84 좌표를 네이버 BTM 좌표로 변환하는 헬퍼 메서드
+    private String convertWgsToBtm(String wgsLng, String wgsLat) throws IOException, ParseException {
+        // [근거] 네이버 좌표 변환 API 문서
+        String apiURL = "https://naveropenapi.apigw.ntruss.com/map-geo/v2/transform";
+        
+        // fromSystem=WGS84, toSystem=BTM, coords=경도,위도 (변환 API는 경도,위도 순서)
+        String params = "fromCoord=" + wgsLng + "," + wgsLat + "&fromSystem=epsg:4326&toSystem=epsg:5179";
+        
+        URL url = new URL(apiURL + "?" + params);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        // 이 API는 지도/지리 관련 키를 사용해야 합니다.
+        con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", MAPS_CLIENT_ID);
+        con.setRequestProperty("X-NCP-APIGW-API-KEY", MAPS_CLIENT_SECRET);
+        
+        int responseCode = con.getResponseCode();
+        BufferedReader br;
+        if (responseCode == 200) {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } else {
+            br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+        }
+        
+        String inputLine;
+        StringBuffer responseData = new StringBuffer();
+        while ((inputLine = br.readLine()) != null) {
+            responseData.append(inputLine);
+        }
+        br.close();
+        
+        // 9. JSON 파싱을 통해 BTM 좌표 추출
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(responseData.toString());
+        
+        // 변환된 좌표 배열 (JSON 구조: result.items[0].point)
+        JSONObject result = (JSONObject) jsonObject.get("result");
+        JSONArray items = (JSONArray) result.get("items");
+        
+        if (items != null && items.size() > 0) {
+            JSONObject item = (JSONObject) items.get(0);
+            JSONObject point = (JSONObject) item.get("point");
+            
+            // BTM 좌표 (X, Y) 추출
+            String btmX = (String) point.get("x"); 
+            String btmY = (String) point.get("y"); 
+            
+            // "BTM_X,BTM_Y" 형태로 반환
+            return btmX + "," + btmY;
+        }
+        return null;
+    }
 }

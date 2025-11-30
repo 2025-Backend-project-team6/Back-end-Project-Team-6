@@ -1,106 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %> 
-<%-- 💡 Tomcat 10+에서는 JSTL URI를 'jakarta.tags.core'로 사용합니다. --%>
+<%@ page import="org.json.simple.JSONArray" %>
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ page import="org.json.simple.parser.JSONParser" %>
+<%@ page import="java.util.List, java.util.ArrayList" %>
 
+<%
+    // Servlet에서 전달받은 JSON 문자열을 가져옵니다.
+    // [근거] Servlet 코드에서 request.setAttribute("farmDataJson", ...)로 저장했음
+    String farmDataJson = (String) request.getAttribute("farmDataJson");
+    List<JSONObject> farmList = new ArrayList<>();
+    
+    // JSON 파싱 (simple-json 라이브러리가 필요합니다)
+    if (farmDataJson != null && !farmDataJson.isEmpty()) {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(farmDataJson);
+            JSONObject resultObject = (JSONObject) jsonObject.get("result"); // result가 있다면
+            
+            // 만약 result가 없고 바로 items가 있다면 아래처럼 수정:
+            JSONArray items = (JSONArray) jsonObject.get("items");
+            
+            if (items != null) {
+                for (Object item : items) {
+                    farmList.add((JSONObject) item);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 에러 처리: 파싱 실패 시 빈 목록 유지
+        }
+    }
+    // [주의] 이 코드를 실행하려면 simple-json 라이브러리(JAR 파일)를 프로젝트에 추가해야 합니다.
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>주변 주말농장 지도</title>
+    <title>주말농장 지도</title>
+    <style>
+        #map { width: 100%; height: 600px; border: 1px solid #ccc; }
+    </style>
     
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    
-    <script type="text/javascript" 
-            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_MAP_CLIENT_ID">
-    </script>
+    <%-- 1. 네이버 지도 API 스크립트 로드 --%>
+    <%-- YOUR_CLIENT_ID를 실제 네이버 지도 API용 클라이언트 ID로 변경해야 합니다. --%>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=f05sse6krq"></script>
 </head>
 <body>
 
     <h2>📍 내 주변 주말농장 찾기</h2>
+    <div id="map"></div>
 
-    <div id="farmDataContainer" style="display:none;">
-        <c:out value="${farmJson}" escapeXml="false"/>
-    </div>
-    
-    <div id="map"></div> <script>
-        // 💡 3. 숨겨진 DIV 요소에서 JSON 데이터를 가져와 JavaScript 객체로 변환
-        var farmList = [];
-        try {
-            var container = document.getElementById('farmDataContainer');
-            // DIV의 텍스트 내용을 가져와 공백을 제거하고 JSON 문자열로 사용
-            var farmJsonString = container.textContent.trim(); 
+    <script>
+        function initializeMapAndMarkers() {
+        	
+        	const currentLat = <%= request.getAttribute("currentLat") != null ? request.getAttribute("currentLat") : "37.5666103" %>;
+            const currentLng = <%= request.getAttribute("currentLng") != null ? request.getAttribute("currentLng") : "126.9783882" %>;
             
-            if (farmJsonString) {
-                farmList = JSON.parse(farmJsonString);
-                console.log("파싱된 농장 수:", farmList.length);
-            }
-        } catch (e) {
-            console.error("데이터 파싱 오류:", e);
-            // 에러 발생 시 사용자에게 알림
-            alert("농장 데이터를 불러오는 중 오류가 발생했습니다. 서버 로그를 확인하세요.");
-        }
-        
-        // 💡 4. 지도 초기화 및 생성 함수
-        function initMap() {
-            var initialPosition;
-            var initialZoom = 12;
+            // 2. 지도 초기화 (Dynamic Map)
+            const mapOptions = {
+                // 서울 시청 중심 좌표
+                center: new naver.maps.LatLng(parseFloat(currentLat), parseFloat(currentLng)),
+                zoom: 13
+            };
+            const map = new naver.maps.Map('map', mapOptions);
 
-            if (farmList.length > 0) {
-                // 첫 번째 농장의 TM 좌표를 LatLng로 변환하여 지도의 중심 좌표로 사용
-                var firstFarm = farmList[0];
-                // parseInt로 mapx, mapy를 정수로 변환해야 합니다.
-                var tmPoint = new naver.maps.Point(parseInt(firstFarm.mapx), parseInt(firstFarm.mapy));
-                initialPosition = naver.maps.TransCoord.fromTM(tmPoint);
-                initialZoom = 14;
-            } else {
-                // 데이터가 없을 경우 기본 위치 설정 (서울 시청)
-                console.log("검색된 농장 데이터가 없습니다.");
-                initialPosition = new naver.maps.LatLng(37.5666103, 126.9783882); 
-            }
+            // 3. JSP에서 Java 변수를 JavaScript 변수로 변환하여 사용
+            const farmList = <%= (new JSONParser().parse(farmDataJson)).toString() %>; // 전체 JSON 데이터
+            
+            // [추측입니다] 네이버 지역 검색 API에서 받은 좌표는 mapx(경도)/mapy(위도)이며 BTM 좌표계일 수 있습니다.
+            // 네이버 지도 API는 LatLng(WGS84)을 사용하므로, 좌표 변환을 고려해야 합니다.
+            // 여기서는 단순화를 위해 mapx/mapy를 바로 위경도로 사용합니다. (정확한 구현 시 변환 필수)
+            
+            if (farmList && farmList.items) {
+                farmList.items.forEach(item => {
+                    // mapx와 mapy는 문자열이므로 parseFloat으로 변환합니다.
+                    const mapx = parseFloat(item.mapx); 
+                    const mapy = parseFloat(item.mapy); 
 
-            // 지도 객체 생성
-            var map = new naver.maps.Map('map', {
-                center: initialPosition, 
-                zoom: initialZoom,        
-                mapTypeId: naver.maps.MapTypeId.NORMAL
-            });
+                    // [주의] LatLng 객체는 위도(Lat)를 먼저 받습니다. (mapy -> mapx 순서)
+                    const position = new naver.maps.LatLng(mapy, mapx); 
 
-            // 💡 5. 마커 표시
-            if (farmList.length > 0) {
-                farmList.forEach(function(farm) {
-                    addMarker(map, farm);
+                    // 마커 생성
+                    const marker = new naver.maps.Marker({
+                        map: map,
+                        position: position,
+                        title: item.title.replace(/<[^>]*>/g, '') // HTML 태그 제거
+                    });
                 });
             }
         }
 
-        // 💡 6. 개별 마커 생성 및 정보창 추가 함수
-        function addMarker(map, farm) {
-            // TM 좌표를 LatLng 좌표로 변환
-            var tmPoint = new naver.maps.Point(parseInt(farm.mapx), parseInt(farm.mapy));
-            var position = naver.maps.TransCoord.fromTM(tmPoint);
-
-            var marker = new naver.maps.Marker({
-                map: map,
-                position: position,
-                title: farm.title 
-            });
-
-            var infoWindow = new naver.maps.InfoWindow({
-                content: '<div class="iw_content"><b>' + farm.title + '</b><p>' + farm.address + '</p></div>'
-            });
-
-            naver.maps.Event.addListener(marker, 'click', function(e) {
-                if (infoWindow.getMap()) {
-                    infoWindow.close(); 
-                } else {
-                    infoWindow.open(map, marker); 
-                }
-            });
-        }
-        
-        // 💡 7. HTML 문서 로드 후 지도 초기화 함수 실행
-        naver.maps.onJSContentLoaded = initMap;
-
+        // 페이지 로드 후 함수 실행
+        window.onload = initializeMapAndMarkers;
     </script>
+
 </body>
 </html>
