@@ -181,8 +181,6 @@ button {
 }
 .register-link a:hover {
     text-decoration: underline;
-<<<<<<< HEAD
-=======
 }
 
 /* 관리자 로그인 링크 스타일 */
@@ -203,5 +201,4 @@ button {
 
 .admin-link:hover {
     color: #333;
->>>>>>> main
 }
