@@ -18,8 +18,9 @@ public class UserDAO {
 	private final String USER_CHECKID = "SELECT userid FROM users WHERE userid = ?;";
 	private final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
 	private final String USER_LOGIN = "select * from users where userid = ? and password = ?;";
-	private final String USER_GET = "SELECT * FROM users WHERE userid = ?;";
+	private final String USER_GET = "SELECT u.*, g.location FROM users u " + "LEFT JOIN garden g ON u.userid = g.userid " + "WHERE u.userid = ? LIMIT 1";
 	private final String USER_UPDATE = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?;";
+	private final String GARDEN_UPDATE_LOCATION = "UPDATE garden SET location = ? WHERE userid = ?";
 
 	// 관리자 페이지 조회, 수정, 삭제
 	final String USER_SELECT_ONE = "SELECT userid, username, email, level, role, user_status, created_at FROM users WHERE userid = ?";
@@ -63,9 +64,8 @@ public class UserDAO {
 	}  
     
 	/* 아이디로 회원 정보 1명 조회하기 (마이페이지용) */
-    public UserDTO getUser(String userid) {
+	public UserDTO getUser(String userid) {
         UserDTO user = null;
-        
         try {
             conn = JdbcConnectUtil.getConnection();
             pstmt = conn.prepareStatement(USER_GET);
@@ -79,18 +79,16 @@ public class UserDAO {
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setLevel(rs.getInt("level"));
+                user.setLocation(rs.getString("location")); 
                 // user.setRole(rs.getString("role")); // 필요하면 추가
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcConnectUtil.close(conn, pstmt, rs);
         }
-        
         return user;
     }
-    
 
 	/* 회원가입 */
 	public int userJoin(UserDTO udto) {
@@ -136,17 +134,29 @@ public class UserDAO {
 	}
 
     /* 회원 정보 수정하기 */
-    public int updateUser(UserDTO user) {
+	public int updateUser(UserDTO user) {
         int result = 0;
         try {
             conn = JdbcConnectUtil.getConnection();
-            pstmt = conn.prepareStatement(USER_UPDATE);
+            
+            // users 테이블 수정
+            String userUpdateSql = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?";
+            pstmt = conn.prepareStatement(userUpdateSql);
             pstmt.setString(1, user.getPassword());
             pstmt.setString(2, user.getUsername());
             pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getUserid()); // WHERE 절의 userid
+            pstmt.setString(4, user.getUserid());
+            result = pstmt.executeUpdate();
             
-            result = pstmt.executeUpdate(); // 쿼리 실행! (성공하면 1 반환)
+            pstmt.close(); 
+
+            // garden 테이블 주소 수정
+            if(user.getLocation() != null) {
+                pstmt = conn.prepareStatement(GARDEN_UPDATE_LOCATION);
+                pstmt.setString(1, user.getLocation());
+                pstmt.setString(2, user.getUserid());
+                pstmt.executeUpdate();
+            }
             
         } catch (SQLException e) {
             e.printStackTrace();

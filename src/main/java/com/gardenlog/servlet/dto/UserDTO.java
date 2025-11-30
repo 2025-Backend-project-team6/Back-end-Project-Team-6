@@ -8,6 +8,7 @@ public class UserDTO {
 	private String username; // 이름
 	private String email; // 이메일
 	private int level; // 회원 등급 
+	private String location;  // 주소
 	private String profile_path; // 프로필 사진 경로
 	private String role; // 관리자 / 회원 구분
 	private String user_status; // 회원 상태 - 활성/비활성
@@ -42,6 +43,12 @@ public class UserDTO {
 	}
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	public String getProfile_path() {
 		return profile_path;

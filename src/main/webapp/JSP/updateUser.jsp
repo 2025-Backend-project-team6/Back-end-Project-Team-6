@@ -48,6 +48,12 @@
                         <input type="email" name="email" class="form-input" 
                                value="${sessionScope.loginUser.email}" required>
                     </div>
+                    
+                    <div class="form-group">
+        				<label class="form-label">텃밭 주소</label>
+        				<input type="text" name="location" class="form-input" 
+               				value="${sessionScope.loginUser.location}" placeholder="예: 서울특별시 구로구">
+    				</div>
 
                     <div class="form-group">
                         <label class="form-label">새 비밀번호</label>
