@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `my_crop`;
 CREATE TABLE `my_crop` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userid` varchar(20) NOT NULL,
-  `crop_id` int NOT NULL,
+  `gardenid` int NOT NULL,
+  `cropid` int NOT NULL,
   `nickname` varchar(50) DEFAULT NULL,
   `planted_date` date NOT NULL,
   `water_count` int NOT NULL DEFAULT '0',
@@ -35,10 +36,12 @@ CREATE TABLE `my_crop` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
-  KEY `crop_id` (`crop_id`),
+  KEY `my_crop_ibfk_2` (`cropid`),
+  KEY `fk_my_crop_garden` (`gardenid`),
+  CONSTRAINT `fk_my_crop_garden` FOREIGN KEY (`gardenid`) REFERENCES `garden` (`gardenid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `my_crop_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE RESTRICT,
-  CONSTRAINT `my_crop_ibfk_2` FOREIGN KEY (`crop_id`) REFERENCES `crop_info` (`crop_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `my_crop_ibfk_2` FOREIGN KEY (`cropid`) REFERENCES `crop_info` (`cropid`) ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +50,7 @@ CREATE TABLE `my_crop` (
 
 LOCK TABLES `my_crop` WRITE;
 /*!40000 ALTER TABLE `my_crop` DISABLE KEYS */;
+INSERT INTO `my_crop` VALUES (3,'leenayeon',1,6,'강낭콩','2025-10-10',3,NULL,'growing','2025-11-30 16:20:02','2025-11-30 16:20:02'),(4,'leenayeon',2,1,'가지','2025-08-20',5,NULL,'growing','2025-11-30 16:20:02','2025-11-30 16:20:02');
 /*!40000 ALTER TABLE `my_crop` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-01  0:52:06
+-- Dump completed on 2025-12-01  1:20:41
