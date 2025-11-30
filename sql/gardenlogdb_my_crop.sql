@@ -16,35 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `my_crop`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `my_crop`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `my_crop` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `userid` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `username` varchar(10) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `level` int NOT NULL DEFAULT '1',
-  `profile_path` varchar(255) DEFAULT NULL,
-  `role` varchar(45) NOT NULL DEFAULT 'user',
-  `user_status` varchar(10) NOT NULL DEFAULT 'ACTIVE',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userid`)
+  `crop_id` int NOT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `planted_date` date NOT NULL,
+  `water_count` int NOT NULL DEFAULT '0',
+  `last_watered_at` datetime DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'growing',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  KEY `crop_id` (`crop_id`),
+  CONSTRAINT `my_crop_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE RESTRICT,
+  CONSTRAINT `my_crop_ibfk_2` FOREIGN KEY (`crop_id`) REFERENCES `crop_info` (`crop_id`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `my_crop`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('chohyein','1114','조혜인','chohyein@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('leenayeon','0915','이나연','leenayeon0915@gmail.com','',1,NULL,'user','ACTIVE','2025-11-24 13:01:19'),('leeseyeon','0919','이세연','leeseyeon@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('testUser','123','테스트유저','test@gmail.com','',1,NULL,'admin','ACTIVE','2025-11-20 08:44:59');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `my_crop` WRITE;
+/*!40000 ALTER TABLE `my_crop` DISABLE KEYS */;
+/*!40000 ALTER TABLE `my_crop` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-01  0:52:05
+-- Dump completed on 2025-12-01  0:52:06

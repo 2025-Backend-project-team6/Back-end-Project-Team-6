@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `crops`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `crops`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `userid` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `username` varchar(10) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `level` int NOT NULL DEFAULT '1',
-  `profile_path` varchar(255) DEFAULT NULL,
-  `role` varchar(45) NOT NULL DEFAULT 'user',
-  `user_status` varchar(10) NOT NULL DEFAULT 'ACTIVE',
+CREATE TABLE `crops` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `crop_nm` varchar(200) NOT NULL,
+  `crop_code` varchar(50) NOT NULL,
+  `sort_order` int DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `crops`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('chohyein','1114','조혜인','chohyein@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('leenayeon','0915','이나연','leenayeon0915@gmail.com','',1,NULL,'user','ACTIVE','2025-11-24 13:01:19'),('leeseyeon','0919','이세연','leeseyeon@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('testUser','123','테스트유저','test@gmail.com','',1,NULL,'admin','ACTIVE','2025-11-20 08:44:59');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `crops` WRITE;
+/*!40000 ALTER TABLE `crops` DISABLE KEYS */;
+INSERT INTO `crops` VALUES (1,'논농사','210004',1,'2025-11-27 13:04:59'),(2,'밭농사','210005',2,'2025-11-27 13:04:59'),(3,'버섯','210008',3,'2025-11-27 13:04:59'),(4,'약초','210009',4,'2025-11-27 13:04:59'),(5,'채소','210001',5,'2025-11-27 13:04:59'),(6,'과수','210002',6,'2025-11-27 13:04:59'),(7,'화훼','210003',7,'2025-11-27 13:04:59'),(8,'축산','210007',8,'2025-11-27 13:04:59'),(9,'사료작물','210010',9,'2025-11-27 13:04:59'),(10,'Foreign workers','210011',11,'2025-11-27 13:04:59');
+/*!40000 ALTER TABLE `crops` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
