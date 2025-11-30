@@ -1,0 +1,307 @@
+@charset "UTF-8";
+
+/* --- 기본 폰트 및 배경 --- */
+body {
+    font-family: 'Nanum Gothic', 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background-color: #f4f7f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* --- 메인 레이아웃 --- */
+.detail-wrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    gap: 30px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- 1. 왼쪽 사이드바 (정보 + 메뉴) --- */
+.detail-sidebar {
+    width: 380px;
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+}
+
+.profile-header {
+    text-align: left;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 1. '목록으로 돌아가기' 버튼 스타일 (강제 밑줄 제거 및 버튼화) */
+.back-to-list-btn-alt {
+    /* 기존 텍스트 링크와 구분되는 버튼 스타일 적용 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px; /* 버튼처럼 보이도록 패딩 추가 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 14px;
+    color: #444;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-bottom: -10px;
+}
+
+.back-to-list-btn-alt:hover {
+    background-color: #e5e5e5;
+    color: #222;
+}
+
+.back-arrow-alt {
+    font-size: 16px;
+    line-height: 1;
+    margin-right: 5px;
+}
+
+/* '회원 상세 정보' 텍스트 스타일 */
+.detail-title-text {
+    font-size: 24px;
+    font-weight: 800; 
+    color: #333;
+    margin-bottom: 5px;
+}
+
+
+/* 2. 사용자 ID 텍스트 스타일 */
+.user-id-text {
+    font-size: 15px;
+    color: #666;
+    font-weight: 700;
+    margin-top: 17px;
+    margin-bottom: 0px;
+}
+
+
+.profile-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.profile-main {
+    text-align: left; /* 전체 영역 왼쪽 정렬로 변경 */
+}
+
+/* 3. 프로필 정보 2열 배치 컨테이너 */
+.profile-layout-grid-new {
+    display: flex;
+    gap: 20px;
+    margin-top: 0px;
+    padding: 0px 0 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 3.1. 왼쪽 영역 스타일 (이름, 레벨, 상태) */
+.profile-left-col {
+    width: 30%;
+    flex-shrink: 0;
+    display: flex; /* 내부 요소 세로 정렬을 위해 Flex 사용 */
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    margin-top: 10px;
+}
+
+.profile-name-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #333;
+    margin: 5px 0;
+    margin-left: 5px
+}
+
+.profile-level {
+    font-size: 15px;
+    color: #4CAF50;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+
+.status {
+	margin-left: 7px;
+}
+
+/* 3.2. 오른쪽 영역 스타일 (상세 정보 목록) */
+.user-info-detail-list-new {
+    width: 60%;
+    list-style: none;
+    padding-left: 0px;
+    padding-right: 20px;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+
+.info-item {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.detail-label {
+    font-weight: 700;
+    color: #555;
+    margin-right: 8px;
+    min-width: 55px;
+}
+
+.info-value {
+    font-weight: 500;
+    color: #333;
+}
+
+/* 바이오 정보 (프로필 정보 아래로 이동) */
+.user-bio-alt {
+    font-size: 14px;
+    color: #666;
+    margin: 20px 0 20px 0;
+    padding: 0 10px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+/* --- 회원 관리 메뉴 (버튼 영역) --- */
+.admin-menu-section {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 20px;
+}
+
+.admin-menu-section h4 {
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.action-form {
+    margin-bottom: 15px;
+}
+
+/* 버튼 공통 스타일 */
+.menu-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+/* 4.1. 회원 정보 수정 버튼 (새로운 초록색: #f1f8e9) */
+.btn-edit-green {
+    background-color: #f1f8e9; /* 연한 초록색 배경 */
+    color: #333; 
+    border-color: #d8e5d3;
+}
+
+.btn-edit-green:hover {
+    background-color: #e0e9d9;
+}
+
+/* 4.2. 강제 탈퇴 처리 버튼 (연한 빨강 유지) */
+.btn-delete-alt {
+    background-color: #fbe6e6;
+    color: #333;
+    border-color: #f7c4c4;
+}
+
+.btn-delete-alt:hover {
+    background-color: #f7d1d1;
+}
+
+/* --- 오른쪽 콘텐츠 --- */
+.detail-content {
+    flex-grow: 1;
+}
+
+/* 카드 디자인 */
+.activity-stats, .garden-list-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.activity-stats h4, .garden-list-card h4 {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    text-align: center;
+}
+
+.stat-item {
+    border: 1px solid #f0f0f0;
+    padding: 15px 5px;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #777;
+}
+
+.garden-details-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: 14px;
+    color: #666;
+    margin-top: 12px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.crop-count-tag {
+	width: 10%;
+    background-color: #f1f8e9;
+    color: #333;
+    padding: 7px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
