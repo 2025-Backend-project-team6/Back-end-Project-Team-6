@@ -21,6 +21,7 @@ public class UserDAO {
 	private final String USER_GET = "SELECT u.*, g.location FROM users u " + "LEFT JOIN garden g ON u.userid = g.userid " + "WHERE u.userid = ? LIMIT 1";
 	private final String USER_UPDATE = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?;";
 	private final String GARDEN_UPDATE_LOCATION = "UPDATE garden SET location = ? WHERE userid = ?";
+	private final String USER_UPDATE_LEVEL = "UPDATE users SET level = ? WHERE userid = ?";
 
 	// 관리자 페이지 조회, 수정, 삭제
 	final String USER_SELECT_ONE = "SELECT userid, username, email, level, role, user_status, created_at FROM users WHERE userid = ?";
@@ -140,8 +141,7 @@ public class UserDAO {
             conn = JdbcConnectUtil.getConnection();
             
             // users 테이블 수정
-            String userUpdateSql = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?";
-            pstmt = conn.prepareStatement(userUpdateSql);
+            pstmt = conn.prepareStatement(USER_UPDATE);
             pstmt.setString(1, user.getPassword());
             pstmt.setString(2, user.getUsername());
             pstmt.setString(3, user.getEmail());
@@ -164,6 +164,21 @@ public class UserDAO {
             JdbcConnectUtil.close(conn, pstmt);
         }
         return result;
+    }
+	
+	/* 레벨 업(등급 수정) */
+    public void updateLevel(String userid, int newLevel) {
+        try {
+            conn = JdbcConnectUtil.getConnection();
+            pstmt = conn.prepareStatement(USER_UPDATE_LEVEL);
+            pstmt.setInt(1, newLevel);
+            pstmt.setString(2, userid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcConnectUtil.close(conn, pstmt);
+        }
     }
     
     /* 관리자: 회원 1명 조회 */

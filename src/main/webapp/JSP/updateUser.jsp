@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>GardenLog - 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/mypage.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/updateUser.css">
 </head>
 <body>
     <jsp:include page="./header.jsp" />

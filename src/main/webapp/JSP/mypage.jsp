@@ -24,15 +24,28 @@
                     <c:when test="${loginUser.level == 1}">
                          <span class="user-level">Lv.1 새싹 농부</span>
                     </c:when>
+                    <c:when test="${loginUser.level == 2}">
+                         <span class="user-level">Lv.2 초보 농부</span>
+                    </c:when>
                     <c:otherwise>
-                         <span class="user-level">Lv.${loginUser.level} 농부</span>
+                         <span class="user-level">Lv.${loginUser.level} 숙련 농부</span>
                     </c:otherwise>
                 </c:choose>
                 
                 <div class="level-progress-container">
-                    <div class="level-progress-bar" style="width: 60%;"></div>
+                    <div class="level-progress-bar" style="width: ${progressPercent}%;"></div>
                 </div>
-                <p class="level-info-text">다음 레벨까지 일지 3개 남음</p>
+                
+                <p class="level-info-text">
+                    <c:choose>
+                        <c:when test="${loginUser.level >= 3}">
+                            최고 레벨입니다! 🎉
+                        </c:when>
+                        <c:otherwise>
+                            다음 레벨까지 일지 <strong>${remainingLogs}개</strong> 남음
+                        </c:otherwise>
+                    </c:choose>
+                </p>
 
                 <div class="stat-grid">
                     <div class="stat-item">

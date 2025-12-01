@@ -33,8 +33,12 @@ public class MyPageController extends HttpServlet {
 
         UserDAO udao = new UserDAO();
         UserDTO freshUser = udao.getUser(loginUser.getUserid());
-        if(freshUser != null) session.setAttribute("loginUser", freshUser);
-        else freshUser = loginUser;
+        
+        if(freshUser != null) {
+            session.setAttribute("loginUser", freshUser);
+        } else {
+            freshUser = loginUser;
+        }
         
         String userid = freshUser.getUserid();
 
@@ -58,6 +62,7 @@ public class MyPageController extends HttpServlet {
                     year++;
                 }
             } catch (NumberFormatException e) {
+
             }
         }
         
@@ -72,11 +77,45 @@ public class MyPageController extends HttpServlet {
         List<Integer> visitDays = vdao.getVisitDays(userid, year, month);
         int totalVisitCount = vdao.getTotalVisitCount(userid);
         
+        // 작물 (임시 0)
+        int cropCount = 0; 
+        
         JournalDAO jdao = new JournalDAO();
         int journalCount = jdao.getJournalCount(userid);
         
-        int cropCount = 0; 
+        int currentLevel = freshUser.getLevel();
+        int calculatedLevel = 1;
+        int nextLevelTarget = 5;
+        
+        // 0~4개(Lv1), 5~9개(Lv2), 10개~(Lv3)
+        if (journalCount >= 10) {
+            calculatedLevel = 3;
+            nextLevelTarget = 10;
+        } else if (journalCount >= 5) {
+            calculatedLevel = 2;
+            nextLevelTarget = 10;
+        } else {
+            calculatedLevel = 1;
+            nextLevelTarget = 5;
+        }
 
+        if (calculatedLevel > currentLevel) {
+            udao.updateLevel(userid, calculatedLevel);
+            freshUser.setLevel(calculatedLevel);
+            session.setAttribute("loginUser", freshUser);
+        }
+
+        int remainingLogs = nextLevelTarget - journalCount;
+        if (remainingLogs < 0) remainingLogs = 0;
+
+        int progressPercent = 0;
+        if (calculatedLevel < 3) {
+             progressPercent = (int)((double)journalCount / nextLevelTarget * 100);
+        } else {
+             progressPercent = 100;
+        }
+
+        // (달력 정보)
         request.setAttribute("currentYear", year);
         request.setAttribute("currentMonth", month);
         request.setAttribute("startDayOfWeek", startDayOfWeek);
@@ -84,11 +123,16 @@ public class MyPageController extends HttpServlet {
         request.setAttribute("visitDays", visitDays);
         request.setAttribute("visitCount", visitDays.size());
         
+        // (통계 정보)
         request.setAttribute("cropCount", cropCount);
         request.setAttribute("totalVisitCount", totalVisitCount);
         request.setAttribute("journalCount", journalCount);
         
-        // 빈 작물 리스트 (에러 방지)
+        // (레벨 정보)
+        request.setAttribute("remainingLogs", remainingLogs);
+        request.setAttribute("progressPercent", progressPercent);
+        
+        // (작물 리스트 - 빈 리스트)
         request.setAttribute("myCropList", new ArrayList<>()); 
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/mypage.jsp");
