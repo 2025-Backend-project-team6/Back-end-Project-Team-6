@@ -5,6 +5,7 @@
 /bin/
 # IDE settings (Eclipse)
 .settings/
+.classpath
 
 # Tomcat server config (Do not share!)
 .metadata
