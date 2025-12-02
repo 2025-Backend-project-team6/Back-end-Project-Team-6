@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>GardenLog - 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/mypage.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/updateUser.css">
 </head>
 <body>
     <jsp:include page="./header.jsp" />
@@ -48,6 +49,12 @@
                         <input type="email" name="email" class="form-input" 
                                value="${sessionScope.loginUser.email}" required>
                     </div>
+                    
+                    <div class="form-group">
+        				<label class="form-label">텃밭 주소</label>
+        				<input type="text" name="location" class="form-input" 
+               				value="${sessionScope.loginUser.location}" placeholder="예: 서울특별시 구로구">
+    				</div>
 
                     <div class="form-group">
                         <label class="form-label">새 비밀번호</label>
@@ -68,5 +75,7 @@
             </div>
         </div>
     </div>
+    
+    <jsp:include page="./footer.jsp" />
 </body>
 </html>

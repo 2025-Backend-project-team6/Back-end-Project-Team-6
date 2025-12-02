@@ -36,11 +36,20 @@ public class UserLoginController extends HttpServlet {
 		
 		if(user != null) {
 			// 2. 로그인 성공
+			if ("SUSPENDED".equals(user.getUser_status())) {
+				request.setAttribute("suspendMessage", "정지된 계정입니다. 관리자에게 문의하세요.");
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/JSP/userSuspended.jsp");
+				rd.forward(request, response);
+			} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
+			
+		    com.gardenlog.servlet.dao.VisitDAO vdao = new com.gardenlog.servlet.dao.VisitDAO();
+		    vdao.addVisit(user.getUserid());
 
 			response.sendRedirect(request.getContextPath() + "/JSP/index.jsp");
-			
+			}
 		} else {
 			request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다."); 
 			
