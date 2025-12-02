@@ -13,7 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import com.gardenlog.servlet.dao.JournalDAO;
 import com.gardenlog.servlet.dao.UserDAO;
+import com.gardenlog.servlet.dao.VisitDAO;
 import com.gardenlog.servlet.dto.UserDTO;
 
 @WebServlet("/mypage.do")
