@@ -47,7 +47,7 @@ public class CropInfoBatchMain {
             String json = JsonBuilder.build(all);
 
             // 5. DB 저장
-            new CropInfoDAO().saveJson(file.getTitle(), json);
+            new CropInfoDAO().saveJson(file.getCrop_code(), file.getTitle(), json);
 
             System.out.println(file.getCrop_code() + " 저장 완료");
         }
