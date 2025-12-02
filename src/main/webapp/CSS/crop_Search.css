@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/* 전체 레이아웃 및 폰트 설정 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7; /* 배경색 */
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/*  페이지 헤더 (작물 백과사전) */
+.page-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #38761d;
+}
+
+/* 검색 및 필터 영역 */
+.search-filter-area {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.search-input-group {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.search-icon {
+    margin-right: 10px;
+    color: #999;
+}
+
+.search-input {
+    border: none;
+    flex-grow: 1;
+    max-width: 200px;
+    outline: none;
+    font-size: 16px;
+}
+
+.filter-select {
+	-webkit-appearance: none; /* 크롬, 사파리 */
+    -moz-appearance: none;    /* 파이어폭스 */
+    appearance: none;         /* 표준 */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+	background-repeat: no-repeat;
+    background-position: right 15px center;
+	background-size: 16px;
+	
+	flex-grow: 1;
+	max-width: 350px;
+    padding: 10px 30px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* 4. 작물 목록 (그리드 레이아웃) */
+.crop-list {
+    display: grid;
+    /* 4개의 열을 균등하게 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+}
+
+.crop-card {
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.crop-image-container {
+    width: 100%;
+    height: 100px;
+    background-color: #f0f0f0; /* 이미지를 대신할 공간 */
+    margin-bottom: 15px;
+    border-radius: 4px;
+    /* 실제 이미지 배치 시 여기에 스타일 추가 */
+}
+
+.crop-card h3 {
+    margin: 5px 0 10px;
+    font-size: 18px;
+}
+
+.tags {
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 8px;
+    margin: 0 3px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tag-season {
+    background-color: #fff0f0; /* 빨래 태그 색상 (추측) */
+    color: #cc5555;
+}
+
+.tag-level {
+    background-color: #ffe0b2; /* 중급 태그 색상 (추측) */
+    color: #ff9800;
+}
+
+.tag-beginner {
+    background-color: #e8f5e9; /* 초급 태그 색상 (추측) */
+    color: #4caf50;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.info-list li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.info-list .icon {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #38761d;
+}
+
+.detail-btn {
+    width: 100%;
+    background-color: #4a90e2; /* 버튼 색상 (이미지와 다르게 추측) */
+    background-color: #38761d; /* 이미지 색상에 맞춰 수정 */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+}
