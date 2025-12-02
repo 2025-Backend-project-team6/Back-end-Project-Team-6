@@ -12,7 +12,7 @@
         	<a href="${pageContext.request.contextPath}/gardenmanage.do">텃밭 관리</a>
         	<a href="#">작물 관리</a>
         	<a href="#">작물 검색</a>
-        	<a href="#">농사 일지</a>
+        	<a href="${pageContext.request.contextPath}/journal.do">농사 일지</a>
         	<a href="#">커뮤니티</a>
         	<a href="${pageContext.request.contextPath}/mypage.do">마이페이지</a>
     	</nav>
