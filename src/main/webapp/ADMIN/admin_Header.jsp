@@ -6,18 +6,22 @@
 <header class="admin-header">
     <div class="container">
         <div class="header-content">
-            <div class="header-left">
-                <div class="logo-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1>GardenLog Admin</h1>
-                    <p class="header-subtitle">관리자 대시보드</p>
-                </div>
+        <a href="${pageContext.request.contextPath}/ADMIN/admin_Main.jsp" 
+           class="header-left" 
+           style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 1rem;">
+            
+            <div class="logo-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
             </div>
-            <form action="${pageContext.request.contextPath}/JSP/landing.jsp" method="post" style="margin: 0;">
+            
+            <div>
+                <h1>GardenLog Admin</h1>
+                <p class="header-subtitle">관리자 대시보드</p>
+            </div>
+            
+        </a> <form action="${pageContext.request.contextPath}/JSP/landing.jsp" method="post" style="margin: 0;">
                 <button type="submit" class="logout-btn">로그아웃</button>
             </form>
         </div>

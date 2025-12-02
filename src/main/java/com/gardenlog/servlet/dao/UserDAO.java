@@ -29,7 +29,6 @@ public class UserDAO {
 	final String USER_DELETE = "DELETE FROM users WHERE userid = ?";
 	final String ADMIN_USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
 	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
-
 	
     /* 로그인 */
 	public UserDTO login(String userid, String password) { 
@@ -131,6 +130,7 @@ public class UserDAO {
 		} finally {
 			JdbcConnectUtil.close(conn, pstmt, rs);
 		}
+		
 		return false;
 	}
 
@@ -299,4 +299,5 @@ public class UserDAO {
 	    }
 	    return result;
 	}
+
 }
