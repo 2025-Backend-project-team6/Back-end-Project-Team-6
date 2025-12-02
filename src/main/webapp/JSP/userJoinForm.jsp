@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +18,7 @@
     </div>
     <div class="signup-sub">GardenLog와 함께 농사를 시작하세요</div>
 
-    <form action="${pageContext.request.contextPath}/checkId.do" method="get">
+    <form action="${pageContext.request.contextPath}/join.do" method="get">
         <label>아이디</label>
             <input type="text" name="userid"
                    value="${userid}"
@@ -61,6 +60,10 @@
             </label>
         </div>
 
+		<c:if test="${not empty idCheckNullMessage}">
+			<span class="check-msg">${idCheckNullMessage}</span>
+		</c:if>
+
         <c:if test="${not empty joinCheckMessage}">
             <span class="check-msg">${joinCheckMessage}</span>
         </c:if>
@@ -73,6 +76,5 @@
         <a href="${pageContext.request.contextPath}/JSP/userLoginForm.jsp">로그인</a>
     </div>
 </div>
-
 </body>
 </html>

@@ -44,6 +44,9 @@ public class UserLoginController extends HttpServlet {
 			} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
+			
+		    com.gardenlog.servlet.dao.VisitDAO vdao = new com.gardenlog.servlet.dao.VisitDAO();
+		    vdao.addVisit(user.getUserid());
 
 			response.sendRedirect(request.getContextPath() + "/JSP/index.jsp");
 			}

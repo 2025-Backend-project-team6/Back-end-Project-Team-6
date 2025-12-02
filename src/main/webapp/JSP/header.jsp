@@ -19,4 +19,3 @@
     	<button class="logout-btn" onclick="location.href='landing.jsp'">로그아웃</button>
     </div>
 </header>
-

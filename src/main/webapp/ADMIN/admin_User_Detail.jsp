@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 유저 정보가 없으면 목록으로 튕겨내기 -->
 <c:if test="${empty userDetail}">
     <c:redirect url="${pageContext.request.contextPath}/admin/admin_User_List.jsp" />
 </c:if>
 
-<!-- 상태에 따른 텍스트/색상 변수 설정 (c:set 사용) -->
 <c:set var="isActive" value="${userDetail.user_status == 'ACTIVE'}" />
-<c:set var="statusText" value="${isActive ? '✔️ 활성 계정' : '🚫 정지 계정'}" />
-<c:set var="statusColor" value="${isActive ? '#e8f5e9; color:#388E3C;' : '#ffebee; color:#c62828;'}" />
+<c:set var="statusText" value="${isActive ? '활성 계정' : '정지 계정'}" />
+<c:set var="statusColor" value="${isActive ? '#388E3C' : '#c62828'}" />
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>회원 상세 정보</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/admin_User_Detail.css">
 </head>
 <body>
@@ -24,90 +23,83 @@
         
         <aside class="detail-sidebar">
             <div class="profile-header">
-                <a href="${pageContext.request.contextPath}/admin/user.do" style="text-decoration: none;">
-                    <p style="text-align: left; font-size: 12px; color: #666;">⬅️ 목록으로 돌아가기</p>
+                <a href="${pageContext.request.contextPath}/admin/user.do" class="back-to-list-btn-alt" title="목록으로 돌아가기">
+                    <span class="back-arrow-alt"><</span> 목록으로 돌아가기
                 </a>
-                <h4 style="margin: 0;">회원 상세 정보</h4>
-                <p style="font-size: 12px; color: #999;">사용자 ID: ${userDetail.userid}</p>
+                
+                <h4 class="detail-title-text">회원 상세 정보</h4>
+                <p class="user-id-text">사용자 ID: ${userDetail.userid}</p>
             </div>
             
             <div class="profile-main">
-                <div class="profile-icon">👤</div>
                 
-                <div class="profile-name-text">
-                    ${userDetail.username}
-                </div>
-                
-                <div class="profile-level">
-                    Level <span style="color: #27ae60; font-weight: bold;">${userDetail.level}</span>
-                </div>
-                
-                <div style="margin-top: 10px;">
-                    <span class="badge ${statusBadgeClass}">
-                        ${statusText}
-                    </span>
+                <div class="profile-layout-grid-new">
+                    
+                    <div class="profile-left-col">
+                        <div class="profile-icon">👤</div>
+                        
+                        <div class="profile-name-text">
+                            ${userDetail.username}
+                        </div>
+                        
+                        <div class="profile-level">
+                            Level <span style="color: #27ae60; font-weight: bold;">${userDetail.level}</span>
+                        </div>
+                        
+                        <div class="status">
+                            <span class="badge ${isActive ? 'status-active' : 'status-suspended'}">
+                                ${statusText}
+                            </span>
+                        </div>
+                    </div>
+
+                    <ul class="user-info-detail-list-new">
+                        <li class="info-item">
+                            📧 <span class="detail-label">이메일:</span>
+                            <span class="info-value">${userDetail.email}</span>
+                        </li>
+                        
+                        <li class="info-item">
+                            🔑 <span class="detail-label">권한:</span>
+                            <span class="info-value">
+                                <c:choose>
+                                    <c:when test="${userDetail.role == 'ADMIN'}">
+                                        <span style="color:red; font-weight:bold;">관리자</span>
+                                    </c:when>
+                                    <c:otherwise>일반회원</c:otherwise>
+                                </c:choose>
+                            </span>
+                        </li>
+                        
+                        <li class="info-item">📍 <span class="detail-label">주소:</span><span>서울 구로구</span></li>
+                        <li class="info-item">📅 <span class="detail-label">가입일:</span><span>2024.03.15</span></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="user-bio">
+            <div class="user-bio-alt">
                 도시 텃밭에서 토마토와 상추를 키우고 있습니다.<br>
                 초보 농부의 일상을 기록합니다.
             </div>
-
-            <ul class="user-info-list">
-                <li class="info-item">
-                    📧 <span class="detail-label">이메일:</span>
-                    <span class="info-value">${userDetail.email}</span>
-                </li>
-                
-                
-                <li class="info-item">
-                    🔑 <span class="detail-label">권한:</span>
-                    <span class="info-value">
-                        <c:choose>
-                            <c:when test="${userDetail.role == 'ADMIN'}">
-                                <span style="color:red; font-weight:bold;">관리자</span>
-                            </c:when>
-                            <c:otherwise>일반회원</c:otherwise>
-                        </c:choose>
-                    </span>
-                </li>
-                
-                <li class="info-item">📍 <span class="detail-label">주소:</span><span>서울 구로구</span></li>
-                <li class="info-item">📅 <span class="detail-label">가입일:</span><span>2024.03.15</span></li>
-            </ul>
 
             <div class="admin-menu-section">
                 <h4>회원 관리</h4>
                 
                 <div class="action-form">
                     <a href="${pageContext.request.contextPath}/admin/user.do?command=edit&userId=${userDetail.userid}" 
-                       class="menu-item-btn btn-success" 
-                       style="text-decoration: none; display: inline-block; text-align: center; line-height: 35px; width: 100%; box-sizing: border-box;">
-                       ✏️ 회원 정보 수정 페이지로 이동
+                       class="menu-item-btn btn-edit-green" 
+                       style="text-decoration: none;">
+                       <span style="margin-right: 5px;">✏️</span> 회원 정보 수정 페이지로 이동
                     </a>
                 </div>
-
-                <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
-                    <input type="hidden" name="command" value="suspend">
-                    <input type="hidden" name="userId" value="${userDetail.userid}">
                     
-                    <c:choose>
-                        <c:when test="${userDetail.user_status == 'ACTIVE'}">
-                            <input type="hidden" name="status" value="SUSPENDED">
-                            <button type="submit" class="menu-item-btn btn-danger">🚫 계정 정지 시키기</button>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="hidden" name="status" value="ACTIVE">
-                            <button type="submit" class="menu-item-btn btn-success">✅ 정지 해제 하기</button>
-                        </c:otherwise>
-                    </c:choose>
-                </form>
 
                 <form action="${pageContext.request.contextPath}/admin/user.do" method="post" class="action-form">
                     <input type="hidden" name="command" value="delete">
                     <input type="hidden" name="userId" value="${userDetail.userid}">
-                    <button type="submit" class="menu-item-btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?');">🗑️ 강제 탈퇴 처리</button>
+                    <button type="submit" class="menu-item-btn btn-delete-alt" onclick="return confirm('정말로 탈퇴시키시겠습니까?');">
+                        <span style="margin-right: 5px;">🗑️</span> 강제 탈퇴 처리
+                    </button>
                 </form>
 
             </div> 
@@ -130,7 +122,7 @@
                 <div class="garden-item">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="garden-name">우리집 베란다 텃밭</div>
-                        <span class="crop-count-tag" style="background-color: #c8e6c9; color: #33691e;">4개 작물</span>
+                        <span class="crop-count-tag">4개 작물</span>
                     </div>
                     <div class="garden-details-grid">
                         <div class="detail-item"><span class="detail-label">위치:</span>서울특별시 구로구</div>

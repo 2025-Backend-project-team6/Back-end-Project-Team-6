@@ -2,11 +2,7 @@
 *.class
 /build/
 /target/
-<<<<<<< HEAD
-
-=======
 /bin/
->>>>>>> main
 # IDE settings (Eclipse)
 .settings/
 
@@ -15,10 +11,6 @@
 *.server
 
 # Packaged files
-<<<<<<< HEAD
-*.jar
-=======
->>>>>>> main
 *.war
 *.ear
 
@@ -26,8 +18,4 @@
 *.log
 
 # Temp files
-<<<<<<< HEAD
-*.tmp
-=======
 *.tmp"bin/" 
->>>>>>> main
