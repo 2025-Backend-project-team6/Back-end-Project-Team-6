@@ -1,11 +1,9 @@
 @charset "UTF-8";
-/* =======================================
- * CSS for farmMapView.jsp (세련된 디자인 적용)
- * ======================================= */
 
-/* 기본 설정: 모든 요소에 Noto Sans KR 폰트 적용 및 여백 초기화 */
+/* [farmMapView.css] 지도 화면 꾸미기 */
+
+/* 1. 폰트 & 기본 설정 */
 * {
-    /* 🚨 추가: Noto Sans KR 폰트 적용 */
     font-family: 'Noto Sans KR', sans-serif;
     box-sizing: border-box;
     margin: 0;
@@ -13,79 +11,79 @@
 }
 
 body {
-    /* 🚨 추가: 배경색과 중앙 정렬 */
-    background-color: #f8f9fa; /* 배경색을 밝은 회색으로 설정 */
+    background-color: #f8f9fa;
     display: flex;
-    justify-content: center; /* 내용을 수평 중앙 정렬 */
+    justify-content: center;
     padding: 30px 0;
-    min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+    min-height: 100vh;
 }
 
-/* 🚨 추가: 전체 레이아웃 컨테이너 스타일 */
+/* 2. 전체 박스 디자인 */
 .map-container-wrap {
-    width: 90%; /* 너비 조정 */
-    max-width: 1200px; /* 최대 너비 설정 */
-    background-color: #ffffff; /* 컨테이너 배경색 흰색 */
+    width: 90%;
+    max-width: 1200px;
+    background-color: #ffffff;
     padding: 30px;
-    border-radius: 12px; /* 둥근 모서리 */
-    /* 🚨 강조: 세련된 그림자 효과 */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
 }
 
-/* 페이지 제목 스타일 (h2 -> .page-title) */
+/* 3. 제목 디자인 */
 .page-title {
-    /* 🚨 수정: 클래스 선택자로 변경 및 스타일 강화 */
     font-size: 28px;
     font-weight: 700;
-    color: #343a40; /* 진한 회색 텍스트 */
+    color: #343a40;
     margin-bottom: 25px;
     padding-bottom: 10px;
-    /* 🚨 수정: 농장 테마에 맞게 초록색 계열로 변경 */
-    border-bottom: 3px solid #38761d; 
+    border-bottom: 3px solid #38761d;
     display: flex;
     align-items: center;
 }
 
-/* 🚨 추가: 아이콘 스타일 */
 .page-title .icon {
     font-size: 30px;
     margin-right: 10px;
-    color: #38761d; 
+    color: #38761d;
 }
 
-
-/* 지도가 표시될 영역 스타일 (#map -> #map.map-view) */
+/* 4. 지도 영역 (div#map) */
 #map.map-view {
-    /* 🚨 수정: 클래스 선택자 추가 및 기존 스타일 통합 */
     width: 100%;
-    height: 600px; 
-    border-radius: 8px; /* 둥근 모서리 */
-    /* 🚨 수정: 옅은 테두리로 변경 */
-    border: 1px solid #dee2e6; 
-    /* 기존 그림자는 .map-container-wrap으로 이동 */
+    height: 600px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
 }
 
-/* 마커 클릭 시 나타나는 정보창(InfoWindow) 스타일 */
+/* 5. 로딩 화면 디자인 */
+#loading {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    text-align: center;
+    padding-top: 250px;
+    font-weight: bold;
+    font-size: 22px;
+    color: #38761d;
+}
+
+/* 6. 지도 위 말풍선(정보창) 디자인 */
 .iw_content {
-    padding: 10px 15px; /* 패딩 조정 */
+    padding: 12px 15px;
     font-size: 14px;
-    line-height: 1.5;
-    max-width: 250px; /* 너비 약간 확대 */
-    /* 🚨 추가: 정보창 내부 배경/글꼴 설정 */
-    background-color: #ffffff;
-    color: #343a40;
+    line-height: 1.6;
+    min-width: 200px;
 }
-
 .iw_content b {
     display: block;
     margin-bottom: 5px;
     font-size: 16px;
-    font-weight: 700;
-    color: #007bff; /* 농장 이름 강조 (파란색 유지) */
+    color: #007bff;
 }
-
 .iw_content p {
+    color: #555;
     margin: 0;
-    font-size: 13px;
-    color: #6c757d; /* 주소는 약간 옅은 색 */
 }
