@@ -25,6 +25,7 @@ public class MyCropDAO {
 	private final String CROP_SEARCHCROP = JOIN + "WHERE mc.userid=? and mc.nickname like ?;";
 	private final String CROP_ALLCROP = JOIN + "WHERE mc.userid=?;";
 	private final String CROP_CATEGORY = JOIN + "WHERE mc.userid=? and c.crop_nm=?;";
+	private final String ADDCROP_GARDEN = "select distinct(gardenname) from my_crop where userid=?;";
 	
 	
 	public List<MyCropDTO> searchMyCrop(String userid, String keyword){
@@ -78,7 +79,7 @@ public class MyCropDAO {
 	}
 	
 	public List<MyCropDTO> findByCategory(String userid, String category){
-		List<MyCropDTO> list = new ArrayList();		
+		List<MyCropDTO> list = new ArrayList<>();		
 		
 		try {
 			conn = JdbcConnectUtil.getConnection();
@@ -102,6 +103,28 @@ public class MyCropDAO {
 		return list;
 	}
 	
+	public List<MyCropDTO> userGarden(String userid){
+		List<MyCropDTO> list = new ArrayList<>();
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(ADDCROP_GARDEN);
+			
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt, rs);
+		}
+		
+		return list;
+	}
 	
 	private MyCropDTO resultSetTOCrop(ResultSet rs) throws SQLException {
 		MyCropDTO mcdto = new MyCropDTO();

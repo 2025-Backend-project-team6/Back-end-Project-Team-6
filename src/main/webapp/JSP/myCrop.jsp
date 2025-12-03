@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>🌱GardenLog - 텃밭 관리</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/myCrop.css">
 </head>
 <body>
 	<%@ include file="/JSP/header.jsp"%>
@@ -27,8 +28,6 @@
 			<button name="category" value="${category.crop_nm}">${category.crop_nm}</button>
 		</c:forEach>
 	</form>
-	
-
 	
 	<c:if test="${not empty searchNullMessage}">
 		<p>${searchNullMessage}</p>
@@ -62,8 +61,8 @@
 		</c:forEach>
 	</c:if>
 	
-	<c:if test="${not empty allMyCropList}">
-		<c:forEach var="crop" items="${allMyCropList}">
+	<c:if test="${not empty sessionScope.allMyCropList}">
+		<c:forEach var="crop" items="${sessionScope.allMyCropList}">
 			<h3>${crop.nickname}</h3>
 			<p>${crop.category}</p>
 			<p>텃밭: ${crop.gardenname}</p>
