@@ -27,12 +27,20 @@ public class MyCropController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		if(loginUser==null) {
+			response.sendRedirect(request.getContextPath() + "/JSP/userLoginForm.jsp");
+			return ;
+		}
+		
 		String userid = loginUser.getUserid();
 		String action = request.getParameter("action");
 		String category = request.getParameter("category");
 		
 		CropDAO cdao = new CropDAO();
 		MyCropDAO mcdao = new MyCropDAO();
+		
+
 		
 		if("addCropBtn".equals(action)) {
 			response.sendRedirect(request.getContextPath() + "/JSP/addCrop.jsp");
