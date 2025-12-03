@@ -21,8 +21,6 @@
     	</nav>
     	<button class="logout-btn" onclick="location.href='landing.jsp'">로그아웃</button>
     </div>
-</header>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const findFarmLink = document.getElementById('findFarmLink');
@@ -73,4 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-</script>
+	</script>
+
+</header>
+
