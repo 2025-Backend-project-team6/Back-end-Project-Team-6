@@ -29,6 +29,7 @@ public class MyCropController extends HttpServlet {
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
 		String userid = loginUser.getUserid();
 		String action = request.getParameter("action");
+		String category = request.getParameter("category");
 		
 		CropDAO cdao = new CropDAO();
 		MyCropDAO mcdao = new MyCropDAO();
@@ -56,10 +57,20 @@ public class MyCropController extends HttpServlet {
 		}
 		
 		List<CropDTO> cropCategoryList = cdao.getAllCrops();
-		request.setAttribute("cropCategoryList", cropCategoryList);
+		session.setAttribute("cropCategoryList", cropCategoryList);
 		
-		List<MyCropDTO> allMyCropList = mcdao.allMyCrop(userid);
-		request.setAttribute("allMyCropList", allMyCropList);
+		if("allCrop".equals(category)) {
+			category = null;
+		}
+		
+		if(category!=null) {
+			List<MyCropDTO> findByCategoryList = mcdao.findByCategory(userid, category);
+			request.setAttribute("findByCategoryList", findByCategoryList);
+			
+		} else {
+			List<MyCropDTO> allMyCropList = mcdao.allMyCrop(userid);
+			request.setAttribute("allMyCropList", allMyCropList);
+		}
 		
 		dispatcher = request.getRequestDispatcher("/JSP/myCrop.jsp");
 		dispatcher.forward(request, response);	
