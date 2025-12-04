@@ -1,10 +1,17 @@
 package com.gardenlog.servlet.dto;
 
 public class CropDataDTO {
+	private int cropid;
 	private String crop_code;
 	private String crop_title;
 	private String info_json;
 	
+	public int getCropid() {
+		return cropid;
+	}
+	public void setCropid(int cropid) {
+		this.cropid = cropid;
+	}
 	public String getCrop_code() {
 		return crop_code;
 	}

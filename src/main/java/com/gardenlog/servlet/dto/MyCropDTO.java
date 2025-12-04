@@ -1,5 +1,6 @@
 package com.gardenlog.servlet.dto;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -10,9 +11,9 @@ public class MyCropDTO {
 	private String category;
 	private int cropid;
 	private String nickname;
-	private LocalDate planted_date;
+	private Date planted_date;
 	private int water_count;
-	private LocalDateTime last_watered_at;
+	private Date last_watered_at;
 	private String status;
 	
 	public String getUserid() {
@@ -51,10 +52,10 @@ public class MyCropDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public LocalDate getPlanted_date() {
+	public Date getPlanted_date() {
 		return planted_date;
 	}
-	public void setPlanted_date(LocalDate planted_date) {
+	public void setPlanted_date(Date planted_date) {
 		this.planted_date = planted_date;
 	}
 	public int getWater_count() {
@@ -63,10 +64,10 @@ public class MyCropDTO {
 	public void setWater_count(int water_count) {
 		this.water_count = water_count;
 	}
-	public LocalDateTime getLast_watered_at() {
+	public Date getLast_watered_at() {
 		return last_watered_at;
 	}
-	public void setLast_watered_at(LocalDateTime last_watered_at) {
+	public void setLast_watered_at(Date last_watered_at) {
 		this.last_watered_at = last_watered_at;
 	}
 	public String getStatus() {
@@ -74,6 +75,6 @@ public class MyCropDTO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
+	}	
 	
 }

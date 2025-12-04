@@ -25,8 +25,7 @@ public class MyCropDAO {
 	private final String CROP_SEARCHCROP = JOIN + "WHERE mc.userid=? and mc.nickname like ?;";
 	private final String CROP_ALLCROP = JOIN + "WHERE mc.userid=?;";
 	private final String CROP_CATEGORY = JOIN + "WHERE mc.userid=? and c.crop_nm=?;";
-	private final String ADDCROP_GARDEN = "select distinct(gardenname) from my_crop where userid=?;";
-	
+	private final String ADDCROP_INSERTCROP = "insert into my_crop(userid, gardenid, cropid, nickname, planted_date) values(?, ?, ?, ?, ?);";
 	
 	public List<MyCropDTO> searchMyCrop(String userid, String keyword){
 		List<MyCropDTO> list = new ArrayList<>();
@@ -103,27 +102,28 @@ public class MyCropDAO {
 		return list;
 	}
 	
-	public List<MyCropDTO> userGarden(String userid){
-		List<MyCropDTO> list = new ArrayList<>();
+	public int addCrop(MyCropDTO mcdto) {
+		int result = 0;
 		
 		try {
 			conn = JdbcConnectUtil.getConnection();
-			pstmt = conn.prepareStatement(ADDCROP_GARDEN);
+			pstmt = conn.prepareStatement(ADDCROP_INSERTCROP);
 			
-			pstmt.setString(1, userid);
-			rs = pstmt.executeQuery();
+			pstmt.setString(1, mcdto.getUserid());
+			pstmt.setInt(2, mcdto.getGardenid());
+			pstmt.setInt(3, mcdto.getCropid());
+			pstmt.setString(4, mcdto.getNickname());
+			pstmt.setDate(5, mcdto.getPlanted_date());
 			
-			while(rs.next()) {
-				
-			}
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcConnectUtil.close(conn, pstmt, rs);
+			JdbcConnectUtil.close(conn, pstmt);
 		}
 		
-		return list;
+		return result;
 	}
 	
 	private MyCropDTO resultSetTOCrop(ResultSet rs) throws SQLException {
@@ -135,12 +135,10 @@ public class MyCropDAO {
 		mcdto.setCategory(rs.getString("category"));
 		mcdto.setCropid(rs.getInt("cropid"));
 		mcdto.setNickname(rs.getString("nickname"));
-		mcdto.setPlanted_date(rs.getDate("planted_date").toLocalDate());
+		mcdto.setPlanted_date(rs.getDate("planted_date"));
 		mcdto.setWater_count(rs.getInt("water_count"));
 		mcdto.setStatus(rs.getString("status"));
-		
-		java.sql.Timestamp lastWater = rs.getTimestamp("last_watered_at");
-		mcdto.setLast_watered_at(lastWater!=null ? lastWater.toLocalDateTime() : null);
+		mcdto.setLast_watered_at(rs.getDate("last_watered_at"));
 		
 		return mcdto;
 	}
