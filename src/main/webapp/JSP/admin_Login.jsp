@@ -23,7 +23,7 @@
 
             <form action="${pageContext.request.contextPath}/adminlogin.do" method="post">
                 <div class="form-group">
-                    <label for="adminId">관리자 아이디</label>
+                    <label for="adminEmail">관리자 이메일</label>
                     <input type="text" id="adminId" name="adminid" placeholder="아이디를 입력하세요" required>
                 </div>
 

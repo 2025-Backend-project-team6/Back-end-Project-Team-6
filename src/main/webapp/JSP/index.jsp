@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +18,19 @@
 
             <div class="card profile-card">
                 <img src="${pageContext.request.contextPath}/images/farmer.png" alt="프로필 사진">
-                <div class="username">이세연 님</div>
-                <span class="user-level">Level 새싹 농부</span>
-            </div>
+                <div class="username">${loginUser.username} 님</div>
+                <c:choose>
+                    <c:when test="${loginUser.level == 1}">
+                         <span class="user-level">Lv.1 새싹 농부</span>
+                    </c:when>
+                    <c:when test="${loginUser.level == 2}">
+                         <span class="user-level">Lv.2 초보 농부</span>
+                    </c:when>
+                    <c:otherwise>
+                         <span class="user-level">Lv.${loginUser.level} 숙련 농부</span>
+                    </c:otherwise>
+                </c:choose>
+                </div>
 
             <div class="card weather-card">
                 <h4>날씨 정보 ☀️</h4>

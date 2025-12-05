@@ -95,24 +95,16 @@ public class AdminUserController extends HttpServlet {
 		        }
 		        
 		        result = dao.updateUserAdmin(updatedDto);
-		        
-		       
 
-		    } else if ("suspend".equals(command)) {
-		        // --- [정지 로직] ---
-		        System.out.println("=== 🚫 회원 정지/해제 ===");
-		        String status = request.getParameter("status");
-		        result = dao.updateUserStatus(userId, status);
-
-		    } else if ("delete".equals(command)) {
-		        // --- [삭제 로직] ---
-		        System.out.println("=== 🗑️ 회원 삭제 ===");
-		        result = dao.deleteUserAdmin(userId);
-		    }
-		    
-		    // 4. 모든 처리가 끝나면 여기서 이동
-		    // (어떤 작업을 했든, 결국은 사용자 목록 페이지로 돌아감)
-		    response.sendRedirect(request.getContextPath() + "/admin/user.do");
-		}
-
-}
+			    } else if ("delete".equals(command)) {
+			        // --- [삭제 로직] ---
+			        System.out.println("=== 🗑️ 회원 삭제 ===");
+			        result = dao.deleteUserAdmin(userId);
+			    }
+			    
+			    // 4. 모든 처리가 끝나면 여기서 이동
+			    // (어떤 작업을 했든, 결국은 사용자 목록 페이지로 돌아감)
+			    response.sendRedirect(request.getContextPath() + "/admin/user.do");
+			}
+	
+	}

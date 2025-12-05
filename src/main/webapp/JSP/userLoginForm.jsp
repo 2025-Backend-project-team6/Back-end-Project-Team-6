@@ -46,12 +46,11 @@
             <hr>
             <div class="admin-login-area">
     			관리자이신가요? 
-    			<a href="${pageContext.request.contextPath}/JSP/admin_Login.jsp" class="admin-link">
+    			<a href="${pageContext.request.contextPath}/adminlogin.do" class="admin-link">
         			관리자 로그인
     			</a>
 			</div>
         </div>
     </div>
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.gardenlog.servlet.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ public class AdminLoginController extends HttpServlet {
   
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		// 관리자 로그인 폼 JSP로 포워딩
+        RequestDispatcher rd = request.getRequestDispatcher("/JSP/admin_Login.jsp");
+        rd.forward(request, response);
 	
 	}
 
