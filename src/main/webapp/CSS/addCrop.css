@@ -1,0 +1,136 @@
+/* 페이지 배경 */
+body {
+    background-color: #f7f8f3;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+/* form 전체 */
+form {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+/* =============================
+   📌 공통 섹션 박스 스타일
+============================= */
+.section-box {
+    background: white;
+    padding: 28px 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.section-box h5 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #2d3a2f;
+}
+
+.section-box p {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* 페이지 상단 제목 정렬 */
+.page-title-box {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto 20px auto; 
+}
+
+.page-title-box h5 {
+    margin: 0;
+    font-size: 22px;
+    color: #2d3a2f;
+}
+
+.page-title-box p {
+    margin-top: 8px;
+    color: #666;
+}
+
+/* =============================
+   입력 요소
+============================= */
+select, input[type="text"], input[type="date"], input[type="search"] {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+/* =============================
+   검색 버튼
+============================= */
+button[name="action"][value="cropSearchBtn"] {
+    padding: 11px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #5a8f46;
+    color: #fff;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+button[name="action"][value="cropSearchBtn"]:hover {
+    background: #4d7c3b;
+}
+
+/* =============================
+   작물 버튼 그리드
+============================= */
+.crop-button-box {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.crop-button-box button {
+    padding: 14px 20px;
+    background: #fff;
+    border: 1px solid #d9e5d2;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.crop-button-box button:hover {
+    background: #eef7e7;
+    border-color: #5a8f46;
+}
+
+/* =============================
+   하단 버튼
+============================= */
+.btn-wrap {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-btn {
+    background: #5a8f46;
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #4d7c3b;
+}
