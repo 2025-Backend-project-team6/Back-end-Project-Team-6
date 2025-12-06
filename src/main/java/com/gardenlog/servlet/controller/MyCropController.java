@@ -180,7 +180,7 @@ public class MyCropController extends HttpServlet {
 		}
 		
 		if("cancel".equals(action)) {
-			response.sendRedirect(request.getContextPath() + "/JSP/myCrop.jsp");
+			response.sendRedirect(request.getContextPath() + "/mycrop.do");
 			return ;
 		}
 		
