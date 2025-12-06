@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/* error.css */
+
+/* 전체 페이지 레이아웃 및 폰트 설정 */
+body {
+    font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
+    background-color: #f8f9fa; /* 밝은 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 전체 뷰포트 높이 */
+    margin: 0;
+}
+
+/* 오류 컨테이너 스타일 */
+.error-container {
+    background-color: #ffffff;
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+/* 오류 아이콘 스타일 */
+.error-icon {
+    font-size: 60px;
+    color: #dc3545; /* 빨간색 (에러 색상) */
+    margin-bottom: 20px;
+    animation: bounce 0.5s ease-in-out alternate infinite;
+}
+
+/* 아이콘 애니메이션 */
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+/* 제목 스타일 */
+.error-title {
+    color: #343a40;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* 메시지 스타일 */
+.error-message {
+    color: #6c757d;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.error-message strong {
+    color: #dc3545; /* 에러 메시지 강조 */
+    font-weight: 700;
+}
+
+.error-message-detail {
+    color: #adb5bd;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* 버튼 간 간격 */
+    margin-top: 20px;
+}
+
+/* 버튼 기본 스타일 */
+.home-button, .back-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* 홈 버튼 (주요 행동) 스타일 */
+.home-button {
+    background-color: #28a745; /* 초록색 (GardenLog의 '🌱'와 어울리는 색) */
+    color: white;
+}
+
+.home-button:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+/* 뒤로 가기 버튼 (보조 행동) 스타일 */
+.back-button {
+    background-color: #f1f1f1;
+    color: #6c757d;
+    border: 1px solid #ced4da;
+}
+
+.back-button:hover {
+    background-color: #e2e6ea;
+    transform: translateY(-1px);
+}
