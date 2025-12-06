@@ -122,7 +122,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); 
     /* minmax(0,1fr) → 내용이 길어져도 column 폭 절대 안밀림 */
-    gap: 28px;   /* 카드 간격 넓힘 (이전 22px → 28px) */
+    gap: 36px;   /* 카드 간격 넓힘 (이전 22px → 28px) */
     margin-top: 20px;
 
     width: 1100px;       /* grid 자체 너비 고정 */
@@ -138,7 +138,7 @@ body {
     border-radius: 15px;
     padding: 20px 22px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-
+    max-width: 300px;
     width: 100%;         /* 그리드 안에서 항상 동일한 폭 */
     box-sizing: border-box;
 }
@@ -172,7 +172,7 @@ body {
     display: flex;
     justify-content: flex-start; /* 양쪽 분리 */
     gap: 20px;
-    align-items: center;            /* 세로 가운데 정렬 */
+    align-items: baseline;            /* 세로 가운데 정렬 */
     margin-bottom: 6px;
 }
 
@@ -195,15 +195,31 @@ body {
    카드 내부 버튼
 ============================ */
 .sub-btn {
-    padding: 8px 14px;
-    margin-right: 8px;
+	display: block;          /* 가로 전체 사용 */
+    width: 100%;             /* divider와 동일한 폭 */
+    padding: 10px 0;         /* 좌우 여백 제거하고 위아래만 */
+    text-align: center;      /* 글씨 가운데 */
+    
     border: 1px solid #ccc;
-    background: white;
+    background: #fff;
     border-radius: 8px;
     cursor: pointer;
+    box-sizing: border-box;
 }
+
 .sub-btn:hover {
+	background: #eef3ea;
     border-color: #4d7326;
 }
 
+.btn-row {
+    display: flex;
+    justify-content: space-between;   /* ← 버튼 묶음 가운데 정렬 */
+    gap: 10px;                 /* 버튼 간격 */
+    margin-top: 15px;
+    
+    width: calc(100% - 44px);  /* 카드 padding(22px × 양쪽)과 동일하게 줄임 */
+    margin-left: 22px;         /* 카드 내부 텍스트 시작선과 일치 */
+    margin-right: 22px;
+}
 

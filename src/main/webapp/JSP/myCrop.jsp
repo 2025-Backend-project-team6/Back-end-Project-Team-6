@@ -61,8 +61,7 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 						
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-							<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사 일지</button>
-							<button type="submit" name="action" value="alertSettingBtn" class="sub-btn">알림 설정</button>
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
 						</form>
 					</div>
 				</c:forEach>
@@ -81,8 +80,7 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-							<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사 일지</button>
-							<button type="submit" name="action" value="alertSettingBtn" class="sub-btn">알림 설정</button>
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
 						</form>
 					</div>
 				</c:forEach>
@@ -101,15 +99,12 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-							<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사 일지</button>
-							<button type="submit" name="action" value="alertSettingBtn" class="sub-btn">알림 설정</button>
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
 						</form>
 					</div>
 				</c:forEach>
 			</c:if>
-
 		</div>
-
 	</div>
 
 	<%@ include file="/JSP/footer.jsp"%>
