@@ -1,24 +1,35 @@
 @charset "UTF-8";
 
-/* 전체 페이지 설정 */
 body {
     background-color: #f9f9f9;
     font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
+    
+    /* [수정] 푸터를 바닥으로 내리기 위한 필수 설정 */
+    display: flex;
+    flex-direction: column; /* 세로로 배치 (헤더-컨텐츠-푸터) */
+    min-height: 100vh;      /* 최소 높이를 화면 전체 높이(100vh)로 설정 */
 }
 
 /* 레이아웃 컨테이너 */
 .mypage-container {
     display: flex;
     max-width: 1200px;
+    width: 100%;            /* 가로 꽉 차게 */
     margin: 20px auto;
     gap: 20px;
     padding: 0 20px;
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    
+    /* [수정] 남은 빈 공간을 이 녀석이 다 차지하게 함 */
+    flex: 1; 
 }
 
-/* --- [왼쪽] 사이드바 --- */
+/* --- [이하 내용은 기존과 동일] --- */
+
+/* 왼쪽 사이드바 */
 .sidebar {
     width: 300px;
     flex-shrink: 0;
@@ -72,7 +83,7 @@ body {
     background-color: #81c784;
     height: 100%;
     border-radius: 10px;
-    transition: width 0.5s ease-in-out; /* 부드럽게 차오르는 효과 */
+    transition: width 0.5s ease-in-out;
 }
 
 .level-info-text {
@@ -116,7 +127,7 @@ body {
     background-color: #f0f0f0;
 }
 
-/* --- [오른쪽] 메인 컨텐츠 --- */
+/* 오른쪽 메인 컨텐츠 */
 .main-content {
     flex-grow: 1;
 }
@@ -130,7 +141,7 @@ body {
     align-items: center;
 }
 
-/* 2. 캘린더 & CCTV */
+/* 캘린더 & CCTV */
 .bottom-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -144,7 +155,7 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* 달력 헤더 (제목 + 화살표) */
+/* 달력 헤더 */
 .calendar-header {
     display: flex;
     justify-content: space-between;
