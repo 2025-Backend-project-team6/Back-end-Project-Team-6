@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>커뮤니티 | Garden.ing</title>
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/community.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -16,7 +17,7 @@
         <main class="main-content">
             <h1 class="page-title">커뮤니티</h1>
             <p class="page-subtitle">농사 이야기를 나눠보세요</p>
-            <button class="write-btn">+ 글쓰기</button>
+            <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/JSP/community_write.jsp'">+ 글쓰기</button>
 
             <div class="search-filter-area">
                 <div class="search-box">
