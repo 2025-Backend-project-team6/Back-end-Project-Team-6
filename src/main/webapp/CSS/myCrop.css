@@ -62,15 +62,15 @@ body {
 }
 
 .search-area {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
+	width: 575px; 
+	margin: 0;
+	margin-bottom: 18px; 
+	display: flex;
     gap: 12px;
-    margin-bottom: 18px;
 }
 
 .input-search-wide {
-    width: 100%;
+    flex: 1;
     padding: 13px 18px;
     border-radius: 10px;
     border: 1px solid #ddd;
@@ -78,6 +78,7 @@ body {
 }
 
 .btn-search-wide {
+	width: 90px;
     padding: 12px 22px;
     background: #4d7326;
     color: white;
