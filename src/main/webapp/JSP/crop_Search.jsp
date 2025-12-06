@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,39 +34,30 @@
         </section>
 
         <main class="crop-list">
-            <div class="crop-card">
-                <div class="crop-image-container">
-                    </div>
-                <h3>토마토</h3>
-                <div class="tags">
-                    <span class="tag tag-season">열매</span>
-                    <span class="tag tag-level">중급</span>
-                </div>
-                <ul class="info-list">
-                    <li><span class="icon">📅</span> 80-100일</li>
-                    <li><span class="icon">💧</span> 2-3일에 1회</li>
-                    <li><span class="icon">☀️</span> 하루 6-8시간</li>
-                </ul>
-                <button class="detail-btn">자세히 보기</button>
-            </div>
-
-            <div class="crop-card">
-                <div class="crop-image-container">
-                    </div>
-                <h3>상추</h3>
-                <div class="tags">
-                    <span class="tag tag-season">잎채소</span>
-                    <span class="tag tag-level tag-beginner">초급</span>
-                </div>
-                <ul class="info-list">
-                    <li><span class="icon">📅</span> 30-45일</li>
-                    <li><span class="icon">💧</span> 매일 1회</li>
-                    <li><span class="icon">☀️</span> 하루 4-6시간</li>
-                </ul>
-                <button class="detail-btn">자세히 보기</button>
-            </div>
+   			<c:forEach var="crop" items="${requestScope.cropList}">
             
-            </main>
+            <div class="crop-card">
+                <div class="crop-image-container">
+                    </div>
+                
+                <h3>${crop.crop_title}</h3>
+                
+                <div class="tags">
+                    <span class="tag tag-season">${crop.category_name}</span>
+                    <span class="tag tag-level">${crop.difficulty_level}</span>
+                </div>
+                
+                <ul class="info-list">
+   					<li><span class="icon">📅</span> ${crop.period_text}</li>
+    				<li><span class="icon">💧</span> ${crop.water_cycle}</li>
+    				<li><span class="icon">☀️</span> ${crop.sunlight_hours}</li>
+				</ul>
+                
+                <button class="detail-btn" onclick="location.href='crop-detail.do?cropId=${crop.cropid}'">자세히 보기</button>
+            </div>
+        
+        </c:forEach>
+         </main>
     </div>
 </body>
 </html>
