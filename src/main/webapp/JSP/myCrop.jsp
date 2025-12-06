@@ -11,69 +11,102 @@
 </head>
 <body>
 	<%@ include file="/JSP/header.jsp"%>
-	
-	<h5>작물 관리🥕</h5>
-	<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-		<button type="submit" name="action" value="addCropPageBtn">+ 새 작물 추가</button>
-		<br>
-		
-		<input type="search" name="keyword"
-			   value="${keyword}"
-			   placeholder="나의 작물 검색">
-		<button type="submit" name="action" value="searchCropBtn">검색</button>
-		<br>
-		
-		<button name="category" value="allCrop">전체</button>
-		<c:forEach var="category" items="${cropCategoryList}">
-			<button name="category" value="${category.crop_nm}">${category.crop_nm}</button>
-		</c:forEach>
-	</form>
-	
-	<c:if test="${not empty searchNullMessage}">
-		<p>${searchNullMessage}</p>
-	</c:if>
-	
-	<c:if test="${not empty searchMyCropList}">
-		<c:forEach var="crop" items="${searchMyCropList}">
-			<h3>${crop.nickname}</h3>
-			<p>${crop.category}</p>
-			<p>텃밭: ${crop.gardenname}</p>
-			<p>📅 심은 날짜: ${crop.planted_date}</p>
-			
-			<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-				<button type="submit" name="action" value="viewDiaryBtn">농사 일지</button>
-				<button type="submit" name="action" value="alertSettingBtn">알림 설정</button>
-			</form>
-		</c:forEach>
-	</c:if>
-	
-	<c:if test="${empty searchMyCropList}">
-		<c:forEach var="crop" items="${findByCategoryList}">
-			<h3>${crop.nickname}</h3>
-			<p>${crop.category}</p>
-			<p>텃밭: ${crop.gardenname}</p>
-			<p>📅 심은 날짜: ${crop.planted_date}</p>
-			
-			<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-				<button type="submit" name="action" value="viewDiaryBtn">농사 일지</button>
-				<button type="submit" name="action" value="alertSettingBtn">알림 설정</button>
-			</form>
-		</c:forEach>
-	</c:if>
-	
-	<c:if test="${not empty allMyCropList}">
-		<c:forEach var="crop" items="${allMyCropList}">
-			<h3>${crop.nickname}</h3>
-			<p>${crop.category}</p>
-			<p>텃밭: ${crop.gardenname}</p>
-			<p>📅 심은 날짜: ${crop.planted_date}</p>
-			
-			<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-				<button type="submit" name="action" value="viewDiaryBtn">농사 일지</button>
-				<button type="submit" name="action" value="alertSettingBtn">알림 설정</button>
-			</form>
-		</c:forEach>
-	</c:if>
 
+	<div class="page-container">
+		<div class="top-row">
+			<h5 class="page-title">작물 관리 🥕</h5>
+
+			<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
+				<button type="submit" name="action" value="addCropPageBtn" class="btn-add">
+					+ 새 작물 추가
+				</button>
+			</form>
+		</div>
+
+		<form action="${pageContext.request.contextPath}/mycrop.do" method="get" class="search-form">
+			<div class="search-area">
+				<input type="search" name="keyword"
+					   value="${keyword}"
+					   class="input-search-wide"
+					   placeholder="나의 작물 검색">
+				<button type="submit" name="action" value="searchCropBtn" class="btn-search-wide">검색</button>
+			</div>
+
+			<div class="category-row">
+				<button name="category" value="allCrop" class="category-btn">전체</button>
+
+				<c:forEach var="category" items="${cropCategoryList}">
+					<button name="category" value="${category.crop_nm}" class="category-btn">
+						${category.crop_nm}
+					</button>
+				</c:forEach>
+			</div>
+		</form>
+
+		<c:if test="${not empty searchNullMessage}">
+			<p class="warning">${searchNullMessage}</p>
+		</c:if>
+
+		<div class="crop-grid">
+			<c:if test="${not empty searchMyCropList}">
+				<c:forEach var="crop" items="${searchMyCropList}">
+					<div class="crop-card">
+						<div class="title-row">
+							<h3>${crop.nickname}</h3>
+							<p class="category-badge">${crop.category}</p>
+						</div>
+						<div class="divider"></div>
+						
+						<p>🌾텃밭: ${crop.gardenname}</p>
+						<p>📅 심은 날짜: ${crop.planted_date}</p>
+						
+						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+						</form>
+					</div>
+				</c:forEach>
+			</c:if>
+
+			<c:if test="${empty searchMyCropList}">
+				<c:forEach var="crop" items="${findByCategoryList}">
+					<div class="crop-card">
+						<div class="title-row">
+							<h3>${crop.nickname}</h3>
+							<p class="category-badge">${crop.category}</p>
+						</div>
+						<div class="divider"></div>
+						
+						<p>🌾텃밭: ${crop.gardenname}</p>
+						<p>📅 심은 날짜: ${crop.planted_date}</p>
+
+						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+						</form>
+					</div>
+				</c:forEach>
+			</c:if>
+
+			<c:if test="${not empty allMyCropList}">
+				<c:forEach var="crop" items="${allMyCropList}">
+					<div class="crop-card">
+						<div class="title-row">
+							<h3>${crop.nickname}</h3>
+							<p class="category-badge">${crop.category}</p>
+						</div>
+						<div class="divider"></div>
+						
+						<p>🌾텃밭: ${crop.gardenname}</p>
+						<p>📅 심은 날짜: ${crop.planted_date}</p>
+
+						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
+								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+						</form>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+	</div>
+
+	<%@ include file="/JSP/footer.jsp"%>
 </body>
 </html>

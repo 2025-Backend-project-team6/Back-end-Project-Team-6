@@ -1,0 +1,226 @@
+/* ============================
+   전체 레이아웃 안정화
+============================ */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+
+    /* Footer 고정 레이아웃 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 페이지 전체 컨테이너 */
+.page-container {
+    width: 1100px;            /* ← 폭 고정 (핵심!!) */
+    margin: 0 auto;           /* 중앙 정렬 */
+    padding: 20px 0 40px;     /* 좌우 padding 제거 → 폭 변형 방지 */
+    flex-grow: 1;
+}
+
+/* ============================
+   상단: 제목 + 새 작물 추가 버튼
+============================ */
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.btn-add {
+    background: #4d7326;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-add:hover {
+    background: #436421;
+}
+
+/* ============================
+   검색 영역
+============================ */
+.search-form {
+    margin-top: 10px;
+}
+
+.search-area {
+	width: 575px; 
+	margin: 0;
+	margin-bottom: 18px; 
+	display: flex;
+    gap: 12px;
+}
+
+.input-search-wide {
+    flex: 1;
+    padding: 13px 18px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #f4f5f7;
+}
+
+.btn-search-wide {
+	width: 90px;
+    padding: 12px 22px;
+    background: #4d7326;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.btn-search-wide:hover {
+    background: #436421;
+}
+
+/* ============================
+   카테고리 버튼
+============================ */
+.category-row {
+    display: flex;
+    flex-wrap: wrap;          /* 길어지면 자동 줄바꿈 */
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.category-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    white-space: nowrap;      /* 내용 길어도 절대 줄바꾸지 않음 → 버튼 폭 일정 */
+}
+.category-btn:hover {
+    background: #eef3ea;
+    border-color: #4d7326;
+}
+
+
+
+/* ============================
+   작물 카드 그리드
+============================ */
+.crop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    /* minmax(0,1fr) → 내용이 길어져도 column 폭 절대 안밀림 */
+    gap: 36px;   /* 카드 간격 넓힘 (이전 22px → 28px) */
+    margin-top: 20px;
+
+    width: 1100px;       /* grid 자체 너비 고정 */
+    box-sizing: border-box;
+}
+
+/* ============================
+   개별 카드
+============================ */
+.crop-card {
+    background: #f6fbf4;
+    border: 1px solid #dde5d9;
+    border-radius: 15px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    max-width: 300px;
+    width: 100%;         /* 그리드 안에서 항상 동일한 폭 */
+    box-sizing: border-box;
+}
+
+.crop-card h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.crop-card p {
+    margin: 4px 0;
+    color: #444;
+}
+
+.crop-card form {
+    margin-top: 15px; /* 버튼 위 간격 */
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e2e8d8; /* 연한 초록-회색 톤 */
+    margin: 12px 0; /* 위아래 간격 */
+}
+
+/* ============================
+	닉네임 + 카테고리 라벨을 한 줄 정렬
+============================ */
+.title-row {
+    display: flex;
+    justify-content: flex-start; /* 양쪽 분리 */
+    gap: 20px;
+    align-items: baseline;            /* 세로 가운데 정렬 */
+    margin-bottom: 6px;
+}
+
+.title-row h3 {
+    margin: 0;
+}
+
+/* 카테고리 캡슐 */
+.category-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: #4d7326;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    background: #fff;
+}
+
+/* ============================
+   카드 내부 버튼
+============================ */
+.sub-btn {
+	display: block;          /* 가로 전체 사용 */
+    width: 100%;             /* divider와 동일한 폭 */
+    padding: 10px 0;         /* 좌우 여백 제거하고 위아래만 */
+    text-align: center;      /* 글씨 가운데 */
+    
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.sub-btn:hover {
+	background: #eef3ea;
+    border-color: #4d7326;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: space-between;   /* ← 버튼 묶음 가운데 정렬 */
+    gap: 10px;                 /* 버튼 간격 */
+    margin-top: 15px;
+    
+    width: calc(100% - 44px);  /* 카드 padding(22px × 양쪽)과 동일하게 줄임 */
+    margin-left: 22px;         /* 카드 내부 텍스트 시작선과 일치 */
+    margin-right: 22px;
+}
+
