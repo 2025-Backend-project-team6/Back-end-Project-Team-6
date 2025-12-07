@@ -6,9 +6,11 @@ public class GardenActivityDTO {
 	private int activityid;
 	private String userid;
 	private int gardenid;
+	private int cropid;
 	private String activity_type;
 	private Date activity_date;
 	private String memo;
+	
 	public int getActivityid() {
 		return activityid;
 	}
@@ -26,6 +28,12 @@ public class GardenActivityDTO {
 	}
 	public void setGardenid(int gardenid) {
 		this.gardenid = gardenid;
+	}
+	public int getCropid() {
+		return cropid;
+	}
+	public void setCropid(int cropid) {
+		this.cropid = cropid;
 	}
 	public String getActivity_type() {
 		return activity_type;

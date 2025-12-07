@@ -19,8 +19,8 @@ public class GardenActivityDAO {
 										 + "where userid=? and gardenid=? "
 										 + "and year(activity_date)=? and month(activity_date)=? "
 										 + "order by activity_date asc;";
-	private final String GARDEN_ADDACTIVTIY = "insert into garden_activity(userid, gardenid, activity_type, activity_date, memo) "
-											+ "values(?, ?, ?, ?, ?);";
+	private final String GARDEN_ADDACTIVTIY = "insert into garden_activity(userid, gardenid, cropid, activity_type, activity_date, memo) "
+											+ "values(?, ?, ?, ?, ?, ?);";
 	
 	public List<GardenActivityDTO> getMonthlyActivity(String userid, int gardenid, int year, int month){
 		List<GardenActivityDTO> list = new ArrayList<>();
@@ -58,9 +58,10 @@ public class GardenActivityDAO {
 			
 	        pstmt.setString(1, gadto.getUserid());
 	        pstmt.setInt(2, gadto.getGardenid());
-	        pstmt.setString(3, gadto.getActivity_type());
-	        pstmt.setDate(4, new java.sql.Date(gadto.getActivity_date().getTime()));
-	        pstmt.setString(5, gadto.getMemo());
+	        pstmt.setInt(3, gadto.getCropid());
+	        pstmt.setString(4, gadto.getActivity_type());
+	        pstmt.setDate(5, new java.sql.Date(gadto.getActivity_date().getTime()));
+	        pstmt.setString(6, gadto.getMemo());
 	        result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -78,6 +79,7 @@ public class GardenActivityDAO {
         gadto.setActivityid(rs.getInt("activityid"));
         gadto.setUserid(rs.getString("userid"));
         gadto.setGardenid(rs.getInt("gardenid"));
+        gadto.setCropid(rs.getInt("cropid"));
         gadto.setActivity_type(rs.getString("activity_type"));
         gadto.setActivity_date(rs.getDate("activity_date"));
         gadto.setMemo(rs.getString("memo"));

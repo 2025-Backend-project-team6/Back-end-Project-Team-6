@@ -238,7 +238,37 @@ public class GardenManageController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/gardenmanage.do");
 				return ;
 			}
-		}		
+		}
+		
+		if("saveActivity".equals(action)) {
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
+			int cropid = Integer.parseInt(request.getParameter("cropid"));
+			String activity_type = request.getParameter("activity_type");
+			String activity_date_Str = request.getParameter("activity_date");
+			String memo = request.getParameter("memo");
+			
+			Date activity_date = null;
+			if(activity_date_Str!=null && !activity_date_Str.isEmpty()) {
+				 activity_date = Date.valueOf(activity_date_Str);
+			}
+			
+			GardenActivityDTO gadto = new GardenActivityDTO();
+			gadto.setUserid(userid);
+			gadto.setGardenid(gardenid);
+			gadto.setCropid(cropid);
+			gadto.setActivity_type(activity_type);
+			gadto.setActivity_date(activity_date);
+			gadto.setMemo(memo);
+			
+			GardenActivityDAO gadao = new GardenActivityDAO();
+			int result = gadao.addActivity(gadto);
+			
+			if(result==1) {
+				response.sendRedirect(request.getContextPath() + "/gardenmanage.do?action=detailGardenBtn&gardenid=" + gardenid);
+				return ;
+			}
+			
+		}
 	}
 	
 	
