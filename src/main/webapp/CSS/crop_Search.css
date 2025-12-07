@@ -28,6 +28,10 @@ body {
     margin-bottom: 30px;
 }
 
+.filter-select option[disabled] {
+    display: none; 
+}
+
 .search-input-group {
     flex-grow: 1;
     display: flex;

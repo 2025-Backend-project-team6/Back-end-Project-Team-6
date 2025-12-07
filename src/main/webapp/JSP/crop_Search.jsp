@@ -26,7 +26,7 @@
                 <input type="text" placeholder="작물명 검색" class="search-input">
             </div>
             <select class="filter-select">
-                <option>카테고리</option>
+                <option value="" disabled selected>카테고리</option>
                 <option value="논농사">논농사</option>
         		<option value="밭농사">밭농사</option>
         		<option value="버섯">버섯</option>
@@ -36,7 +36,7 @@
         		<option value="화훼">화훼</option>
             </select>
             <select class="filter-select">
-                <option>난이도</option>
+                <option value="" disabled selected>난이도</option>
                 <option value="초급">초급</option>
         		<option value="중급">중급</option>
         		<option value="상급">상급</option>
@@ -67,5 +67,54 @@
         </c:forEach>
          </main>
     </div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. 필요한 HTML 요소들을 가져옵니다.
+            const selectFilters = document.querySelectorAll('.filter-select');
+            const categorySelect = selectFilters[0]; 
+            const difficultySelect = selectFilters[1]; 
+            const cropCards = document.querySelectorAll('.crop-card');
+            
+            // 2. 두 개의 select 박스에 'change' 이벤트 리스너를 추가합니다.
+            categorySelect.addEventListener('change', filterCrops);
+            difficultySelect.addEventListener('change', filterCrops);
+
+            /**
+             * 작물 목록을 필터링하는 메인 함수
+             */
+            function filterCrops() {
+                // 3. 현재 선택된 카테고리와 난이도 값을 가져옵니다.
+                //    HTML의 value="" 덕분에 초기값은 ""이 됩니다.
+                const selectedCategoryValue = categorySelect.value; 
+                const selectedDifficultyValue = difficultySelect.value;
+                
+                // 4. 모든 작물 카드를 순회하며 필터링 로직을 적용합니다.
+                cropCards.forEach(card => {
+                    // 5. 현재 카드의 태그 텍스트를 가져옵니다.
+                    const cardCategory = card.querySelector('.tag-season').textContent.trim();
+                    const cardDifficulty = card.querySelector('.tag-level').textContent.trim();
+                    
+                    // 6. 필터링 조건을 검사합니다.
+                    
+                    // 카테고리 일치 조건: value가 "" 이거나 (전체보기) 실제 카테고리와 일치해야 합니다.
+                    const isCategoryMatch = (selectedCategoryValue === "" || selectedCategoryValue === cardCategory);
+                    
+                    // 난이도 일치 조건: value가 "" 이거나 (전체보기) 실제 난이도와 일치해야 합니다.
+                    const isDifficultyMatch = (selectedDifficultyValue === "" || selectedDifficultyValue === cardDifficulty);
+
+                    // 7. 두 조건이 모두 참일 때만 카드를 표시합니다. (단일/다중 필터 모두 처리)
+                    if (isCategoryMatch && isDifficultyMatch) {
+                        card.style.display = 'block'; 
+                    } else {
+                        card.style.display = 'none'; 
+                    }
+                });
+            }
+            
+            // 페이지 로드 시 초기 목록을 설정합니다. (selected="" 덕분에 전체 목록이 보입니다.)
+            filterCrops();
+        });
+    </script>
+    
 </body>
 </html>
