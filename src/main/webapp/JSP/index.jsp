@@ -34,13 +34,42 @@
 
             <div class="card weather-card">
                 <h4>날씨 정보 ☀️</h4>
-                <div class="location">서울특별시 구로구</div>
-                <div class="temp">18°</div>
-                <div class="condition">맑음</div>
-                <div class="weather-details">
-                    <span>습도 65%</span>
-                    <span>풍속 2.5m/s</span>
-                </div>
+                <c:choose>
+        			<c:when test="${not empty weatherDataList}">
+            			
+            			<c:set var="current_weather" value="${weatherDataList[0]}" />
+
+            			<div class="location">
+                			<%-- TODO: 위치 정보는 LatLonToXYConverter 등을 통해 역지오코딩하여 가져와야 합니다. 현재는 하드코딩된 값 --%>
+                			서울특별시 구로구 (예시)
+            			</div>
+            
+			            <%-- 기온 표시 --%>
+			            <div class="temp">
+			                ${current_weather.temperature}°
+			            </div>
+			            
+			            <%-- 하늘 상태 표시 --%>
+			            <div class="condition">
+			                ${current_weather.skyStatus} 
+			            </div>
+			            
+			            <div class="weather-details">
+			            	<%-- 습도 표시 --%>
+        					<span>습도 ${current_weather.humidity}%</span>
+        					<%-- 강수 형태 표시 --%>
+    						<span>강수 형태: ${current_weather.precipitationType}</span>
+        				</div>
+			          </c:when>
+			        	<c:otherwise>
+				            <div class="location">날씨 정보 없음</div>
+				            <div class="temp">--°</div>
+				            <div class="condition">정보를 불러올 수 없습니다.</div>
+				            <div class="weather-details">
+				                <span>API 호출 오류</span>
+				            </div>
+        				</c:otherwise>
+        		</c:choose>
             </div>
 
             <div class="card popular-posts-card">
