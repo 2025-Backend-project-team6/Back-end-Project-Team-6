@@ -30,13 +30,6 @@
                     <div class="error-message">${loginError}</div>
                 </c:if>
 
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" name="remember"> 로그인 상태 유지
-                    </label>
-                    <a href="#">비밀번호 찾기</a>
-                </div>
-
                 <button type="submit" class="btn btn-login">로그인</button>
             </form>
 

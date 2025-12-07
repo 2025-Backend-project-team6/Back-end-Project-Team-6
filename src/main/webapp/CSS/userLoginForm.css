@@ -92,33 +92,6 @@ button {
     box-shadow: 0 0 0 2px #d4e9d5;
 }
 
-/* --- 폼 옵션 --- */
-.form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #555;
-    margin-top: -5px;
-}
-
-.form-options .remember-me {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.form-options .remember-me input {
-    margin-right: 5px;
-}
-
-.form-options a {
-    color: #777;
-}
-.form-options a:hover {
-    text-decoration: underline;
-}
-
 /* --- 에러 메시지 --- */
 .error-message {
     color: #D32F2F; /* 빨간색 */
