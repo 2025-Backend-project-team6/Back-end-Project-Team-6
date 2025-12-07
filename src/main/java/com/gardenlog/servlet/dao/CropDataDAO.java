@@ -19,9 +19,7 @@ public class CropDataDAO {
 	private final String ADDCROP_GETCROPID = "select cropid from crop_info where crop_title=?;";
 	
 	// 작물 검색
-	private final String GET_ALL_CROPS = "SELECT cropid, crop_title, info_json, "
-            + "category_name, difficulty_level, period_text, water_cycle, sunlight_hours "
-            + "FROM crop_info ORDER BY crop_title ASC;";
+	private final String GET_ALL_CROPS = "SELECT cropid, crop_title, info_json, category_name, difficulty_level, period_text, water_cycle, sunlight_hours FROM crop_info ORDER BY crop_title ASC";
 	
 	public List<CropDataDTO> searchCropData(String keyword) {
 		List<CropDataDTO> list = new ArrayList<>();
@@ -74,7 +72,14 @@ public class CropDataDAO {
 		CropDataDTO cddto = new CropDataDTO();
 		
 		cddto.setCropid(rs.getInt("cropid"));
-		cddto.setCrop_code(rs.getString("crop_code"));
+		try {
+	        cddto.setCrop_code(rs.getString("crop_code"));
+	    } catch (SQLException e) {
+	        // crop_code가 포함되지 않은 쿼리(SELECT *)로 호출될 때 발생하는 오류를 무시하고
+	        // 빈 문자열로 설정하여 프로그램 충돌을 막습니다.
+	        cddto.setCrop_code("");
+	        // System.err.println("Warning: crop_code 컬럼을 ResultSet에서 찾지 못했습니다.");
+	    }
 		cddto.setCrop_title(rs.getString("crop_title"));
 		cddto.setInfo_json(rs.getString("info_json"));
 		
@@ -88,7 +93,7 @@ public class CropDataDAO {
 	
 	// 작물 검색 용도의 모든 작물 검색 DAO
 	public List<CropDataDTO> getAllCropData() {
-	    
+		System.out.println("DAO 실행 시작");
 	    List<CropDataDTO> list = new ArrayList<>();
 
 	    try {
@@ -119,7 +124,8 @@ public class CropDataDAO {
 	// json 파싱 용도의 아이디 얻는 DAO
 	public CropDataDTO getCropDataById(int cropId) {
 	    CropDataDTO cddto = null;
-	    final String GET_CROP_BY_ID = "SELECT * FROM crop_info WHERE cropid = ?;";
+	    final String GET_CROP_BY_ID = "SELECT cropid, crop_code, crop_title, info_json, category_name, difficulty_level, period_text, water_cycle, sunlight_hours "
+                + "FROM crop_info WHERE cropid = ?;";
 
 	    try {
 	        conn = JdbcConnectUtil.getConnection();

@@ -26,10 +26,20 @@
                 <input type="text" placeholder="작물명 검색" class="search-input">
             </div>
             <select class="filter-select">
-                <option>전체 카테고리</option>
+                <option>카테고리</option>
+                <option value="논농사">논농사</option>
+        		<option value="밭농사">밭농사</option>
+        		<option value="버섯">버섯</option>
+        		<option value="약초">약초</option>
+        		<option value="채소">채소</option>
+        		<option value="과수">과수</option>
+        		<option value="화훼">화훼</option>
             </select>
             <select class="filter-select">
-                <option>전체 난이도</option>
+                <option>난이도</option>
+                <option value="초급">초급</option>
+        		<option value="중급">중급</option>
+        		<option value="상급">상급</option>
             </select>
         </section>
 
@@ -37,8 +47,6 @@
    			<c:forEach var="crop" items="${requestScope.cropList}">
             
             <div class="crop-card">
-                <div class="crop-image-container">
-                    </div>
                 
                 <h3>${crop.crop_title}</h3>
                 
@@ -53,7 +61,7 @@
     				<li><span class="icon">☀️</span> ${crop.sunlight_hours}</li>
 				</ul>
                 
-                <button class="detail-btn" onclick="location.href='crop-detail.do?cropId=${crop.cropid}'">자세히 보기</button>
+               <button class="detail-btn" onclick="location.href='${pageContext.request.contextPath}/crop_detail.do?cropId=${crop.cropid}'">자세히 보기</button>
             </div>
         
         </c:forEach>

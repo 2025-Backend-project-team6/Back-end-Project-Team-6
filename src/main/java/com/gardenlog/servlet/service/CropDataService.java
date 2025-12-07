@@ -48,10 +48,12 @@ public class CropDataService {
          viewCrop.setSunlight_hours(dbCrop.getSunlight_hours());
          
          viewList.add(viewCrop);
+         
+      // ⭐️ [DEBUG D] 최종 리스트 크기 확인 ⭐️
+         System.out.println("[DEBUG] 카테고리: " + viewCrop.getCategory_name() + ", 난이도: " + viewCrop.getDifficulty_level());
      }
      
-     // ⭐️ [DEBUG D] 최종 리스트 크기 확인 ⭐️
-     System.out.println("[DEBUG] 카테고리: " + viewCrop.getCategory_name() + ", 난이도: " + viewCrop.getDifficulty_level());
+     System.out.println("[DEBUG] D. Service 최종 반환 데이터 개수: " + viewList.size());
 
      return viewList;
  }
