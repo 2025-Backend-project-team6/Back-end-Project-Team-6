@@ -52,6 +52,35 @@
 			<button type="submit" name="action" value="addCropPageBtn">작물 추가</button>
 		</form>
 	</div>
+	
+	<div class="calendar-container">
+	    <h3>텃밭 관리 캘린더 📅</h3>
+	
+	    <div class="calendar-header">
+	        <span>${year}년 ${month}월</span>
+	    </div>
+	
+	    <div class="calendar-grid">
+	        <c:forEach var="day" items="${days}">
+	            <div class="calendar-day">
+	                <span class="day-number">${day}</span>
+	
+	                <c:if test="${not empty calendarMap[day]}">
+	                    <c:forEach var="activity" items="${calendarMap[day]}">
+	                        <span class="dot ${activity.activity_type}"></span>
+	                    </c:forEach>
+	                </c:if>
+	            </div>
+	        </c:forEach>
+	    </div>
+	
+	    <div class="legend">
+	        <span class="dot water"></span> 물주기
+	        <span class="dot fertilizer"></span> 비료주기
+	        <span class="dot harvest"></span> 수확
+	        <span class="dot manage"></span> 관리 활동
+	    </div>
+	</div>
 
 	<%@ include file="/JSP/footer.jsp" %>
 </body>

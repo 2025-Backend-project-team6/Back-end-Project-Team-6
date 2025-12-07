@@ -11,12 +11,18 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gardenlog.servlet.dao.GardenActivityDAO;
 import com.gardenlog.servlet.dao.GardenDAO;
 import com.gardenlog.servlet.dao.MyCropDAO;
+import com.gardenlog.servlet.dto.GardenActivityDTO;
 import com.gardenlog.servlet.dto.GardenDTO;
 import com.gardenlog.servlet.dto.MyCropDTO;
 import com.gardenlog.servlet.dto.UserDTO;
@@ -65,11 +71,39 @@ public class GardenManageController extends HttpServlet {
 		if("detailGardenBtn".equals(action)) {			
 			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
 			
+			LocalDate today = LocalDate.now();
+			int year = today.getYear();
+			int month = today.getMonthValue();
+			
+			YearMonth ym = YearMonth.of(year, month);
+		    int lastDay = ym.lengthOfMonth();
+			
 			GardenDTO garden = gdao.getDetailGarden(gardenid);
 			List<MyCropDTO> gardenCropList = mcdao.getGardenCrop(userid, gardenid);		
 			
+			GardenActivityDAO gadao = new GardenActivityDAO();
+			List<GardenActivityDTO> activityList = gadao.getMonthlyActivity(userid, gardenid, year, month);
+			
+			Map<Integer, List<GardenActivityDTO>> calendarMap = new HashMap<>();
+			
+			for(GardenActivityDTO activity: activityList) {
+				int day = activity.getActivity_date().toInstant().atZone(ZoneId.systemDefault()).getDayOfMonth();
+				
+				calendarMap.putIfAbsent(day, new ArrayList<>());
+			    calendarMap.get(day).add(activity);
+			}
+			
+			List<Integer> days = new ArrayList<>();
+		    for (int d = 1; d <= lastDay; d++) {
+		        days.add(d);
+		    }
+			
 			session.setAttribute("garden", garden);
 			session.setAttribute("gardenCropList", gardenCropList);
+			request.setAttribute("calendarMap", calendarMap);
+			request.setAttribute("year", year);
+			request.setAttribute("month", month);
+			request.setAttribute("days", days);
 			
 			dispatcher = request.getRequestDispatcher("/JSP/detailGarden.jsp");
 			dispatcher.forward(request, response);

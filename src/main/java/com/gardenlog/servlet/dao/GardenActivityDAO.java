@@ -46,7 +46,30 @@ public class GardenActivityDAO {
 			JdbcConnectUtil.close(conn, pstmt, rs);
 		}
 		
-		return null;
+		return list;
+	}
+	
+	public int addActivity(GardenActivityDTO gadto) {
+		int result = 0;
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(GARDEN_ADDACTIVTIY);
+			
+	        pstmt.setString(1, gadto.getUserid());
+	        pstmt.setInt(2, gadto.getGardenid());
+	        pstmt.setString(3, gadto.getActivity_type());
+	        pstmt.setDate(4, new java.sql.Date(gadto.getActivity_date().getTime()));
+	        pstmt.setString(5, gadto.getMemo());
+	        result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		
+		return result;
 	}
 	
 	
