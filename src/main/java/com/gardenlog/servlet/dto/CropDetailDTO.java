@@ -30,7 +30,8 @@ public class CropDetailDTO {
 	
 	// 5. 기상재해 및 생리장해 대책
 	private String disasterCountermeasures; // 재해 대책 정보
-
+	
+	private String period;
 	
 	public int getCropid() {
 		return cropid;
@@ -166,6 +167,14 @@ public class CropDetailDTO {
 
 	public void setDisasterCountermeasures(String disasterCountermeasures) {
 		this.disasterCountermeasures = disasterCountermeasures;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
 

@@ -86,6 +86,7 @@ public class CropDataService {
 		detailDTO.setCropid(dbCrop.getCropid());
 		detailDTO.setCrop_title(dbCrop.getCrop_title());
 		detailDTO.setCrop_code(dbCrop.getCrop_code());
+		detailDTO.setPeriod(dbCrop.getPeriod_text());
 
 		try {
 
