@@ -1,0 +1,242 @@
+/*
+    Custom CSS for SanterLog Write Page (최종 수정)
+*/
+
+/* 전역 스타일 */
+body {
+    background-color: #f9f9f9; /* 전체 배경색 */
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    color: #333;
+}
+
+/* 메인 컨텐츠 영역 */
+.main-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.back-link-area{
+	margin-left: -70px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none; /* 밑줄 제거 */
+    color: #495057; 
+    font-weight: bold; /* 일반 굵기 */
+    font-size: 0.95rem; 
+    padding: 0;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.content-wrapper {
+    max-width: 800px; /* 메인 컨텐츠 최대 너비 설정 (이미지와 유사하게) */
+    margin: 0 auto; /* 중앙 정렬 */
+    background-color: #fff; /* 내부 배경색 흰색 */
+    padding: 40px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+    border: 1px solid #dee2e6; /* 아주 얇은 테두리 */
+}
+
+/* --- 제목 섹션 --- */
+.title-section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e9ecef; /* 제목 아래 얇은 구분선 */
+    padding-bottom: 20px;
+}
+
+/* <<<--- ⭐️ 수정된 부분 1: 글쓰기 제목 굵기/크기 강조 --->>> */
+.main-title {
+    font-size: 2.1rem; /* 크기를 약간 키움 */
+    font-weight: bold !important;
+    color: #333;
+    display: inline-block;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* --- 폼 라벨 및 필수 표시 --- */
+.form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.required-label::after {
+    content: ' *';
+    color: #dc3545; /* 빨간색 별표 */
+    margin-left: 2px;
+}
+
+/* --- 폼 입력 필드 --- */
+/* <<<--- ⭐️ 수정된 부분 2: 입력 필드 및 셀렉트 박스 글자 크기 조정 --->>> */
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem; /* 1rem에서 0.95rem으로 글자 크기 축소 */
+    box-shadow: none; 
+    transition: border-color 0.15s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+}
+
+/* --- 내용 입력 박스 (이미지와 동일한 스타일 적용) --- */
+.content-box {
+    margin-bottom: 30px;
+}
+
+.content-box textarea {
+    min-height: 200px; 
+    resize: vertical;
+}
+
+.help-text-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.help-text-list li {
+    line-height: 1.6;
+}
+
+.help-text-list li::before {
+    content: '•';
+    margin-right: 5px;
+    color: #6c757d;
+}
+
+/* --- 첨부 파일 영역 --- */
+.attachment-section {
+    margin-bottom: 40px;
+}
+
+.attachment-count {
+    float: right;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.file-upload-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #f1f3f5;
+    cursor: pointer;
+    text-align: center;
+    flex-direction: column;
+}
+
+.file-upload-area p {
+    margin: 2px 0;
+}
+
+.placeholder-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23adb5bd" viewBox="0 0 16 16"><path d="M10.5 8.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9c-.023.238-.052.483-.085.722L14 13.5v.5a1 1 0 0 1-1 1h-2v-1.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5V15h-2a1 1 0 0 1-1-1v-.5l-.915-.778A1.99 1.99 0 0 1 1.002 12zM3 9.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V10a.5.5 0 0 0-.5-.5zm2 0a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V10a.5.5 0 0 0-.5-.5zm2 0a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V10a.5.5 0 0 0-.5-.5zm2 0a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V10a.5.5 0 0 0-.5-.5zm2 0a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V10a.5.5 0 0 0-.5-.5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.placeholder-text {
+    font-weight: 500;
+    color: #adb5bd; 
+}
+
+.placeholder-note {
+    font-size: 0.8rem;
+    color: #adb5bd;
+}
+
+/* --- 글쓰기 Tip 박스 --- */
+.writing-tip-box {
+    background-color: #f7fff1; 
+    border-radius: 6px;
+    padding: 20px;
+    border: 1px solid #d4edda; 
+}
+
+.tip-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #155724; 
+    margin-bottom: 10px;
+}
+
+.tip-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.95rem;
+    color: #383d41;
+}
+
+.tip-list li {
+    margin-bottom: 5px;
+    padding-left: 1.2em;
+    position: relative;
+    line-height: 1.5;
+}
+
+.tip-list li::before {
+    content: '•';
+    color: #28a745; 
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* --- 푸터 버튼 영역 --- */
+.form-footer {
+    padding-top: 20px;
+    margin-top: 30px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+}
+
+.cancel-text {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background-color: #28aa52; 
+    border-color: #28aa52;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    margin-left:5px;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
