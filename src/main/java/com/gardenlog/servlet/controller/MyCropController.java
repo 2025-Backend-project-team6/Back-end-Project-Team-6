@@ -150,7 +150,6 @@ public class MyCropController extends HttpServlet {
 		String selectedCrop = request.getParameter("selectedCrop");
 		String keyword = request.getParameter("keyword");
 		
-		
 		CropDataDAO cddao = new CropDataDAO();
 		GardenDAO gdao = new GardenDAO();
 		MyCropDAO mcdao = new MyCropDAO();
@@ -216,12 +215,15 @@ public class MyCropController extends HttpServlet {
 			
 			int result = mcdao.addCrop(mcdto);
 			if(result==1) {
-				session.removeAttribute("userGardenList");
-				session.removeAttribute("recommendedList");
+				int cropCountResult = gdao.plusCropCount(gardenid);
 				
-				response.sendRedirect(request.getContextPath() + "/mycrop.do");
-				return ;
-				
+				if(cropCountResult==1) {
+					session.removeAttribute("userGardenList");
+					session.removeAttribute("recommendedList");
+					
+					response.sendRedirect(request.getContextPath() + "/mycrop.do");
+					return ;
+				}
 			} else {
 				response.sendRedirect(request.getContextPath() + "/JSP/addCrop.jsp");
 			}

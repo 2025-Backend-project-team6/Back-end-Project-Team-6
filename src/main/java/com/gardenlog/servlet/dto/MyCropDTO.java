@@ -5,17 +5,25 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MyCropDTO {
+	private int id;
 	private String userid;
 	private int gardenid;
 	private String gardenname;
 	private String category;
 	private int cropid;
+	private String crop_title;
 	private String nickname;
 	private Date planted_date;
 	private int water_count;
 	private Date last_watered_at;
 	private String status;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -46,6 +54,12 @@ public class MyCropDTO {
 	public void setCropid(int cropid) {
 		this.cropid = cropid;
 	}
+	public String getCrop_title() {
+		return crop_title;
+	}
+	public void setCrop_title(String crop_title) {
+		this.crop_title = crop_title;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -75,6 +89,6 @@ public class MyCropDTO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}	
+	}
 	
 }

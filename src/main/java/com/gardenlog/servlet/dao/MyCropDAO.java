@@ -16,7 +16,7 @@ public class MyCropDAO {
 	ResultSet rs = null;
 	
 	private final String JOIN = 
-			"SELECT mc.*, c.crop_nm AS category, g.gardenname " + 
+			"SELECT mc.*, c.crop_nm AS category, g.gardenname, ci.crop_title " + 
 			"FROM my_crop mc " +
 			"JOIN crop_info ci ON mc.cropid = ci.cropid " +
 			"JOIN crops c ON ci.crop_code = c.crop_code " +
@@ -26,6 +26,9 @@ public class MyCropDAO {
 	private final String CROP_ALLCROP = JOIN + "WHERE mc.userid=?;";
 	private final String CROP_CATEGORY = JOIN + "WHERE mc.userid=? and c.crop_nm=?;";
 	private final String ADDCROP_INSERTCROP = "insert into my_crop(userid, gardenid, cropid, nickname, planted_date) values(?, ?, ?, ?, ?);";
+	private final String DETAILGARDEN_GETGARDENCROP = JOIN + "WHERE mc.userid=? and mc.gardenid=?;";
+	private final String DETAILGARDEN_PLUSWATER = "update my_crop set water_count=water_count+1, last_watered_at=CURDATE() where id=?;";
+	private final String DETAILGARDEN_DELETECROP = "delete from my_crop where id=?;";
 	
 	public List<MyCropDTO> searchMyCrop(String userid, String keyword){
 		List<MyCropDTO> list = new ArrayList<>();
@@ -126,14 +129,79 @@ public class MyCropDAO {
 		return result;
 	}
 	
+	public List<MyCropDTO> getGardenCrop(String userid, int gardenid){
+		List<MyCropDTO> list = new ArrayList<MyCropDTO>();
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(DETAILGARDEN_GETGARDENCROP);
+			
+			pstmt.setString(1, userid);
+			pstmt.setInt(2, gardenid);;
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MyCropDTO mcdto = resultSetTOCrop(rs);
+				list.add(mcdto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt, rs);
+		}
+		
+		return list;
+	}
+	
+	public int plusWater(int id) {
+		int result = 0;
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(DETAILGARDEN_PLUSWATER);
+			
+			pstmt.setInt(1, id);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteCrop(int id) {
+		int result = 0;
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(DETAILGARDEN_DELETECROP);
+			
+			pstmt.setInt(1, id);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		
+		return result;
+	}
+	
 	private MyCropDTO resultSetTOCrop(ResultSet rs) throws SQLException {
 		MyCropDTO mcdto = new MyCropDTO();
 		
+		mcdto.setId(rs.getInt("id"));
 		mcdto.setUserid(rs.getString("userid"));
 		mcdto.setGardenid(rs.getInt("gardenid"));
 		mcdto.setGardenname(rs.getString("gardenname"));
 		mcdto.setCategory(rs.getString("category"));
 		mcdto.setCropid(rs.getInt("cropid"));
+		mcdto.setCrop_title(rs.getString("crop_title"));
 		mcdto.setNickname(rs.getString("nickname"));
 		mcdto.setPlanted_date(rs.getDate("planted_date"));
 		mcdto.setWater_count(rs.getInt("water_count"));
