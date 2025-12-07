@@ -73,7 +73,6 @@ public class GardenActivityDAO {
 		return result;
 	}
 	
-	
 	private GardenActivityDTO resultSetToActivity(ResultSet rs) throws SQLException {
         GardenActivityDTO gadto = new GardenActivityDTO();
         gadto.setActivityid(rs.getInt("activityid"));

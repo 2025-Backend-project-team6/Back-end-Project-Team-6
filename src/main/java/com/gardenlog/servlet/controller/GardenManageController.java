@@ -9,11 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,10 +84,13 @@ public class GardenManageController extends HttpServlet {
 			
 			Map<Integer, List<GardenActivityDTO>> calendarMap = new HashMap<>();
 			
-			for(GardenActivityDTO activity: activityList) {
-				int day = activity.getActivity_date().toInstant().atZone(ZoneId.systemDefault()).getDayOfMonth();
+			for (GardenActivityDTO activity : activityList) {
+				if (activity.getActivity_date() == null) continue;
 				
-				calendarMap.putIfAbsent(day, new ArrayList<>());
+			    LocalDate localDate = activity.getActivity_date().toLocalDate();
+			    int day = localDate.getDayOfMonth();
+
+			    calendarMap.putIfAbsent(day, new ArrayList<>());
 			    calendarMap.get(day).add(activity);
 			}
 			
@@ -101,6 +102,7 @@ public class GardenManageController extends HttpServlet {
 			session.setAttribute("garden", garden);
 			session.setAttribute("gardenCropList", gardenCropList);
 			request.setAttribute("calendarMap", calendarMap);
+			request.setAttribute("today", today.toString());
 			request.setAttribute("year", year);
 			request.setAttribute("month", month);
 			request.setAttribute("days", days);
@@ -111,6 +113,7 @@ public class GardenManageController extends HttpServlet {
 		}
 		
 		if("water".equals(action)) {
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
 			int id = Integer.parseInt(request.getParameter("id"));
 			int result = mcdao.plusWater(id);
 			
@@ -118,7 +121,7 @@ public class GardenManageController extends HttpServlet {
 				Map<Integer, Boolean> waterStatus = new HashMap<>();
 				waterStatus.put(id, true);
 				
-				request.setAttribute("waterStatus", waterStatus);	
+				session.setAttribute("waterStatus", waterStatus);	
 			}
 
 			GardenDTO garden = (GardenDTO)session.getAttribute("garden");
@@ -126,12 +129,14 @@ public class GardenManageController extends HttpServlet {
 			
 			session.setAttribute("gardenCropList", updateGardenCropList);
 			
-			dispatcher = request.getRequestDispatcher("/JSP/detailGarden.jsp");
+			dispatcher = request.getRequestDispatcher("/gardenmanage.do?action=detailGardenBtn&gardenid=" + gardenid);
 			dispatcher.forward(request, response);
-			return ;	
+			return;
 		}
 		
 		if("allWater".equals(action)) {
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
+			
 			GardenDTO garden = (GardenDTO)session.getAttribute("garden");
 			List<MyCropDTO> CropList = (List<MyCropDTO>)session.getAttribute("gardenCropList");
 			Map<Integer, Boolean> waterStatus = new HashMap<>();
@@ -148,20 +153,19 @@ public class GardenManageController extends HttpServlet {
 			
 			List<MyCropDTO> updateGardenCropList = mcdao.getGardenCrop(userid, garden.getGardenid());
 			session.setAttribute("gardenCropList", updateGardenCropList);
-			request.setAttribute("waterStatus", waterStatus);
+			session.setAttribute("waterStatus", waterStatus);
 			
-			dispatcher = request.getRequestDispatcher("/JSP/detailGarden.jsp");
+			dispatcher = request.getRequestDispatcher("/gardenmanage.do?action=detailGardenBtn&gardenid=" + gardenid);
 			dispatcher.forward(request, response);
-			return ;	
+			return;	
 		}
 		
 		if("deleteCrop".equals(action)) {
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
 			int id = Integer.parseInt(request.getParameter("id"));
 			int result = mcdao.deleteCrop(id);
 			
 			if(result==1) {
-				int gardenid = Integer.parseInt(request.getParameter("gardenid"));
-				
 				gdao.minusCropCount(gardenid);
 				
 				GardenDTO garden = gdao.getDetailGarden(gardenid);
@@ -171,9 +175,9 @@ public class GardenManageController extends HttpServlet {
 				session.setAttribute("gardenCropList", updateGardenCropList);
 			}
 			
-			dispatcher = request.getRequestDispatcher("/JSP/detailGarden.jsp");
+			dispatcher = request.getRequestDispatcher("/gardenmanage.do?action=detailGardenBtn&gardenid=" + gardenid);
 			dispatcher.forward(request, response);
-			return ;
+			return;
 		}
 		
 		List<GardenDTO> userGardenList = gdao.getAllGarden(userid);
@@ -184,8 +188,6 @@ public class GardenManageController extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("/JSP/gardenManage.jsp");
 		dispatcher.forward(request, response);
 	}
-	
-
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

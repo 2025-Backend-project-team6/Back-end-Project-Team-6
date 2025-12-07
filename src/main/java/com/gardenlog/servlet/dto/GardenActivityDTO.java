@@ -1,6 +1,6 @@
 package com.gardenlog.servlet.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class GardenActivityDTO {
 	private int activityid;
