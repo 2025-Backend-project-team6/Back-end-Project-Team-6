@@ -16,7 +16,9 @@ public class GardenDAO {
 	private final String GARDEN_SEARCHGARDEN = "select * from garden where userid=? and gardenname like ?;";
 	private final String GARDEN_GETALLGARDEN = "select * from garden where userid=?;";
 	private final String GARDEN_DETAILGARDEN = "select * from garden where gardenid=?;";
+	private final String GARDEN_PLUSCROPCOUNT = "update garden set crop_count=crop_count+1 where gardenid=?;";
 	private final String ADDCROP_GETGARDENID = "select gardenid from garden where userid=? and gardenname=?;";
+	private final String GARDEN_MINUSCROPCOUNT = "update garden set crop_count=crop_count-1 where gardenid=?;";
 	
 	public int addGarden(GardenDTO gdto) {
 		int result =0;
@@ -135,6 +137,40 @@ public class GardenDAO {
 		}
 		
 		return gardenid;
+	}
+	
+	public int plusCropCount(int gardenid) {	
+		int result = 0;
+		
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(GARDEN_PLUSCROPCOUNT);
+			
+			pstmt.setInt(1, gardenid);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
+		
+		return result;
+	}
+	
+	public void minusCropCount(int gardenid) {
+		try {
+			conn = JdbcConnectUtil.getConnection();
+			pstmt = conn.prepareStatement(GARDEN_MINUSCROPCOUNT);
+			
+			pstmt.setInt(1, gardenid);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcConnectUtil.close(conn, pstmt);
+		}
 	}
 	
 	private GardenDTO resultSetToGarden(ResultSet rs) throws SQLException {
