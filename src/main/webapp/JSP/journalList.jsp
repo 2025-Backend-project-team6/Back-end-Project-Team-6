@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>GardenLog - 농사 일지</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/journalList.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/journal.css?v=2">
 </head>
 <body>
 
@@ -23,9 +23,7 @@
                 <div class="mini-calendar">
                     <div class="calendar-nav">
                         <a href="journal.do?year=${currentMonth == 1 ? currentYear - 1 : currentYear}&month=${currentMonth == 1 ? 12 : currentMonth - 1}" class="nav-arrow">&lt;</a>
-                        
                         <span class="current-month">${currentYear}년 ${currentMonth}월</span>
-                        
                         <a href="journal.do?year=${currentMonth == 12 ? currentYear + 1 : currentYear}&month=${currentMonth == 12 ? 1 : currentMonth + 1}" class="nav-arrow">&gt;</a>
                     </div>
                     <div class="calendar-weekdays">
@@ -35,7 +33,6 @@
                         <c:forEach begin="1" end="${startDayOfWeek - 1}">
                             <span class="day empty"></span>
                         </c:forEach>
-
                         <c:forEach var="day" begin="1" end="${lastDay}">
                             <c:set var="hasLog" value="false" />
                             <c:forEach var="d" items="${logDates}">
@@ -43,7 +40,6 @@
                                     <c:set var="hasLog" value="true" />
                                 </c:if>
                             </c:forEach>
-
                             <c:choose>
                                 <c:when test="${hasLog}">
                                     <span class="day has-log">${day}</span>
@@ -67,16 +63,24 @@
                         <span class="value">${monthlyTotal}개</span>
                     </div>
                     <div class="insight-item">
-                        <span class="label">물주기</span>
+                        <span class="label">💧 물주기</span>
                         <span class="value">${waterCount}번</span>
                     </div>
                     <div class="insight-item">
-                        <span class="label">수확</span>
+                        <span class="label">💊 비료</span>
+                        <span class="value">${fertilizerCount}번</span>
+                    </div>
+                    <div class="insight-item">
+                        <span class="label">📝 관찰</span>
+                        <span class="value">${observeCount}번</span>
+                    </div>
+                    <div class="insight-item">
+                        <span class="label">🧺 수확</span>
                         <span class="value">${harvestCount}번</span>
                     </div>
                 </div>
                 <div class="insight-footer">
-                    <span>🌟 가장 많이 기록한 작물:</span>
+                    <span>🌟 최다 기록 작물:</span>
                     <strong>${topCrop}</strong>
                 </div>
             </div>
@@ -90,14 +94,23 @@
         </aside>
 
         <main class="journal-feed">
-             <div class="feed-header">
+            <div class="feed-header">
                 <div class="title-area">
                     <h2>농사 일지 📝</h2>
                     <p>나의 농사 이야기를 기록해보세요</p>
                 </div>
-                </div>
-             
-             <div class="log-list">
+                <button class="top-write-btn" onclick="location.href='journalWrite.do'">+ 일지 작성</button>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="tab ${empty currentCategory or currentCategory eq '전체' ? 'active' : ''}" onclick="location.href='journal.do?category=전체'">전체</button>
+                <button class="tab ${currentCategory eq '물주기' ? 'active' : ''}" onclick="location.href='journal.do?category=물주기'">물주기</button>
+                <button class="tab ${currentCategory eq '비료' ? 'active' : ''}" onclick="location.href='journal.do?category=비료'">비료</button>
+                <button class="tab ${currentCategory eq '관찰' ? 'active' : ''}" onclick="location.href='journal.do?category=관찰'">관찰</button>
+                <button class="tab ${currentCategory eq '수확' ? 'active' : ''}" onclick="location.href='journal.do?category=수확'">수확</button>
+            </div>
+
+            <div class="log-list">
                 <c:if test="${empty journalList}">
                     <div class="empty-log"><p>작성된 일지가 없습니다.</p></div>
                 </c:if>
@@ -126,11 +139,16 @@
                                 </div>
                             </div>
                         </c:if>
+                        <div class="card-footer">
+                            <span class="tag">#${log.logType}</span>
+                        </div>
                     </div>
                 </c:forEach>
-             </div>
+            </div>
         </main>
     </div>
+
     <jsp:include page="./footer.jsp" />
+
 </body>
 </html>

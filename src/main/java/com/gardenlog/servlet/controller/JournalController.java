@@ -51,32 +51,38 @@ public class JournalController extends HttpServlet {
         int startDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+        String category = request.getParameter("category");
+        if(category == null) category = "전체";
+
         JournalDAO jdao = new JournalDAO();
 
-        List<JournalDTO> journalList = jdao.selectJournalList(userid);
+        List<JournalDTO> journalList = jdao.selectJournalList(userid, category);
 
         List<Integer> logDates = jdao.getLogDates(userid, year, month);
-        
+
         int monthlyTotal = jdao.getMonthlyLogCount(userid, year, month);
-        int waterCount = jdao.getKeywordCount(userid, year, month, "물");
+        int waterCount = jdao.getKeywordCount(userid, year, month, "물주기");
+        int fertilizerCount = jdao.getKeywordCount(userid, year, month, "비료");
+        int observeCount = jdao.getKeywordCount(userid, year, month, "관찰");
         int harvestCount = jdao.getKeywordCount(userid, year, month, "수확");
+        
         String topCrop = jdao.getTopCropName(userid, year, month);
 
-        // 달력 정보
         request.setAttribute("currentYear", year);
         request.setAttribute("currentMonth", month);
         request.setAttribute("startDayOfWeek", startDayOfWeek);
         request.setAttribute("lastDay", lastDay);
         request.setAttribute("logDates", logDates);
-        
-        // 인사이트 정보
+
         request.setAttribute("monthlyTotal", monthlyTotal);
         request.setAttribute("waterCount", waterCount);
+        request.setAttribute("fertilizerCount", fertilizerCount);
+        request.setAttribute("observeCount", observeCount);
         request.setAttribute("harvestCount", harvestCount);
         request.setAttribute("topCrop", topCrop);
         
-        // 일지 리스트
         request.setAttribute("journalList", journalList);
+        request.setAttribute("currentCategory", category);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/journalList.jsp");
         dispatcher.forward(request, response);

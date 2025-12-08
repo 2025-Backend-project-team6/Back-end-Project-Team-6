@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/* =========================================
+   [일지 작성 페이지 전용 스타일]
+   ========================================= */
+
+/* 레이아웃 컨테이너 */
+.write-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+
+    /* [핵심] 헤더와 푸터 사이 남은 공간을 꽉 채움 (푸터 밀어내기) */
+    flex: 1;
+}
+
+h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+/* 폼 요소 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-input, 
+.form-textarea, 
+.form-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-textarea {
+    height: 200px;
+    resize: vertical; /* 세로로만 크기 조절 가능 */
+}
+
+/* 날씨/분류 라디오 버튼 영역 */
+.weather-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.weather-options label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.95rem;
+}
+
+/* 버튼 영역 */
+.btn-area {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.btn-submit {
+    background-color: #4a7c59;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #3a6346;
+}
+
+.btn-cancel {
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-cancel:hover {
+    background-color: #ddd;
+}

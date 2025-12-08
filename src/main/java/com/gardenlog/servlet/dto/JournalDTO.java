@@ -12,6 +12,7 @@ public class JournalDTO {
     private String weather;
     private Date logDate;
     private String logImg;
+    private String logType; // 일지 분류 (물주기, 비료, 관찰, 수확)
     
 	public int getLogId() {
 		return logId;
@@ -67,6 +68,10 @@ public class JournalDTO {
 	public void setLogImg(String logImg) {
 		this.logImg = logImg;
 	}
-    
-    
+	public String getLogType() {
+		return logType;
+	}
+	public void setLogType(String logType) {
+		this.logType = logType;
+	}
 }
