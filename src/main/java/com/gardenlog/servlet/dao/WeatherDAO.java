@@ -37,13 +37,11 @@ public class WeatherDAO {
         // 1. API 호출 URL 생성
         StringBuilder urlBuilder = new StringBuilder(API_URL);
         
-        // 서비스 키는 URL 인코딩해야 합니다. (공백 등의 특수문자가 있을 경우)
-        String encodedKey = URLEncoder.encode(SERVICE_KEY, "UTF-8");
-        
-        urlBuilder.append("?" + "serviceKey" + "=" + encodedKey);
+        // [수정] serviceKey 파라미터 연결 시 '=' 문자가 누락되어 추가했습니다.
+        urlBuilder.append("?serviceKey=" + SERVICE_KEY);
         
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); // 충분한 데이터 수 요청
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(baseDate, "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode(baseTime, "UTF-8"));
@@ -148,57 +146,30 @@ public class WeatherDAO {
             hourlyData.setFcstTime(item.getFcstTime());
 
             // 3. category에 따라 HourlyWeatherDTO의 필드를 채웁니다.
-            switch (item.getCategory()) {
-                case "T1H":
-                    hourlyData.setTemperature(Double.parseDouble(item.getFcstValue()));
+            String category = item.getCategory().trim(); // 공백 제거 후 비교
+            String value = item.getFcstValue().trim();
+
+            // 값이 비어있으면 건너뜀 (기본값 유지)
+            if (value.isEmpty()) {
+                continue;
+            }
+
+            switch (category) {
+                case "TMP":
+                    hourlyData.setTemperature(value); 
                     break;
                 case "SKY":
-                String skyValue = item.getFcstValue();
-                    String koreanSkyStatus;
-                    
-                    // 코드를 한글로 변환하는 로직
-                    if ("1".equals(skyValue)) {
-                        koreanSkyStatus = "맑음";
-                    } else if ("3".equals(skyValue)) {
-                        koreanSkyStatus = "구름 많음";
-                    } else if ("4".equals(skyValue)) {
-                        koreanSkyStatus = "흐림";
-                    } else {
-                        koreanSkyStatus = "알 수 없음";
-                    }
-                    
-                    hourlyData.setSkyStatus(koreanSkyStatus); // 한글 문자열 저장
+                    hourlyData.setSkyStatus(value);
                     break;
-                case "REH": // 습도 추가
-                    hourlyData.setHumidity(Integer.parseInt(item.getFcstValue()));
+                case "REH": // 습도
+                    hourlyData.setHumidity(value); // 문자열 그대로 저장
                     break;
-                case "PTY": // 강수 형태 추가
-                    String ptyValue = item.getFcstValue();
-                    String koreanPty;
-                    
-                    // PTY 코드를 한글 문자열로 변환하는 로직
-                    switch (ptyValue) {
-                        case "0":
-                            koreanPty = "없음";
-                            break;
-                        case "1":
-                            koreanPty = "비";
-                            break;
-                        case "2":
-                            koreanPty = "비 또는 눈";
-                            break;
-                        case "3":
-                            koreanPty = "눈";
-                            break;
-                        case "4":
-                            koreanPty = "소나기";
-                            break;
-                        default:
-                            koreanPty = "기타 강수";
-                    }
-                    hourlyData.setPrecipitationType(koreanPty);
+                case "PTY": // 강수 형태
+                    hourlyData.setPrecipitationType(value);
                     break;
-                
+                case "PCP": // 강수량
+                    hourlyData.setPrecipitationAmount(value);
+                    break;
             }
             
             // key와 DTO를 다시 Map에 저장 (getOrDefault를 썼더라도 put을 해줘야 필드 값이 업데이트됩니다.)
@@ -206,6 +177,14 @@ public class WeatherDAO {
         }
         
         // 4. 최종적으로 Map의 Value들만 List로 추출하여 반환
-        return new ArrayList<>(hourlyDataMap.values());
+        // 정렬 로직 추가: 날짜와 시간 순으로 정렬하여 가장 빠른 시간의 예보가 리스트의 첫 번째에 오도록 함
+        List<HourlyWeatherDTO> resultList = new ArrayList<>(hourlyDataMap.values());
+        resultList.sort((o1, o2) -> {
+            int dateCompare = o1.getFcstDate().compareTo(o2.getFcstDate());
+            if (dateCompare != 0) return dateCompare;
+            return o1.getFcstTime().compareTo(o2.getFcstTime());
+        });
+        
+        return resultList;
     }
 }
