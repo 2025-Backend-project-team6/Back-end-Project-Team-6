@@ -32,6 +32,7 @@ CREATE TABLE `farming_logs` (
   `log_date` date DEFAULT (curdate()),
   `log_img` varchar(255) DEFAULT NULL,
   `reg_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `log_type` varchar(20) DEFAULT '관찰',
   PRIMARY KEY (`log_id`),
   KEY `userid` (`userid`),
   KEY `my_crop_id` (`my_crop_id`),
@@ -46,7 +47,7 @@ CREATE TABLE `farming_logs` (
 
 LOCK TABLES `farming_logs` WRITE;
 /*!40000 ALTER TABLE `farming_logs` DISABLE KEYS */;
-INSERT INTO `farming_logs` VALUES (1,'testUser',5,'방울이 첫 꽃','노란 꽃이 피었다!','맑음','2025-12-02',NULL,'2025-12-02 04:23:44');
+INSERT INTO `farming_logs` VALUES (1,'testUser',6,'방울이 첫 꽃','노란 꽃이 피었다!','맑음','2025-12-08',NULL,'2025-12-08 19:49:30','관찰');
 /*!40000 ALTER TABLE `farming_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 12:24:53
+-- Dump completed on 2025-12-08 20:28:48
