@@ -208,7 +208,6 @@ public class WeatherDAO {
         }
         
         // 4. 최종적으로 Map의 Value들만 List로 추출하여 반환
-        // List 임포트: import java.util.ArrayList;
         return new ArrayList<>(hourlyDataMap.values());
     }
 }

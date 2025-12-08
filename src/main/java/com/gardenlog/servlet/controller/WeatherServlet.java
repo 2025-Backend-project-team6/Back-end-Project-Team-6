@@ -28,8 +28,15 @@ import com.google.gson.GsonBuilder;
 
 
 @WebServlet("/weather.do")
+
 public class WeatherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public void init() throws ServletException {
+	    super.init();
+	    System.out.println("★ ★ ★ DEBUG SUCCESS ★ ★ ★: WeatherServlet 클래스 로딩 및 초기화 성공!");
+	    System.out.println("★ ★ ★ API URL: " + API_URL); // API_URL 상수가 정상 정의되었는지 확인
+	}
        
 	// 사용자 인증 키
     private final String SERVICE_KEY = "9a937386421cf0e75b2f2d61873e48ba80c036f924959f27c9562adcaffabfbf"; 

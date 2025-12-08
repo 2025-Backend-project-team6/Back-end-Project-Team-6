@@ -193,5 +193,89 @@
     </div>
 
     <%@ include file="footer.jsp" %>
+    
+  <script>
+	// 1. 함수 정의 (함수가 다른 코드보다 먼저 인식되어야 합니다.)
+	function requestWeatherUpdate(lat, lon) {
+	    // **[클라이언트 콘솔 출력]** fetch 호출 직전 확인
+	    console.log("DEBUG(Client): Attempting fetch to /weather.do with lat:", lat, "lon:", lon); 
+	    
+	    const weatherUrl = "${pageContext.request.contextPath}/weather.do?lat=" + lat + "&lon=" + lon;
+	    
+	    fetch(weatherUrl)
+	        .then(response => {
+	            if (response.ok) {
+	                return response.json(); 
+	            } else {
+	                throw new Error('Servlet 응답 오류: ' + response.status);
+	            }
+	        })
+	        .then(data => {
+	            // 서버에서 받은 JSON 데이터로 화면 업데이트
+	            updateWeatherCard(data);
+	        })
+	        .catch(error => {
+	            console.error("날씨 정보 비동기 호출 실패:", error);
+	            // 오류 발생 시 오류 메시지 표시
+	            document.querySelector('.location').innerText = "정보 획득 실패";
+	            document.querySelector('.temp').innerText = "--°";
+	            document.querySelector('.condition').innerText = "통신 오류";
+	            document.querySelector('.weather-details').innerHTML = "<span>잠시 후 다시 시도해주세요.</span>";
+	        });
+	}
+	
+	// 2. 🌤️ 날씨 카드 업데이트 함수
+	function updateWeatherCard(data) {
+	    const weatherCard = document.querySelector('.weather-card');
+	    
+	    if (!data.weatherList || data.weatherList.length === 0) {
+	        // 데이터가 없는 경우 처리
+	        weatherCard.querySelector('.location').innerText = data.locationName || '위치 정보';
+	        weatherCard.querySelector('.temp').innerText = "--°";
+	        weatherCard.querySelector('.condition').innerText = "날씨 정보 없음";
+	        weatherCard.querySelector('.weather-details').innerHTML = "<span>예보 데이터를 찾을 수 없습니다.</span>";
+	        return;
+	    }
+	    
+	    const current = data.weatherList[0];
+	    
+	    // 하늘 상태 코드 변환 (DAO에서 변환했다면 그대로 사용)
+	    let skyStatusText = current.skyStatus;
+	    
+	    // DAO에서 코드를 변환하지 않았다면 (SKY: 1, 3, 4) 여기서 변환
+	    if (skyStatusText === '1') skyStatusText = '맑음';
+	    else if (skyStatusText === '3') skyStatusText = '구름 많음';
+	    else if (skyStatusText === '4') skyStatusText = '흐림';
+	    
+	    // 강수 형태 코드 변환 (PTY: 0, 1, 2, ...)
+	    let ptyText = current.precipitationType;
+	    
+	    // DOM 요소에 데이터 삽입
+	    weatherCard.querySelector('.location').innerText = data.locationName;
+	    weatherCard.querySelector('.temp').innerText = `${current.temperature}°`;
+	    weatherCard.querySelector('.condition').innerText = skyStatusText;
+	    
+	    weatherCard.querySelector('.weather-details').innerHTML = `
+	        <span>습도 ${current.humidity}%</span>
+	        <span>강수 형태: ${ptyText || '없음'}</span>
+	    `;
+	    
+	    // 카드 아이콘 업데이트
+	    const icon = (skyStatusText === '맑음') ? '☀️' : 
+	                 (skyStatusText.includes('흐림')) ? '☁️' : '🌤️';
+	    weatherCard.querySelector('h4').innerHTML = `날씨 정보 ${icon}`;
+	}
+	
+	// 3. 이벤트 리스너: 페이지 로드 후 위치 요청 시작
+	document.addEventListener('DOMContentLoaded', function() {
+	    // ⚠️ Geolocation API 호출 로직은 주석 처리하고 테스트 코드를 실행합니다.
+	    
+	    console.log("테스트 모드: Geolocation을 건너뛰고 기본 위치로 요청합니다.");
+	    
+	    // 동양미래대 좌표 (37.4939, 126.8530)로 즉시 호출
+	    requestWeatherUpdate(37.4939, 126.8530); 
+	});
+</script>
 </body>
+
 </html>
