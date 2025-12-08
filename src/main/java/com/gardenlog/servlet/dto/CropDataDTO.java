@@ -13,9 +13,6 @@ public class CropDataDTO {
     private String period_text;
     private String water_cycle;
     private String sunlight_hours;
-    private String growTemp;
-    private List<String> tips;
-    private Map<String, List<String>> infoDetail; 
     
 	public int getCropid() {
 		return cropid;
@@ -70,24 +67,6 @@ public class CropDataDTO {
 	}
 	public void setSunlight_hours(String sunlight_hours) {
 		this.sunlight_hours = sunlight_hours;
-	}
-	public String getGrowTemp() {
-		return growTemp;
-	}
-	public void setGrowTemp(String growTemp) {
-		this.growTemp = growTemp;
-	}
-	public List<String> getTips() {
-		return tips;
-	}
-	public void setTips(List<String> tips) {
-		this.tips = tips;
-	}
-	public Map<String, List<String>> getInfoDetail() {
-		return infoDetail;
-	}
-	public void setInfoDetail(Map<String, List<String>> infoDetail) {
-		this.infoDetail = infoDetail;
 	}
 	
 }
