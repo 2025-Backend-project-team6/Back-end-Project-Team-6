@@ -34,7 +34,7 @@ CREATE TABLE `garden` (
   PRIMARY KEY (`gardenid`),
   KEY `userid_idx` (`userid`),
   CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `garden` (
 
 LOCK TABLES `garden` WRITE;
 /*!40000 ALTER TABLE `garden` DISABLE KEYS */;
-INSERT INTO `garden` VALUES (1,'leenayeon','나연이네 베란다','서울특별시 구로구 개봉동',2,3,'2025-03-15',NULL),(2,'leenayeon','주말농장','서울특별시 구로구 개봉동',8,4,'2025-04-10',NULL),(3,'leeseyeon','세연이네 베란다','경기도 광명시 새터로',2,3,'2025-03-15',NULL),(4,'leeseyeon','주말농장','경기도 광명시 새터로',8,4,'2025-04-10',NULL),(5,'chohyein','혜인이네 베란다','서울시 서대문구 통일로',2,3,'2025-03-15',NULL),(6,'chohyein','주말농장','서울시 서대문구 통일로',8,4,'2025-04-10',NULL),(17,'leenayeon','개봉동 주말농장','서울특별시 구로구 개봉동',10,0,'2025-12-02',NULL),(18,'leenayeon','개봉동 주말농장2','서울특별시 구로구 개봉동',0,0,NULL,NULL);
+INSERT INTO `garden` VALUES (23,'leenayeon','나연 주말농장','서울특별시 구로구 개봉동',5,1,'2025-12-01',NULL);
 /*!40000 ALTER TABLE `garden` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 12:12:32
+-- Dump completed on 2025-12-08 20:39:31
