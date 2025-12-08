@@ -1,0 +1,279 @@
+/* addCrop.css */
+
+/* ---------------------------------------------------- */
+/* 기본 설정 및 레이아웃 */
+/* ---------------------------------------------------- */
+
+body {
+    /* JSP에 include된 header.jsp가 있을 것으로 예상하고, */
+    font-family: 'Arial', sans-serif; /* 폰트 설정 (이미지에 사용된 폰트와 유사하게) */
+    background-color: #f8f9f5; /* 전체 배경색 */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    max-width: 800px; /* 콘텐츠 영역 최대 너비 */
+    margin: 40px auto; /* 상하 마진 40px, 좌우 자동 (중앙 정렬) */
+    padding: 20px;
+    background-color: #f8f9f5; /* 콘텐츠 배경색 */
+    border-radius: 8px;
+}
+
+/* ---------------------------------------------------- */
+/* 페이지 제목 및 설명 */
+/* ---------------------------------------------------- */
+
+.title-wrapper {
+    text-align: left;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    /* 이미지에서 상단 로고/메뉴 바와 구분되는 영역이 있다면, 이 부분은 border-bottom을 제외할 수 있습니다. */
+    /* 현재 코드에서는 페이지 제목 아래에 경계를 두어 섹션을 구분합니다. */
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.page-desc {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ---------------------------------------------------- */
+/* 섹션 박스 스타일 */
+/* ---------------------------------------------------- */
+
+.section-box {
+    background-color: #ffffff; /* 흰색 배경 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------- */
+/* 입력 필드 및 드롭다운 */
+/* ---------------------------------------------------- */
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.input-text,
+.input-select {
+    width: calc(100% - 24px); /* 패딩 고려 */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+    margin-bottom: 15px;
+}
+
+.input-text:focus,
+.input-select:focus {
+    border-color: #a0c98f; /* 포커스 시 밝은 초록색 */
+    box-shadow: 0 0 0 2px rgba(160, 201, 143, 0.3);
+    outline: none;
+}
+
+/* ---------------------------------------------------- */
+/* 검색 영역 */
+/* ---------------------------------------------------- */
+
+.search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-search {
+    flex-grow: 1; /* 검색 입력 필드가 최대한의 공간을 차지하도록 */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* 초록색 버튼 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-search:hover {
+    background-color: #45a049;
+}
+
+.warning {
+    color: #d9534f; /* 빨간색 경고 메시지 */
+    margin-top: -10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.warning2 {
+    color: #d9534f; /* 빨간색 경고 메시지 */
+    margin-top: 8px;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* ---------------------------------------------------- */
+/* 작물 그리드 (아이콘/카드) */
+/* ---------------------------------------------------- */
+
+.recommend-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.crop-grid {
+    display: grid;
+    /* 이미지와 유사하게 6개의 열을 생성 */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px; /* 그리드 항목 사이의 간격 */
+    margin-bottom: 15px;
+}
+
+.crop-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    height: 90px; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    /* 버튼의 기본 스타일 제거 */
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* 작물 아이콘 표시 (이미지처럼 아이콘과 텍스트가 상하로 분리되도록) */
+/* JSP에서 ${crop.value}에 이모티콘이 포함되어 있으므로, ::before 대신 직접 스타일링 */
+.crop-card {
+    line-height: 1.2; /* 텍스트 라인 간격 조정 */
+}
+
+
+.crop-card:hover {
+    border-color: #a0c98f;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f0f8ee; /* 호버 시 연한 초록색 배경 */
+}
+
+.crop-card-active {
+    background-color: #e7f5e7;       /* 연한 초록색 배경 */
+    border-color: #4CAF50;           /* 초록 테두리 */
+    font-weight: bold;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+
+/* ---------------------------------------------------- */
+/* 버튼 영역 */
+/* ---------------------------------------------------- */
+
+.btn-row {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.btn-cancel,
+.btn-submit {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    min-width: 120px;
+}
+
+.btn-cancel {
+    /* 이미지 속 '취소' 버튼처럼 회색 계열 */
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background-color: #ccc;
+}
+
+.btn-submit {
+    /* 이미지 속 '작물 추가하기' 버튼의 초록색과 유사하게 */
+    background-color: #4CAF50; 
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #45a049;
+}
+
+/* ---------------------------------------------------- */
+/* 미디어 쿼리 (반응형 디자인) */
+/* ---------------------------------------------------- */
+
+@media (max-width: 600px) {
+    .page-container {
+        margin: 20px;
+        padding: 15px;
+    }
+    
+    .crop-grid {
+        /* 작은 화면에서는 열의 수를 줄입니다. */
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        min-width: 100%;
+        margin-bottom: 10px;
+    }
+}
