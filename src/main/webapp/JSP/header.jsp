@@ -14,7 +14,7 @@
     		<a href="#" id="findFarmLink">내 주변 텃밭찾기</a>
         	<a href="${pageContext.request.contextPath}/gardenmanage.do">텃밭 관리</a>
         	<a href="${pageContext.request.contextPath}/mycrop.do">작물 관리</a>
-        	<a href="#">작물 검색</a>
+        	<a href="${pageContext.request.contextPath}//cropsearch.do">작물 검색</a>
         	<a href="#">농사 일지</a>
         	<a href="${pageContext.request.contextPath}/JSP/community.jsp">커뮤니티</a>
         	<a href="${pageContext.request.contextPath}/mypage.do">마이페이지</a>
