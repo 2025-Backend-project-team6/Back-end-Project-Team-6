@@ -1,0 +1,334 @@
+@charset "UTF-8";
+/* 기본 설정 및 리셋 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* === 헤더/네비게이션 바 스타일 === */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50; /* 포인트 색상 */
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a.active {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* === 전체 컨테이너 및 레이아웃 === */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    gap: 30px;
+}
+
+.main-content {
+    flex: 3; /* 메인 콘텐츠가 더 넓게 */
+}
+
+.sidebar {
+    flex: 1; /* 사이드바는 상대적으로 좁게 */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.page-title {
+	font-size: 30px;
+    font-weight: 700;
+    color: #38761d;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.page-subtitle {
+    display: inline-block;
+    color: #595959;
+    margin-left: 10px;
+}
+
+.write-btn {
+    float: right;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.write-btn:hover {
+    background-color: #45a049;
+}
+
+/* === 검색 및 필터링 영역 === */
+.search-filter-area {
+    clear: both;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-box {
+    display: flex;
+}
+
+.search-box input[type="text"] {
+	width: 300px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-box button {
+    padding: 8px 12px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.tabs .tab {
+    padding: 8px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.tabs .tab.active {
+    font-weight: bold;
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
+}
+
+/* === 게시글 목록 스타일 === */
+.post {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.post-header {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #777;
+}
+
+.user-level {
+    background-color: #e0f2f1;
+    color: #00897b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.post-content {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.post-images {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.post-img {
+    width: 100px;          /* 이미지 너비 지정 */
+    height: 100px;         /* 이미지 높이 지정 */
+    object-fit: cover;     /* 이미지가 잘려도 비율을 유지하도록 설정 */
+    border-radius: 4px;    /* 모서리 둥글게 처리 */
+    display: block;        /* 블록 요소로 설정 */
+}
+
+.post-tags .tag {
+    display: inline-block;
+    font-size: 12px;
+    color: #00796b;
+    background-color: #e0f2f1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.post-meta {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+    color: #777;
+}
+
+.post-meta span {
+    margin-right: 15px;
+}
+
+.load-more-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #555;
+    font-size: 14px;
+}
+
+/* === 사이드바 스타일 (누락된 부분) === */
+.sidebar h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.ranking-widget ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dotted #eee;
+    font-size: 14px;
+}
+
+.ranking-widget ul li:last-child {
+    border-bottom: none;
+}
+
+.rank-title {
+    color: #555;
+}
+
+.rank-count {
+    font-weight: bold;
+    color: #333;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 20px 0;
+}
+
+.weekly-best-widget h3 {
+    color: #333; /* 주황색 포인트 */
+    margin-bottom: 15px;
+}
+
+.best-post {
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px dotted #eee;
+}
+
+.best-post:last-child {
+    border-bottom: none;
+}
+
+.best-post-content {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.best-post-meta {
+    font-size: 12px;
+    color: #777;
+}
+
+.best-post-meta span {
+    margin-right: 10px;
+}
+
+/* 글 작성 권유 배너 (CTA) 스타일 */
+.cta-banner {
+    background-color: #e8f5e9; /* 연한 녹색 배경 */
+    border: 2px solid #a5d6a7;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cta-banner p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1b5e20;
+    margin: 0;
+}
+
+.cta-banner .sub-text {
+    font-size: 13px;
+    font-weight: normal;
+    color: #4caf50;
+    margin-top: 5px;
+}

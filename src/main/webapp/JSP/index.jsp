@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +9,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css">
 </head>
 <body>
-	<header class="header">
-        <div class="logo">GardenLog</div>
-        <nav class="nav-menu">
-            <a href="#">텃밭 관리</a>
-            <a href="#">작물 관리</a>
-            <a href="#">작물 검색</a>
-            <a href="#">농사 일지</a>
-            <a href="#">커뮤니티</a>
-            <a href="#">마이페이지</a>
-        </nav>
-        <button class="logout-btn">로그아웃</button>
-    </header>
+
+	<%@ include file="header.jsp" %>
 
     <div class="container">
 
@@ -27,9 +18,19 @@
 
             <div class="card profile-card">
                 <img src="${pageContext.request.contextPath}/images/farmer.png" alt="프로필 사진">
-                <div class="username">이세연 님</div>
-                <span class="user-level">Level 새싹 농부</span>
-            </div>
+                <div class="username">${loginUser.username} 님</div>
+                <c:choose>
+                    <c:when test="${loginUser.level == 1}">
+                         <span class="user-level">Lv.1 새싹 농부</span>
+                    </c:when>
+                    <c:when test="${loginUser.level == 2}">
+                         <span class="user-level">Lv.2 초보 농부</span>
+                    </c:when>
+                    <c:otherwise>
+                         <span class="user-level">Lv.${loginUser.level} 숙련 농부</span>
+                    </c:otherwise>
+                </c:choose>
+                </div>
 
             <div class="card weather-card">
                 <h4>날씨 정보 ☀️</h4>
@@ -162,15 +163,6 @@
 
     </div>
 
-    <footer class="footer">
-        <p class="footer-links">
-            <a href="#">이용약관</a> |
-            <a href="#">개인정보처리방침</a> |
-            <a href="#">고객센터</a> |
-            <a href="#">개발자 정보</a>
-        </p>
-        <p>Copyright &copy; 2025 GardenLog. All rights reserved.</p>
-        <p>이 웹사이트는 포트폴리오 목적으로 제작되었습니다.</p>
-    </footer>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+body {
+    background-color: #f9f9f9;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    
+    /* [수정] 푸터를 바닥으로 내리기 위한 필수 설정 */
+    display: flex;
+    flex-direction: column; /* 세로로 배치 (헤더-컨텐츠-푸터) */
+    min-height: 100vh;      /* 최소 높이를 화면 전체 높이(100vh)로 설정 */
+}
+
+/* 레이아웃 컨테이너 */
+.mypage-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;            /* 가로 꽉 차게 */
+    margin: 20px auto;
+    gap: 20px;
+    padding: 0 20px;
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    
+    /* [수정] 남은 빈 공간을 이 녀석이 다 차지하게 함 */
+    flex: 1; 
+}
+
+/* --- [이하 내용은 기존과 동일] --- */
+
+/* 왼쪽 사이드바 */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.user-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-level {
+    display: inline-block;
+    background-color: #4a7c59;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* 레벨 경험치 바 */
+.level-progress-container {
+    background-color: #eee;
+    border-radius: 10px;
+    height: 10px;
+    width: 100%;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.level-progress-bar {
+    background-color: #81c784;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+
+.level-info-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 25px;
+}
+
+.stat-grid {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.stat-item span {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* 메뉴 버튼들 */
+.side-menu button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1rem;
+}
+
+.side-menu button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 오른쪽 메인 컨텐츠 */
+.main-content {
+    flex-grow: 1;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+/* 캘린더 & CCTV */
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* 달력 헤더 */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.nav-btn {
+    text-decoration: none;
+    color: #888;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #f0f0f0;
+    color: #4a7c59;
+}
+
+/* 달력 그리드 */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.cal-day {
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.cal-day.visited {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+/* CCTV 영역 */
+.cctv-view {
+    width: 100%;
+    height: 200px;
+    background-color: #000;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.cctv-img-full {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}

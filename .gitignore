@@ -2,16 +2,16 @@
 *.class
 /build/
 /target/
-
+/bin/
 # IDE settings (Eclipse)
 .settings/
+.classpath
 
 # Tomcat server config (Do not share!)
 .metadata
 *.server
 
 # Packaged files
-*.jar
 *.war
 *.ear
 
@@ -19,4 +19,4 @@
 *.log
 
 # Temp files
-*.tmp
+*.tmp"bin/" 
