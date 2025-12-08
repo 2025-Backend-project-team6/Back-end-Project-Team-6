@@ -9,6 +9,9 @@ public class HourlyWeatherDTO {
     private int humidity;       // 습도
     private String precipitationType; // 강수형태
     
+    private String fcstDate;
+    private String fcstTime;
+    
     
 	public String getHourKey() {
 		return hourKey;
@@ -39,6 +42,18 @@ public class HourlyWeatherDTO {
 	}
 	public void setPrecipitationType(String precipitationType) {
 		this.precipitationType = precipitationType;
+	}
+	public String getFcstDate() {
+		return fcstDate;
+	}
+	public void setFcstDate(String fcstDate) {
+		this.fcstDate = fcstDate;
+	}
+	public String getFcstTime() {
+		return fcstTime;
+	}
+	public void setFcstTime(String fcstTime) {
+		this.fcstTime = fcstTime;
 	}
     
 }

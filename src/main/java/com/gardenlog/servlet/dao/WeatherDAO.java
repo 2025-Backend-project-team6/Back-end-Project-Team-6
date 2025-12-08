@@ -19,19 +19,18 @@ import com.google.gson.JsonParser;
 
 
 public class WeatherDAO {
-	
-	private final String API_URL;
+
+    private final String API_URL;
     private final String SERVICE_KEY;
     
     // DAO 객체 생성 시 API 정보 주입
     public WeatherDAO(String apiUrl, String serviceKey) {
-    	
-        this.API_URL = apiUrl;     
+    
+        this.API_URL = apiUrl;      
         this.SERVICE_KEY = serviceKey;
     }
     
     // 격자 좌표를 기반으로 기상청 단기 예보를 조회하고 DTO 리스트로 반환
-    // 최종적으로 시간대별로 정리된 날씨 정보를 컨트롤러에 반환
     public List<HourlyWeatherDTO> getWeatherForecast(String baseDate, String baseTime, int nx, int ny) 
             throws IOException {
         
@@ -41,7 +40,8 @@ public class WeatherDAO {
         // 서비스 키는 URL 인코딩해야 합니다. (공백 등의 특수문자가 있을 경우)
         String encodedKey = URLEncoder.encode(SERVICE_KEY, "UTF-8");
         
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + encodedKey); 
+        urlBuilder.append("?" + "serviceKey" + "=" + encodedKey);
+        
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); // 충분한 데이터 수 요청
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8"));
@@ -83,17 +83,15 @@ public class WeatherDAO {
         
         
         if (responseCode != 200) {
-            // API 호출은 성공했으나 응답 코드가 200이 아닐 경우 (API 오류 메시지 포함)
             // TODO: 오류 JSON을 파싱하여 상세 오류 메시지를 로그에 기록해야 합니다.
-            // System.err.println("API 응답 오류: " + resultJson);
             throw new IOException("기상청 API 응답 코드 오류: " + responseCode);
         }
         
-     // 1. rawWeatherList는 List<WeatherInfoDTO> (JSON 파싱 결과)
+       // 1. rawWeatherList는 List<WeatherInfoDTO> (JSON 파싱 결과)
         List<WeatherInfoDTO> rawWeatherList = parseJsonToDTO(resultJson, nx, ny);
         
         // 2. 그룹화 로직을 호출하여 List<HourlyWeatherDTO>로 변환
-        return groupAndTransform(rawWeatherList); 
+        return groupAndTransform(rawWeatherList);   
     }
     
     // API 응답 JSON 문자열을 읽어 날씨 항목 별로 분리된 WeatherInfoDTO 를 만듬
@@ -112,7 +110,6 @@ public class WeatherDAO {
             JsonArray itemArray = items.getAsJsonArray("item"); // 예보 데이터 리스트
 
             // 3. 배열을 반복하면서 각 item에서 필요한 데이터 추출
-            // 기상청 API는 시간대별/항목별로 여러 개의 item을 반환합니다.
             for (int i = 0; i < itemArray.size(); i++) {
                 JsonObject item = itemArray.get(i).getAsJsonObject();
                 
@@ -126,9 +123,6 @@ public class WeatherDAO {
                 weatherList.add(dto);
             }
             
-            // 4. (옵션) 데이터 중복 또는 가공: API는 여러 항목을 중복된 날짜/시간으로 반환하므로, 
-            // 실제 서비스에서는 이 리스트를 다시 가공하여 시간대별로 묶어주는 로직(Grouping)이 필요합니다.
-            
         } catch (Exception e) {
             // TODO: JSON 파싱 오류 발생 시 로그 기록
             System.err.println("JSON 파싱 중 오류가 발생했습니다: " + e.getMessage());
@@ -139,7 +133,7 @@ public class WeatherDAO {
     // WeatherInfoDTO는 흩어져있기에 시간대 별로 통합하여 HourlyWeatherDTO로 변환
     private List<HourlyWeatherDTO> groupAndTransform(List<WeatherInfoDTO> rawWeatherList) {
         
-    	Map<String, HourlyWeatherDTO> hourlyDataMap = new HashMap<>();
+    Map<String, HourlyWeatherDTO> hourlyDataMap = new HashMap<>();
 
         // 1. 원본 DTO 리스트를 반복하면서
         for (WeatherInfoDTO item : rawWeatherList) {
@@ -149,13 +143,17 @@ public class WeatherDAO {
             // 2. 맵에 해당 시간대 키가 없으면, 새 HourlyWeatherDTO를 생성하여 넣습니다.
             HourlyWeatherDTO hourlyData = hourlyDataMap.getOrDefault(key, new HourlyWeatherDTO());
 
+            // 💡 핵심 수정 부분: 날짜와 시간을 DTO에 저장
+            hourlyData.setFcstDate(item.getFcstDate());
+            hourlyData.setFcstTime(item.getFcstTime());
+
             // 3. category에 따라 HourlyWeatherDTO의 필드를 채웁니다.
             switch (item.getCategory()) {
                 case "T1H":
                     hourlyData.setTemperature(Double.parseDouble(item.getFcstValue()));
                     break;
                 case "SKY":
-                	String skyValue = item.getFcstValue();
+                String skyValue = item.getFcstValue();
                     String koreanSkyStatus;
                     
                     // 코드를 한글로 변환하는 로직

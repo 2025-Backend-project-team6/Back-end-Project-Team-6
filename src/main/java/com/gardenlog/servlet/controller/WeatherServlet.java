@@ -39,10 +39,10 @@ public class WeatherServlet extends HttpServlet {
 	}
        
 	// 사용자 인증 키
-    private final String SERVICE_KEY = "9a937386421cf0e75b2f2d61873e48ba80c036f924959f27c9562adcaffabfbf"; 
+    private final String SERVICE_KEY = "a23deb2d0a8cc3d8a4e50571cff269d21a75370b77fc1dfddb242ebe77ca8455"; 
     
  // 기상청 API URL (단기 예보 조회 예시)
-    private final String API_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst";
+    private final String API_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
     
     // --- Base Time 계산 로직  ---
     // 단기 예보 API 발표 시간: 02, 05, 08, 11, 14, 17, 20, 23시 (정시로부터 10분 후 발표)
