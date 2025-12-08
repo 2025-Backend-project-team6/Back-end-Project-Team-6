@@ -1,0 +1,210 @@
+@charset "UTF-8";
+
+/* 전체 공통 설정 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+/* 페이지 타이틀 영역 */
+.page-title-box {
+    width: 100%;
+    text-align: left;
+    margin: 40px auto 20px;
+    max-width: 1200px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #38761d;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    font-size: 15px;
+    color: #777;
+}
+
+/* 🔍 검색 & 필터 박스 */
+.search-filter-box {
+    max-width: 1200px;
+    margin: 0 auto 25px;
+}
+
+/* 검색 + 필터 한 줄 정렬 */
+.search-filter-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* form 간 간격 제거 */
+.search-filter-box form {
+    margin: 0;
+}
+
+/* 검색창 그룹 */
+.search-bar {
+    flex: 1;
+    display: flex;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-btn {
+    background: #38761d;
+    border: none;
+    padding: 6px 15px;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* 셀렉트 바 컨테이너 */
+.select-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* 셀렉트 박스 공통 */
+.filter-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    padding: 10px 34px 10px 14px; /* 오른쪽 패딩 약간 줄임 */
+    font-size: 15px;
+    min-width: 180px;
+    cursor: pointer;
+
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+
+    /* ▼ 아이콘 더 작게 변경 (기존 14px → 10px) */
+    background-size: 10px;
+
+    /* 작은 꽉찬 ▼ SVG */
+    background-image: url("data:image/svg+xml;utf8,\
+<svg fill='black' height='10' width='10' xmlns='http://www.w3.org/2000/svg'>\
+<polygon points='0,0 10,0 5,5'/>\
+</svg>");
+}
+
+.filter-select:hover {
+    border-color: #999;
+}
+
+.filter-select:focus {
+    border-color: #4a7c2c;
+    outline: none;
+}
+
+/* Empty message */
+.empty-msg {
+    text-align: center;
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+       📦 작물 카드 그리드
+   =========================== */
+
+.crop-grid {
+    max-width: 1200px;
+    margin: 0 auto 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+/* 개별 카드 */
+.crop-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+    transition: 0.2s ease;
+}
+
+.crop-card:hover {
+    transform: translateY(-4px);
+}
+
+/* 작물 이름 */
+.crop-name {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* 태그 */
+.crop-tags {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    margin-right: 4px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tag-category {
+    background-color: #ffe6e6;
+    color: #d9534f;
+}
+
+.tag-level {
+    background-color: #ffecb3;
+    color: #ffa000;
+}
+
+/* 아이콘 3개 정렬 */
+.crop-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #444;
+}
+
+.crop-info-row span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 상세보기 버튼 숨김 (디자인에 없음) */
+.detail-btn {
+    display: none;
+}

@@ -9,13 +9,11 @@
 	    	</div>
 		</a>
     	<nav class="nav-menu">
-    		<!-- <a href="...">로 서블릿을 호출하면 **lat**과 lng 파라미터가 누락되므로, 
-    		서블릿의 검증 로직에서 에러 -> 자바스크립트 사용  -->
     		<a href="#" id="findFarmLink">내 주변 텃밭찾기</a>
         	<a href="${pageContext.request.contextPath}/gardenmanage.do">텃밭 관리</a>
         	<a href="${pageContext.request.contextPath}/mycrop.do">작물 관리</a>
-        	<a href="#">작물 검색</a>
         	<a href="${pageContext.request.contextPath}/journal.do">농사 일지</a>
+        	<a href="${pageContext.request.contextPath}//cropsearch.do">작물 검색</a>
         	<a href="${pageContext.request.contextPath}/JSP/community.jsp">커뮤니티</a>
         	<a href="${pageContext.request.contextPath}/mypage.do">마이페이지</a>
     	</nav>

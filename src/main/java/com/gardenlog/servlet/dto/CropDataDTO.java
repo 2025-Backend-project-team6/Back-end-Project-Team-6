@@ -1,5 +1,8 @@
 package com.gardenlog.servlet.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class CropDataDTO {
 	private int cropid;
 	private String crop_code;
@@ -10,7 +13,7 @@ public class CropDataDTO {
     private String period_text;
     private String water_cycle;
     private String sunlight_hours;
-	
+    
 	public int getCropid() {
 		return cropid;
 	}
