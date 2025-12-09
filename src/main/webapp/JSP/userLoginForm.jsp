@@ -30,13 +30,6 @@
                     <div class="error-message">${loginError}</div>
                 </c:if>
 
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" name="remember"> 로그인 상태 유지
-                    </label>
-                    <a href="#">비밀번호 찾기</a>
-                </div>
-
                 <button type="submit" class="btn btn-login">로그인</button>
             </form>
 
@@ -46,7 +39,7 @@
             <hr>
             <div class="admin-login-area">
     			관리자이신가요? 
-    			<a href="${pageContext.request.contextPath}/JSP/admin_Login.jsp" class="admin-link">
+    			<a href="${pageContext.request.contextPath}/adminlogin.do" class="admin-link">
         			관리자 로그인
     			</a>
 			</div>
