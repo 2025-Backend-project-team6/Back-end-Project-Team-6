@@ -48,6 +48,11 @@
         <input type="text" name="email"
                value="${email}"
                placeholder="example@email.com">
+               
+        <label>주소</label>
+        <input type="text" name="location"
+               value="${location}"
+               placeholder="서울특별시 구로구 OO동">
 
         <div class="checkbox-area">
             <label>

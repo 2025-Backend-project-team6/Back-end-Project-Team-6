@@ -16,7 +16,7 @@ public class UserDAO {
 	private ResultSet rs = null;
     
 	private final String USER_CHECKID = "SELECT userid FROM users WHERE userid = ?;";
-	private final String USER_JOIN = "insert into users(userid, password, username, email) values(?, ?, ?, ?);";
+	private final String USER_JOIN = "insert into users(userid, password, username, email, address) values(?, ?, ?, ?, ?);";
 	private final String USER_LOGIN = "select * from users where userid = ? and password = ?;";
 	private final String USER_GET = "SELECT u.*, g.location FROM users u " + "LEFT JOIN garden g ON u.userid = g.userid " + "WHERE u.userid = ? LIMIT 1";
 	private final String USER_UPDATE = "UPDATE users SET password = ?, username = ?, email = ? WHERE userid = ?;";
@@ -102,6 +102,7 @@ public class UserDAO {
 			pstmt.setString(2, udto.getPassword());
 			pstmt.setString(3, udto.getUsername());
 			pstmt.setString(4, udto.getEmail());
+			pstmt.setString(5, udto.getLocation());
 			
 			result = pstmt.executeUpdate();
 			

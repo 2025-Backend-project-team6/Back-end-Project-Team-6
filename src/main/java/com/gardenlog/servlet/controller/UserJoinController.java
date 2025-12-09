@@ -52,6 +52,7 @@ public class UserJoinController extends HttpServlet {
 		String password = request.getParameter("password");
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
+		String location = request.getParameter("location");
 		String agreeRequired = request.getParameter("agreeRequired");
 		
 		String idCheckMessage = (String)session.getAttribute("idCheckMessage");
@@ -67,12 +68,14 @@ public class UserJoinController extends HttpServlet {
 		if(userid==null || userid.isEmpty() || 
 		   password==null || password.isEmpty() || 
 		   username==null || username.isEmpty() || 
-		   email==null || email.isEmpty()) {
+		   email==null || email.isEmpty() ||
+		   location==null || location.isEmpty()) {
 			
 			request.setAttribute("userid", userid);
 			request.setAttribute("password", password);
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
+			request.setAttribute("location", location);
 			request.setAttribute("joinCheckMessage", "모든 필수 입력칸을 채워주세요.");
 			
 			dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
@@ -85,6 +88,7 @@ public class UserJoinController extends HttpServlet {
 			request.setAttribute("password", password);
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
+			request.setAttribute("location", location);
 			
 			request.setAttribute("joinCheckMessage", "필수 약관에 동의해야 회원가입에 가능합니다.");
 			dispatcher = request.getRequestDispatcher("/JSP/userJoinForm.jsp");
@@ -97,6 +101,7 @@ public class UserJoinController extends HttpServlet {
 		udto.setPassword(password);
 		udto.setUsername(username);
 		udto.setEmail(email);
+		udto.setLocation(location);
 		
 		UserDAO udao = new UserDAO();
 		int result = udao.userJoin(udto);
