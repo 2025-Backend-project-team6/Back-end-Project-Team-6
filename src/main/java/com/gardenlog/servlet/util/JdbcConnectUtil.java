@@ -15,7 +15,7 @@ public class JdbcConnectUtil {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gardenlogdb", "root", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gardenlogdb", "root", "chihappykid12");
 
 			
 		} catch (ClassNotFoundException | SQLException e) {

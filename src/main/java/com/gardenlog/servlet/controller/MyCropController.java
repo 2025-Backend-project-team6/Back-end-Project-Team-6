@@ -137,7 +137,6 @@ public class MyCropController extends HttpServlet {
 		
 		dispatcher = request.getRequestDispatcher("/JSP/myCrop.jsp");
 		dispatcher.forward(request, response);	
-		
 	}
 
 	
