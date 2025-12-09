@@ -123,6 +123,7 @@ public class MyCropController extends HttpServlet {
 		session.setAttribute("cropCategoryList", cropCategoryList);
 		
 		if("allCrop".equals(category)) {
+			session.removeAttribute("findByCategoryList");
 			category = null;
 		}
 		
