@@ -17,7 +17,10 @@
         	<a href="${pageContext.request.contextPath}/JSP/community.jsp">커뮤니티</a>
         	<a href="${pageContext.request.contextPath}/mypage.do">마이페이지</a>
     	</nav>
-    	<button class="logout-btn" onclick="location.href='landing.jsp'">로그아웃</button>
+    	
+    	<form action="${pageContext.request.contextPath}/login.do" method="get">
+    		<button class="logout-btn" name="loginStatus" value="logoutBtn">로그아웃</button>
+    	</form>
     </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

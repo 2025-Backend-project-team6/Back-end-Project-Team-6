@@ -22,6 +22,17 @@ public class UserLoginController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String loginStatus = request.getParameter("loginStatus");
+		
+		if("logoutBtn".equals(loginStatus)) {
+			session.invalidate();
+			
+			response.sendRedirect(request.getContextPath() + "/JSP/landing.jsp");
+			return ;
+			
+		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/JSP/userLoginForm.jsp");
 		rd.forward(request, response);
 	}
