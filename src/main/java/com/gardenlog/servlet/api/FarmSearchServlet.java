@@ -37,7 +37,7 @@ public class FarmSearchServlet extends HttpServlet {
         String wgsLat = request.getParameter("lat");
         String wgsLng = request.getParameter("lng");
         
-        String regionName = "구로구";
+        String regionName = "서울";
 
         if (wgsLat != null && wgsLng != null && !wgsLat.isEmpty()) {
             String detectedRegion = getRegionFromCoords(wgsLng, wgsLat);
@@ -87,10 +87,11 @@ public class FarmSearchServlet extends HttpServlet {
         try {
             System.out.println(">>> [위치찾기] 좌표 확인: lat=" + lat + ", lng=" + lng);
 
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc";
+            String apiURL = "https://maps.apigw.ntruss.com/map-reversegeocode/v2/gc";
             String params = "coords=" + lng + "," + lat + "&sourcecrs=epsg:4326&orders=legalcode&output=json";
             
             URL url = new URL(apiURL + "?" + params);
+            System.out.println(apiURL + "?" + params);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", MAPS_CLIENT_ID);

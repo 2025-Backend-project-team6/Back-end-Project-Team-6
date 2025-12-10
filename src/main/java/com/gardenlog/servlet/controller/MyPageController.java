@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.gardenlog.servlet.dao.JournalDAO;
+import com.gardenlog.servlet.dao.MyCropDAO;
 import com.gardenlog.servlet.dao.UserDAO;
 import com.gardenlog.servlet.dao.VisitDAO;
 import com.gardenlog.servlet.dto.UserDTO;
@@ -54,16 +55,9 @@ public class MyPageController extends HttpServlet {
                 year = Integer.parseInt(yearParam);
                 month = Integer.parseInt(monthParam);
 
-                if (month < 1) {
-                    month = 12;
-                    year--;
-                } else if (month > 12) {
-                    month = 1;
-                    year++;
-                }
-            } catch (NumberFormatException e) {
-
-            }
+                if (month < 1) { month = 12; year--; } 
+                else if (month > 12) { month = 1; year++; }
+            } catch (NumberFormatException e) {}
         }
         
         cal.set(Calendar.YEAR, year);
@@ -73,21 +67,22 @@ public class MyPageController extends HttpServlet {
         int startDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+        
         VisitDAO vdao = new VisitDAO();
         List<Integer> visitDays = vdao.getVisitDays(userid, year, month);
         int totalVisitCount = vdao.getTotalVisitCount(userid);
         
-        // 작물 (임시 0)
-        int cropCount = 0; 
-        
+        MyCropDAO mcdao = new MyCropDAO();
+        int cropCount = mcdao.getMyCropCount(userid);
+
         JournalDAO jdao = new JournalDAO();
         int journalCount = jdao.getJournalCount(userid);
+        
         
         int currentLevel = freshUser.getLevel();
         int calculatedLevel = 1;
         int nextLevelTarget = 5;
         
-        // 0~4개(Lv1), 5~9개(Lv2), 10개~(Lv3)
         if (journalCount >= 10) {
             calculatedLevel = 3;
             nextLevelTarget = 10;
@@ -115,7 +110,6 @@ public class MyPageController extends HttpServlet {
              progressPercent = 100;
         }
 
-        // (달력 정보)
         request.setAttribute("currentYear", year);
         request.setAttribute("currentMonth", month);
         request.setAttribute("startDayOfWeek", startDayOfWeek);
@@ -123,16 +117,15 @@ public class MyPageController extends HttpServlet {
         request.setAttribute("visitDays", visitDays);
         request.setAttribute("visitCount", visitDays.size());
         
-        // (통계 정보)
-        request.setAttribute("cropCount", cropCount);
+
+        request.setAttribute("cropCount", cropCount); 
         request.setAttribute("totalVisitCount", totalVisitCount);
         request.setAttribute("journalCount", journalCount);
         
-        // (레벨 정보)
         request.setAttribute("remainingLogs", remainingLogs);
         request.setAttribute("progressPercent", progressPercent);
         
-        // (작물 리스트 - 빈 리스트)
+
         request.setAttribute("myCropList", new ArrayList<>()); 
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/mypage.jsp");
