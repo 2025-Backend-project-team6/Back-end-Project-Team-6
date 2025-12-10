@@ -119,6 +119,26 @@ public class MyCropController extends HttpServlet {
 			return ;	
 		}
 		
+		if("deleteCropBtn".equals(action)) {
+			int gardenid = Integer.parseInt(request.getParameter("gardenid"));
+			int id = Integer.parseInt(request.getParameter("id"));
+			int result = mcdao.deleteCrop(id);
+			
+			if(result==1) {
+				gdao.minusCropCount(gardenid);
+				
+				GardenDTO garden = gdao.getDetailGarden(gardenid);
+				List<MyCropDTO> updateGardenCropList = mcdao.getGardenCrop(userid, garden.getGardenid());
+				
+				session.setAttribute("garden", garden);
+				session.setAttribute("gardenCropList", updateGardenCropList);
+			}
+			
+			response.sendRedirect(request.getContextPath() + "/mycrop.do");
+			return;
+			
+		}
+		
 		List<CropDTO> cropCategoryList = cdao.getAllCrops();
 		session.setAttribute("cropCategoryList", cropCategoryList);
 		

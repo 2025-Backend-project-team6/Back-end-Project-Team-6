@@ -61,7 +61,9 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 						
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+							<input type="hidden" name="gardenid" value="${crop.gardenid}">	
+							<input type="hidden" name="id" value="${crop.id}">
+							<button type="submit" name="action" value="deleteCropBtn" class="sub-btn">작물 삭제</button>
 						</form>
 					</div>
 				</c:forEach>
@@ -80,7 +82,9 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+							<input type="hidden" name="gardenid" value="${crop.gardenid}">	
+							<input type="hidden" name="id" value="${crop.id}">
+							<button type="submit" name="action" value="deleteCropBtn" class="sub-btn">작물 삭제</button>
 						</form>
 					</div>
 				</c:forEach>
@@ -99,7 +103,9 @@
 						<p>📅 심은 날짜: ${crop.planted_date}</p>
 
 						<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-								<button type="submit" name="action" value="viewDiaryBtn" class="sub-btn">농사일지 바로가기</button>
+							<input type="hidden" name="gardenid" value="${crop.gardenid}">	
+							<input type="hidden" name="id" value="${crop.id}">
+							<button type="submit" name="action" value="deleteCropBtn" class="sub-btn">작물 삭제</button>
 						</form>
 					</div>
 				</c:forEach>
