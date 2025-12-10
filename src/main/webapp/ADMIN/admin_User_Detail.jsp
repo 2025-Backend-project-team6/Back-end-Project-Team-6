@@ -112,42 +112,23 @@
             <div class="activity-stats">
                 <h4 style="font-size: 16px; color: #666; margin-bottom: 15px;">📊 활동 통계</h4>
                 <div class="stats-grid">
-                    <div class="stat-item"><div class="stat-icon" style="color:#2ecc71;">📍</div><div class="stat-value">${empty totalGardenCount ? 0 : totalGardenCount}</div><div class="stat-label">텃밭</div></div>
-                    <div class="stat-item"><div class="stat-icon" style="color:#3498db;">🌱</div><div class="stat-value">${empty totalCropCount ? 0 : totalCropCount}</div><div class="stat-label">작물</div></div>
+                    <div class="stat-item"><div class="stat-icon" style="color:#2ecc71;">📍</div><div class="stat-value">1</div><div class="stat-label">텃밭</div></div>
+                    <div class="stat-item"><div class="stat-icon" style="color:#3498db;">🌱</div><div class="stat-value">4</div><div class="stat-label">작물</div></div>
                     <div class="stat-item"><div class="stat-icon" style="color:#e67e22;">📃</div><div class="stat-value">15</div><div class="stat-label">게시글</div></div>
                 </div>
             </div>
-
-        <div class="garden-list-card">
-        <h4 style="font-size: 16px; color: #666; margin-bottom: 15px;">🏡 텃밭 목록</h4>
-
-        <c:choose>
-            <c:when test="${empty userGardenList}">
-                <p style="text-align: center; color: #777; padding: 20px;">등록된 텃밭이 없습니다.</p>
-            </c:when>
-            <c:otherwise>
-                <%-- 💡 Step 2: 텃밭 목록(gardenList)을 반복하며 출력 --%>
-                <c:forEach var="garden" items="${userGardenList}">
-                    
-                    <div class="garden-item">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <%-- 텃밭 이름 출력 --%>
-                            <div class="garden-name">${garden.gardenname}</div> 
-                            <%-- 작물 개수 출력 (작물 개수 필드가 garden 객체에 있다고 가정) --%>
-                            <span class="crop-count-tag">${garden.crop_count}개 작물</span> 
-                        </div>
-                        <div class="garden-details-grid">
-                            <%-- 위치, 크기 출력 --%>
-                            <div class="detail-item"><span class="detail-label">위치:</span>${garden.location}</div>
-                            <div class="detail-item"><span class="detail-label">크기:</span>${garden.area}평</div>
-                        </div>
+         <div class="garden-list-card">
+                <h4 style="font-size: 16px; color: #666; margin-bottom: 15px;">🏡 텃밭 목록</h4>
+                <div class="garden-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="garden-name">우리집 베란다 텃밭</div>
+                        <span class="crop-count-tag">4개 작물</span>
                     </div>
-                    
-                </c:forEach>
-            </c:otherwise>
-        </c:choose>
-        
-    </div>
+                    <div class="garden-details-grid">
+                        <div class="detail-item"><span class="detail-label">위치:</span>서울특별시 구로구</div>
+                        <div class="detail-item"><span class="detail-label">크기:</span>1.5평</div>
+                        <div class="detail-item"><span class="detail-label">생성일:</span>2025.12.10</div>
+                    </div>
         </main>
     </div>
 
