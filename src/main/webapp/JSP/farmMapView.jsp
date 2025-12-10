@@ -20,18 +20,25 @@
     </div>
 
     <div class="main-container">
-        <div class="farm-list-sidebar">
-            <div class="list-header">
-                <h2>🌱 주변 텃밭 <span class="count" id="result-count">0</span>곳</h2>
-            </div>
-            <div id="farm-list-box">
+        
+        <div class="page-title-box">
+            <h2>내 주변 텃밭찾기 🗺️</h2>
+            <p>현재 위치에서 가까운 주말 농장을 확인하세요.</p>
+        </div>
+        <div class="map-list-wrapper">
+            <div class="farm-list-sidebar">
+                <div class="list-header">
+                    <h2>🌱 주변 텃밭 <span class="count" id="result-count">0</span>곳</h2>
                 </div>
-        </div>
+                <div id="farm-list-box">
+                </div>
+            </div>
 
-        <div class="map-wrapper">
-            <div id="map"></div>
+            <div class="map-wrapper">
+                <div id="map"></div>
+            </div>
         </div>
-    </div>
+        </div>
 
     <div id="loading">🚜 열심히 농장을 찾고 있어요...</div>
 

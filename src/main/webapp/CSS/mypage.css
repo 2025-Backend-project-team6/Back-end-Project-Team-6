@@ -1,35 +1,84 @@
 @charset "UTF-8";
 
+/* ===============================
+   🔹 기본 설정
+=============================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #f9f9f9;
-    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
+    line-height: 1.6;
     
-    /* [수정] 푸터를 바닥으로 내리기 위한 필수 설정 */
+    /* 푸터를 바닥으로 내리기 위한 필수 설정 */
     display: flex;
-    flex-direction: column; /* 세로로 배치 (헤더-컨텐츠-푸터) */
-    min-height: 100vh;      /* 최소 높이를 화면 전체 높이(100vh)로 설정 */
+    flex-direction: column; 
+    min-height: 100vh;
 }
 
-/* 레이아웃 컨테이너 */
+/* ===============================
+   🔹 1. 페이지 제목 영역 (독립된 한 줄)
+=============================== */
+
+/* 제목 영역을 중앙 정렬하고 좌우 여백을 담당하는 래퍼 */
+.page-header-wrapper {
+    max-width: 1200px; 
+    width: 100%;
+    margin: 30px auto 0; /* 윗 마진 30px, 본문과의 간격 0 */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.title-row {
+    display: flex;
+    justify-content: flex-start; /* 버튼이 없으므로 왼쪽 정렬 */
+    align-items: center;
+    margin-bottom: 25px; /* 본문 내용과의 간격 */
+}
+
+
+.page-title { 
+    font-size: 24px; /* 크기 통일 */
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 5px; /* 서브타이틀과의 간격 */
+    display: block;
+    margin-left: 10px;
+}
+
+.page-subtitle {
+    font-size: 15px;
+    color: #777;
+    margin: 0;
+    display: block; /* 제목 아래에 위치하도록 */
+    margin-left: 10px;
+}
+
+
+/* ===============================
+   🔹 2. 본문 컨테이너 (2단 레이아웃)
+=============================== */
 .mypage-container {
     display: flex;
     max-width: 1200px;
-    width: 100%;            /* 가로 꽉 차게 */
-    margin: 20px auto;
+    width: 100%;            
+    margin: 0 auto; /* 상단 마진 제거, 중앙 정렬 */
     gap: 20px;
     padding: 0 20px;
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
-    
-    /* [수정] 남은 빈 공간을 이 녀석이 다 차지하게 함 */
-    flex: 1; 
+    box-sizing: border-box;
+    flex: 1; /* 남은 공간을 차지 */
 }
 
-/* --- [이하 내용은 기존과 동일] --- */
-
-/* 왼쪽 사이드바 */
+/* ===============================
+   🔹 3. 사이드바 (Sidebar)
+=============================== */
 .sidebar {
     width: 300px;
     flex-shrink: 0;
@@ -127,7 +176,9 @@ body {
     background-color: #f0f0f0;
 }
 
-/* 오른쪽 메인 컨텐츠 */
+/* ===============================
+   🔹 4. 메인 콘텐츠 (Main Content)
+=============================== */
 .main-content {
     flex-grow: 1;
 }
@@ -141,7 +192,7 @@ body {
     align-items: center;
 }
 
-/* 캘린더 & CCTV */
+/* 캘린더 & CCTV 그리드 */
 .bottom-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

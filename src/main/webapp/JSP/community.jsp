@@ -7,7 +7,7 @@
     <title>커뮤니티 | Garden.ing</title>
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/community.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    
 </head>
 <body>
 
@@ -15,10 +15,14 @@
 
     <div class="container">
         <main class="main-content">
-            <h1 class="page-title">커뮤니티</h1>
-            <p class="page-subtitle">농사 이야기를 나눠보세요</p>
+        
+        <div class="title-row">
+        	<div class="title-box">
+            	<h2 class="page-title">커뮤니티 💬</h2>
+            	<p class="page-subtitle">농사 이야기를 나눠보세요</p>
+            </div>
             <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/JSP/community_write.jsp'">+ 글쓰기</button>
-
+		</div>
             <div class="search-filter-area">
                 <div class="search-box">
                     <input type="text" placeholder="검색어를 입력하세요">

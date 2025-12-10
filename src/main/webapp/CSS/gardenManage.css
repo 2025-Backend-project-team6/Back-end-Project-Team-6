@@ -1,225 +1,197 @@
-html, body {
-    height: 100%;
+@charset "UTF-8";
+
+/* ===============================
+   🔹 기본 설정 (커뮤니티와 동일)
+=============================== */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-
-    /* Footer 고정 레이아웃 */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    display: flex; /* Flexbox 활성화 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    min-height: 100vh; /* 뷰포트 높이 전체를 최소 높이로 설정 */
 }
 
-/* 전체 페이지 정렬 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ===============================
+   🔹 페이지 컨테이너 (커뮤니티 동일)
+=============================== */
 .page-container {
-    max-width: 1200px;   /* index와 동일한 전체 폭 */
+    max-width: 1200px;
     width: 100%;
-    margin: 40px auto;
-    padding: 0 20px;  
+    margin: 30px auto;
+    padding: 0 20px;
+    flex-grow: 1;
 }
 
-/* ------------------------------
-    상단 제목 영역
------------------------------- */
+/* ===============================
+   🔹 제목 + 버튼 상단 영역
+   → 커뮤니티 page-title 스타일 그대로 적용
+=============================== */
 .title-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* 커뮤니티 동일 */
 }
 
-.title-box h2 {
-    font-size: 26px;
-    margin-bottom: 5px;
-}
 
 .title-box p {
-    color: #666;
+    font-size: 15px;
+    color: #777;
 }
 
-/* ------------------------------
-    + 새 텃밭 추가 버튼
------------------------------- */
+/* ===============================
+   🔹 새 텃밭 추가 버튼
+   → 커뮤니티 write-btn 동일 디자인
+=============================== */
 .add-btn {
-    background-color: #5A8F46;
-    color: white;
+    background-color: #4d7326;
+    color: #fff;
     padding: 10px 18px;
     border: none;
     border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 15px;
-}
-.add-btn:hover {
-    background-color: #4f7e3d;
+    transition: 0.2s;
 }
 
-/* ------------------------------
-    검색 바
------------------------------- */
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+/* ===============================
+   🔹 검색 박스
+   → 커뮤니티 search-box 그대로 스타일링
+=============================== */
 .search-box {
     display: flex;
-    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0;
+    box-sizing: border-box;
     margin-bottom: 25px;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px 14px;
-    background: #f5f5f7;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
     font-size: 14px;
+    background: transparent;
 }
 
 .search-btn {
-    padding: 12px 18px;
-    background-color: #5A8F46;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
+	padding: 8px 12px;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	border-left: none;
+	border-radius: 0 4px 4px 0;
     cursor: pointer;
+
+
 }
 
-/* ------------------------------
-    텃밭 카드 영역 (3개 고정)
------------------------------- */
+/* ===============================
+   🔹 텃밭 카드 리스트 (3열 그리드)
+=============================== */
 .garden-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);   /* 항상 3칸 유지 */
-    gap: 60px;
-    margin-top: 20px;
-    min-height: 300px;
-}
-
-/* ------------------------------
-    텃밭 카드 스타일
------------------------------- */
-.garden-card {
-    background: linear-gradient(
-        to bottom,
-        #FFFFFF 0%,
-        #FFF9E6 100%
-    );
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    border: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-/* 카드 타이틀 + 태그 */
-.garden-card h3 {
-    font-size: 20px;
-    margin-bottom: 6px;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    background: #E6F3DA;
-    color: #4F7E3D;
-    font-size: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-/* 정보 텍스트 */
-.info {
-    margin-bottom: 8px;
-    color: #444;
-    font-size: 14px;
-}
-
-/* ------------------------------
-    다음 수확 정보 박스
------------------------------- */
-.harvest-box {
-    background: #E7F2FF;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 15px 0;
-}
-
-.harvest-title {
-    color: #666;
-    font-size: 13px;
-    margin-bottom: 4px;
-}
-
-.harvest-crop {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.harvest-dday {
-    float: right;
-    background: #4177AF;
-    padding: 4px 8px;
-    border-radius: 12px;
-    color: white;
-    font-size: 12px;
-}
-
-/* ------------------------------
-    상세보기 버튼
------------------------------- */
-.detail-btn {
-    width: 100%;
-    padding: 10px;
-    background: white;
-    border: 1px solid #BDD0A6;
-    color: #4F7E3D;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
     margin-top: 10px;
 }
 
-.detail-btn:hover {
-    background: #F3F8EE;
+/* ===============================
+   🔹 텃밭 카드 디자인
+   → 커뮤니티 카드(post) 스타일 기반
+=============================== */
+.garden-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* ------------------------------
-    카드 하단 설정 아이콘 영역
------------------------------- */
-.card-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 8px;
+.garden-card h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #222;
 }
 
-.card-footer img {
-    width: 22px;
+.garden-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* 상세보기 버튼 */
+.detail-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    background: white;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
-/* ------------------------------
-    하단 통계 박스
------------------------------- */
+.detail-btn:hover {
+    background: #F1FFF1;
+}
+
+/* ===============================
+   🔹 하단 통계 영역
+=============================== */
 .summary-row {
-    margin-top: 40px;
     display: flex;
     justify-content: space-between;
-  
+    margin-top: 40px;
 }
 
 .summary-box {
-    width: 30%;
+    width: 32%;
     text-align: center;
-    background: linear-gradient(
-        to bottom,
-        #F0FDF4 0%,
-        #FFFFFF 100%
-    );
-    padding: 20px 0;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.summary-box p {
+    font-size: 14px;
+    color: #777;
+}
+
+.summary-box h3 {
+    font-size: 22px;
+    margin-top: 5px;
+    color: #333;
 }

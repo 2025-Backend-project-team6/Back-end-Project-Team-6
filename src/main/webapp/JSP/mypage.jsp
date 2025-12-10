@@ -12,7 +12,13 @@
 
     <jsp:include page="./header.jsp" /> 
 
-    <div class="mypage-container">
+    <div class="title-row mypage-header page-header-wrapper"> 
+        <div class="title-box">
+            <h2 class="page-title">마이페이지 🧑‍🌾</h2>
+            <p class="page-subtitle">나의 농장 기록과 정보를 한 눈에 확인하세요</p>
+        </div>
+    </div>
+    <div class="mypage-container page-content-wrapper"> 
         
         <div class="sidebar">
             <div class="profile-card">

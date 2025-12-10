@@ -50,11 +50,11 @@
     text-decoration: none; /* a 태그 기본 스타일 여기서도 잡아줌 */
 }
 .header .nav-menu a:hover {
-    color: #4CAF50;
+    color: #4d7326;
 }
 
 .header .logout-btn {
-    background-color: #4CAF50;
+    background-color: #4d7326;
     color: white;
     padding: 10px 20px;
     font-weight: bold;

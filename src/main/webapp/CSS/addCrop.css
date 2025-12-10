@@ -7,7 +7,7 @@
 body {
     /* JSP에 include된 header.jsp가 있을 것으로 예상하고, */
     font-family: 'Arial', sans-serif; /* 폰트 설정 (이미지에 사용된 폰트와 유사하게) */
-    background-color: #f8f9f5; /* 전체 배경색 */
+    background-color: #f9f9f9; /* 전체 배경색 */
     color: #333;
     margin: 0;
     padding: 0;

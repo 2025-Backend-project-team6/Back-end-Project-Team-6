@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
@@ -22,32 +22,6 @@ ul {
     list-style: none;
 }
 
-/* === 헤더/네비게이션 바 스타일 === */
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50; /* 포인트 색상 */
-}
-
-.main-nav ul {
-    display: flex;
-    gap: 25px;
-}
-
-.main-nav a.active {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
 /* === 전체 컨테이너 및 레이아웃 === */
 .container {
     display: flex;
@@ -58,7 +32,18 @@ ul {
 
 .main-content {
     flex: 3; /* 메인 콘텐츠가 더 넓게 */
+    margin-left: 20px;
 }
+
+.title-row {
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝 정렬 */
+    align-items: flex-start; /* 타이틀 박스 기준으로 상단 정렬 */
+    margin-bottom: 25px; /* 검색 영역과의 간격 */
+    margin-left: 5px;
+}
+
+
 
 .sidebar {
     flex: 1; /* 사이드바는 상대적으로 좁게 */
@@ -69,31 +54,27 @@ ul {
 }
 
 .page-title {
-	font-size: 30px;
-    font-weight: 700;
-    color: #38761d;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    display: inline-block;
+	font-size: 24px;
+    font-weight: bold;
+	margin: 0;
+	margin-bottom: 3px;
 }
 
 .page-subtitle {
-    display: inline-block;
-    color: #595959;
-    margin-left: 10px;
+    color: #777;
+    font-size: 15px;
 }
 
 .write-btn {
     float: right;
-    background-color: #4CAF50;
+    background-color: #4d7326;
     color: white;
     padding: 10px 20px;
     margin-right: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s;
 }
 
 .write-btn:hover {
@@ -117,7 +98,7 @@ ul {
 }
 
 .search-box input[type="text"] {
-	width: 300px;
+	width: 400px;
     padding: 8px;
     border: 1px solid #ddd;
     border-right: none;

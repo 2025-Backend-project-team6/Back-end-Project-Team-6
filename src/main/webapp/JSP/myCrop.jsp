@@ -29,7 +29,7 @@
 					   value="${keyword}"
 					   class="input-search-wide"
 					   placeholder="나의 작물 검색">
-				<button type="submit" name="action" value="searchCropBtn" class="btn-search-wide">검색</button>
+				<button type="submit" name="action" value="searchCropBtn" class="btn-search-wide">🔍</button>
 			</div>
 
 			<div class="category-row">

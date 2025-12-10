@@ -8,20 +8,23 @@ html, body {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+	line-height: 1.6;
     /* Footer 고정 레이아웃 */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: #333;
 }
 
 /* 페이지 전체 컨테이너 */
 .page-container {
-    width: 1100px;            /* ← 폭 고정 (핵심!!) */
-    margin: 0 auto;           /* 중앙 정렬 */
-    padding: 20px 0 40px;     /* 좌우 padding 제거 → 폭 변형 방지 */
+	max-width: 1200px;
+    width: 100%;            /* ← 폭 고정 (핵심!!) */
+    margin: 30px auto;           /* 중앙 정렬 */
+    padding: 0 20px;
+    padding-left: 60px;     
     flex-grow: 1;
 }
 
@@ -47,11 +50,12 @@ body {
     border: none;
     padding: 10px 18px;
     font-size: 14px;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
 }
 .btn-add:hover {
-    background: #436421;
+    background: #45a049;
 }
 
 /* ============================
@@ -62,33 +66,31 @@ body {
 }
 
 .search-area {
-	width: 575px; 
-	margin: 0;
-	margin-bottom: 18px; 
 	display: flex;
-    gap: 12px;
+	margin-bottom: 10px;
 }
 
 .input-search-wide {
-    flex: 1;
-    padding: 13px 18px;
-    border-radius: 10px;
+	width: 500px;
+    padding: 8px;
     border: 1px solid #ddd;
-    background: #f4f5f7;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 14px;
+    
 }
 
 .btn-search-wide {
-	width: 90px;
-    padding: 12px 22px;
-    background: #4d7326;
-    color: white;
-    border: none;
-    border-radius: 10px;
+    padding: 8px 12px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
     cursor: pointer;
-    font-size: 15px;
 }
 .btn-search-wide:hover {
-    background: #436421;
+    background: #45a049;
 }
 
 /* ============================

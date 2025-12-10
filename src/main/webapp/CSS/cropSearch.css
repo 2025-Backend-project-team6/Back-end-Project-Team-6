@@ -3,29 +3,46 @@
 /* 전체 공통 설정 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    display: flex; /* Flexbox 활성화 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    min-height: 100vh; /* 뷰포트 높이 전체를 최소 높이로 설정 */
+}
+
+
+
+.main-content {
+    /* 남은 공간을 모두 차지하도록 확장 */
+    flex-grow: 1;
+    margin-left: 30px;
 }
 
 /* 페이지 타이틀 영역 */
 .page-title-box {
     width: 100%;
     text-align: left;
-    margin: 40px auto 20px;
+    margin: 30px auto;
+    padding: 0 20px;
     max-width: 1200px;
 }
 
 .page-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: #38761d;
+    margin: 0;
     margin-bottom: 5px;
+    font-size: 23px;
 }
 
 .page-subtitle {
     font-size: 15px;
     color: #777;
+    margin: 0px;
+}
+
+.page-title-box p {
+    margin: 0; /* 자식 요소의 기본 마진을 강제로 0으로 설정 */
+    padding: 0;
 }
 
 /* 🔍 검색 & 필터 박스 */
@@ -49,34 +66,38 @@ body {
 
 /* 검색창 그룹 */
 .search-bar {
-    flex: 1;
     display: flex;
+    width: 100%;
+    max-width: 400px;
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 8px 12px;
+    border-radius: 8px;
+    padding: 0;
     box-sizing: border-box;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .search-input {
-    flex-grow: 1;
-    border: none;
+	flex-grow: 1;
+	border: none; 
+    border-right: none; /* 제거 */
+    border-radius: 8px 0 0 8px; /* 왼쪽만 둥글게 */
+    
+    padding: 8px 12px; /* 높이를 위한 패딩 */
     outline: none;
-    font-size: 15px;
+    font-size: 14px;
+    background: transparent; /* 배경 투명 */
 }
 
 .search-btn {
-    background: #38761d;
-    border: none;
-    padding: 6px 15px;
-    color: white;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 8px 12px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
     cursor: pointer;
-    margin-left: 10px;
 }
+
 
 /* 셀렉트 바 컨테이너 */
 .select-row {

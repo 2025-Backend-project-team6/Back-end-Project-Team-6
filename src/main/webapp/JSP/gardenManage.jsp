@@ -18,7 +18,7 @@
         <div class="title-row">
             <div class="title-box">
                 <h2>텃밭 관리🌾</h2>
-                <p>총 ${totalGardenCount}개의 텃밭을 관리중입니다.</p>
+                <p>총 ${totalGardenCount}개의 텃밭을 관리중입니다</p>
             </div>
 
             <div class="action-buttons">
@@ -30,7 +30,7 @@
 
         <form class="search-box" action="${pageContext.request.contextPath}/gardenmanage.do" method="get">
             <input type="search" name="keyword" value="${keyword}" placeholder="텃밭 검색">
-            <button type="submit" name="action" value="searchGardenBtn" class="search-btn">검색</button>
+            <button type="submit" name="action" value="searchGardenBtn" class="search-btn">🔍</button>
         </form>
 
         <c:if test="${not empty nullMessage}">

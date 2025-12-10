@@ -8,17 +8,17 @@
 }
 
 body {
-    background-color: #f0f2f5;
+    background-color: #f9f9f9;
     height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden; /* 전체 스크롤 방지 */
+    line-height: 1.6;
 }
 
 /* 상단 헤더 영역 (필요시 높이 조절) */
 .header-wrapper {
     background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     z-index: 10;
 }
 
@@ -26,15 +26,42 @@ body {
 .main-container {
     display: flex;
     flex: 1; /* 남은 높이 다 쓰기 */
-    height: calc(100vh - 60px); /* 헤더 높이 제외 */
-    max-width: 1600px;
-    margin: 0 auto;
     width: 100%;
+    max-width: 1200px; /* 원하는 최대 너비로 조정 (예: 1400px) */
+    margin: 30px auto;
+    padding: 0 20px; /* 좌우 여백 (패딩) 추가 */
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.list-header .count {
+    color: #38761d; /* 주변 텍스트와 같은 색상 */
+    font-weight: bold; /* 주변 텍스트와 같은 굵기 (h2는 기본 bold임) */
+    margin-left: 5px;
+    font-size: 20px; /* 주변 텍스트와 같은 크기 (h2의 크기) */
+}
+.page-title-box {
+    margin-bottom: 25px; /* 커뮤니티 동일 */
+}
+.page-title-box h2 {
+	font-size: 23px;
+}
+.page-title-box p {
+    font-size: 15px;
+    color: #777;
+}
+
+.map-list-wrapper {
+    display: flex;
+    flex: 1; /* main-container 안에서 남은 높이를 모두 차지 */
+    /* 현재 헤더 높이(예상 60px)와 타이틀 높이를 제외한 나머지 공간을 사용 */
+    height: calc(100vh - 220px); /* 100vh - (헤더 높이 + 타이틀 여백) */
 }
 
 /* [왼쪽] 농장 리스트 영역 */
 .farm-list-sidebar {
     width: 400px;
+    min-width: 300px;
     background: white;
     overflow-y: auto; /* 리스트만 스크롤 */
     border-right: 1px solid #ddd;
@@ -55,12 +82,6 @@ body {
     color: #333;
     display: flex;
     align-items: center;
-}
-.list-header .count {
-    color: #38761d;
-    font-weight: bold;
-    margin-left: 8px;
-    font-size: 16px;
 }
 
 /* 농장 카드 아이템 */
