@@ -13,6 +13,7 @@ public class JournalDTO {
     private Date logDate;
     private String logImg;
     private String logType; // 일지 분류 (물주기, 비료, 관찰, 수확)
+    private String gardenName; // 텃밭 이름
     
 	public int getLogId() {
 		return logId;
@@ -73,5 +74,11 @@ public class JournalDTO {
 	}
 	public void setLogType(String logType) {
 		this.logType = logType;
+	}
+	public String getGardenName() {
+		return gardenName;
+	}
+	public void setGardenName(String gardenName) {
+		this.gardenName = gardenName;
 	}
 }

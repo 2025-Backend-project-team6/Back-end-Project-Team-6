@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>GardenLog - 농사 일지</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/journal.css?v=2">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/journalList.css?v=3">
 </head>
 <body>
 
@@ -23,7 +23,9 @@
                 <div class="mini-calendar">
                     <div class="calendar-nav">
                         <a href="journal.do?year=${currentMonth == 1 ? currentYear - 1 : currentYear}&month=${currentMonth == 1 ? 12 : currentMonth - 1}" class="nav-arrow">&lt;</a>
+                        
                         <span class="current-month">${currentYear}년 ${currentMonth}월</span>
+                        
                         <a href="journal.do?year=${currentMonth == 12 ? currentYear + 1 : currentYear}&month=${currentMonth == 12 ? 1 : currentMonth + 1}" class="nav-arrow">&gt;</a>
                     </div>
                     <div class="calendar-weekdays">
@@ -33,6 +35,7 @@
                         <c:forEach begin="1" end="${startDayOfWeek - 1}">
                             <span class="day empty"></span>
                         </c:forEach>
+
                         <c:forEach var="day" begin="1" end="${lastDay}">
                             <c:set var="hasLog" value="false" />
                             <c:forEach var="d" items="${logDates}">
@@ -40,6 +43,7 @@
                                     <c:set var="hasLog" value="true" />
                                 </c:if>
                             </c:forEach>
+
                             <c:choose>
                                 <c:when test="${hasLog}">
                                     <span class="day has-log">${day}</span>
@@ -93,7 +97,9 @@
 
         </aside>
 
+
         <main class="journal-feed">
+            
             <div class="feed-header">
                 <div class="title-area">
                     <h2>농사 일지 📝</h2>
@@ -111,9 +117,13 @@
             </div>
 
             <div class="log-list">
+                
                 <c:if test="${empty journalList}">
-                    <div class="empty-log"><p>작성된 일지가 없습니다.</p></div>
+                    <div class="empty-log">
+                        <p>작성된 일지가 없습니다.</p>
+                    </div>
                 </c:if>
+
                 <c:forEach var="log" items="${journalList}">
                     <div class="log-card">
                         <div class="card-top">
@@ -121,29 +131,49 @@
                                 <div class="crop-icon-circle">🌱</div> 
                                 <div class="text-info">
                                     <h3 class="log-title">${log.title}</h3>
-                                    <span class="log-date">${log.logDate}</span>
+                                    
+                                    <div class="meta-info">
+                                        <span class="log-date">${log.logDate}</span>
+                                        <span class="separator">·</span>
+                                        <span class="weather-text">
+                                            <c:choose>
+                                                <c:when test="${log.weather eq '맑음'}">☀️</c:when>
+                                                <c:when test="${log.weather eq '흐림'}">☁️</c:when>
+                                                <c:when test="${log.weather eq '비'}">🌧️</c:when>
+                                                <c:when test="${log.weather eq '눈'}">❄️</c:when>
+                                                <c:otherwise>🌤️</c:otherwise>
+                                            </c:choose>
+                                            ${log.weather}
+                                        </span>
+                                    </div>
                                 </div>
-                                <span class="weather-badge">${log.weather}</span>
                             </div>
+                            
                             <c:if test="${not empty log.cropNickname}">
-                                <span class="d-day-badge">#${log.cropNickname}</span>
+                                <a href="mycrop.do?action=searchCropBtn&keyword=${log.cropNickname}" class="d-day-badge" style="text-decoration:none;">
+                                    #${log.cropNickname}
+                                </a>
                             </c:if>
                         </div>
+
                         <div class="card-body">
                             <p class="log-content">${log.content}</p>
                         </div>
+
                         <c:if test="${not empty log.logImg}">
                             <div class="photo-grid">
                                 <div class="photo-item">
-                                    <img src="${pageContext.request.contextPath}/uploads/${log.logImg}">
+                                    <img src="${pageContext.request.contextPath}/uploads/${log.logImg}" alt="일지 사진">
                                 </div>
                             </div>
                         </c:if>
+
                         <div class="card-footer">
                             <span class="tag">#${log.logType}</span>
                         </div>
                     </div>
                 </c:forEach>
+
             </div>
         </main>
     </div>

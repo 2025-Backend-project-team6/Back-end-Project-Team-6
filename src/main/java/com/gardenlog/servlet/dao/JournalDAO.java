@@ -84,7 +84,13 @@ public class JournalDAO {
     // (글쓰기용) 내 작물 목록 가져오기
     public List<JournalDTO> getMyCropList(String userid) {
         List<JournalDTO> list = new ArrayList<>();
-        String sql = "SELECT id, nickname FROM my_crop WHERE userid = ?";
+        
+        // garden 테이블과 JOIN해서 gardenname도 가져옴
+        String sql = "SELECT m.id, m.nickname, g.gardenname "
+                   + "FROM my_crop m "
+                   + "JOIN garden g ON m.gardenid = g.gardenid "
+                   + "WHERE m.userid = ?";
+                   
         try {
             conn = JdbcConnectUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
@@ -94,6 +100,7 @@ public class JournalDAO {
                 JournalDTO dto = new JournalDTO();
                 dto.setMyCropId(rs.getInt("id"));
                 dto.setCropNickname(rs.getString("nickname"));
+                dto.setGardenName(rs.getString("gardenname")); // 텃밭 이름 담기
                 list.add(dto);
             }
         } catch (SQLException e) { e.printStackTrace(); } 

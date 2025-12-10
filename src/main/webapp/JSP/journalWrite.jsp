@@ -6,10 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>GardenLog - 일지 작성</title>
-    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/header.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/footer.css">
-    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/journalWrite.css">
 </head>
 <body>
@@ -31,7 +29,9 @@
                 <select name="myCropId" class="form-select" required>
                     <option value="0">선택 안 함 (전체)</option>
                     <c:forEach var="crop" items="${myCropList}">
-                        <option value="${crop.myCropId}">${crop.cropNickname}</option>
+                        <option value="${crop.myCropId}">
+                            [${crop.gardenName}] ${crop.cropNickname}
+                        </option>
                     </c:forEach>
                 </select>
             </div>
