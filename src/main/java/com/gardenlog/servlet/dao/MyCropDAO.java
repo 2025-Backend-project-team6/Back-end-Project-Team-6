@@ -29,6 +29,8 @@ public class MyCropDAO {
 	private final String DETAILGARDEN_GETGARDENCROP = JOIN + "WHERE mc.userid=? and mc.gardenid=?;";
 	private final String DETAILGARDEN_PLUSWATER = "update my_crop set water_count=water_count+1, last_watered_at=CURDATE() where id=?;";
 	private final String DETAILGARDEN_DELETECROP = "delete from my_crop where id=?;";
+	private final String INDEX_TOTALWATER = "select sum(water_count) as total from my_crop where gardenid = ?;";
+	private final String INDEX_TOTALCROPCOUNT = "SELECT COUNT(*) AS cnt FROM my_crop WHERE gardenid = ?;";
 	
 	public List<MyCropDTO> searchMyCrop(String userid, String keyword){
 		List<MyCropDTO> list = new ArrayList<>();
@@ -190,6 +192,52 @@ public class MyCropDAO {
 		}
 		
 		return result;
+	}
+	
+	public int getTotalWaterCount(int gardenid) {
+	    int result = 0;
+	    
+	    try {
+	        conn = JdbcConnectUtil.getConnection();
+	        pstmt = conn.prepareStatement(INDEX_TOTALWATER);
+	        
+	        pstmt.setInt(1, gardenid);
+	        rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            result = rs.getInt("total");
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcConnectUtil.close(conn, pstmt, rs);
+	    }
+	    
+	    return result;
+	}
+	
+	public int getCropCount(int gardenid) {
+	    int count = 0;
+	    
+	    try {
+	        conn = JdbcConnectUtil.getConnection();
+	        pstmt = conn.prepareStatement(INDEX_TOTALCROPCOUNT);
+	        
+	        pstmt.setInt(1, gardenid);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            count = rs.getInt("cnt");
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcConnectUtil.close(conn, pstmt, rs);
+	    }
+
+	    return count;
 	}
 	
 	private MyCropDTO resultSetTOCrop(ResultSet rs) throws SQLException {

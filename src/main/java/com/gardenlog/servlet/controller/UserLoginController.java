@@ -59,7 +59,7 @@ public class UserLoginController extends HttpServlet {
 		    com.gardenlog.servlet.dao.VisitDAO vdao = new com.gardenlog.servlet.dao.VisitDAO();
 		    vdao.addVisit(user.getUserid());
 
-			response.sendRedirect(request.getContextPath() + "/JSP/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/index.do");
 			}
 		} else {
 			request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다."); 

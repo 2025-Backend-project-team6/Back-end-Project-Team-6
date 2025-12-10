@@ -3,7 +3,7 @@
 <header class="full-width-wrapper">   
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/header.css">
 	<div class="header">
-		<a href="${pageContext.request.contextPath}/JSP/index.jsp">
+		<a href="${pageContext.request.contextPath}/index.do">
 	    	<div class="logo">
 	    	<span>🌱</span> GardenLog
 	    	</div>
