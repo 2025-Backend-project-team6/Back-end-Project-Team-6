@@ -35,7 +35,7 @@ button {
 }
 
 /* ===================== */
-/*   카드 공통 스타일      */
+/* 카드 공통 스타일      */
 /* ===================== */
 
 .card-box {
@@ -47,7 +47,7 @@ button {
 }
 
 /* ===================== */
-/*   프로필 카드          */
+/* 프로필 카드          */
 /* ===================== */
 
 .profile-card {
@@ -80,40 +80,66 @@ button {
 .level-other { background-color: #f1e0ff; color: #6a1b9a; }
 
 /* ===================== */
-/*    날씨 카드           */
+/* 날씨 카드 (수정됨)   */
 /* ===================== */
+
+/* 카드 전체 중앙 정렬 */
+.weather-card {
+    text-align: center; 
+}
 
 .weather-card .card-title {
     font-size: 17px;
     margin-bottom: 12px;
 }
 
+/* 날씨 아이콘 */
+.weather-icon-box {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#w-icon {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+}
+
 .weather-location {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 4px;
+    color: #444;
 }
 
 .weather-temp {
     font-size: 48px;
     font-weight: 700;
     margin-bottom: 3px;
+    color: #333;
+    line-height: 1; /* 줄 간격 좁히기 */
 }
 
 .weather-condition {
-    font-size: 15px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 18px;
+    color: #666;
 }
 
 .weather-detail-box {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around; /* 간격 균등 배치 */
+    padding-top: 15px;
+    border-top: 1px solid #eee;
     font-size: 14px;
     color: #666;
 }
 
 /* ===================== */
-/*   인기글 카드          */
+/* 인기글 카드          */
 /* ===================== */
 
 .popular-list {
@@ -134,7 +160,7 @@ button {
 }
 
 /* =========================== */
-/*        메인 콘텐츠 영역       */
+/* 메인 콘텐츠 영역       */
 /* =========================== */
 
 .main-content {
@@ -211,7 +237,7 @@ button {
 .plant5 { left: 85%; top: 35%; }
 
 /* =============================== */
-/*      요약 3개 박스 (물/재배/일수) */
+/* 요약 3개 박스 (물/재배/일수) */
 /* =============================== */
 
 .summary-row {
@@ -219,6 +245,7 @@ button {
     justify-content: space-between;
     gap: 20px;
     margin-top: 25px;
+    margin-bottom: 50px; 
 }
 
 .summary-box {
@@ -246,7 +273,7 @@ button {
 .days-box { background: #fff8e1; color: #f9a825; }
 
 /* =============================== */
-/*       작물 보기 (카드 스타일)     */
+/* 작물 보기 (카드 스타일)     */
 /* =============================== */
 
 .crop-view-section {
@@ -302,12 +329,4 @@ button {
 
 .date-icon {
     margin-right: 6px;
-}
-
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 25px;
-    margin-bottom: 50px; /* 🔥 여기 추가해서 아래 공간 생성 */
 }

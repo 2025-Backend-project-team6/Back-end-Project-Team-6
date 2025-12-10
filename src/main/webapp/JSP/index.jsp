@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>GardenLog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=3fy9khavdx&submodules=geocoder"></script>
 </head>
 <body>
 
@@ -34,12 +36,18 @@
 
             <div class="weather-card card-box">
                 <h4 class="card-title">날씨 정보 ☀️</h4>
-                <div class="weather-location">서울특별시 구로구</div>
-                <div class="weather-temp">18°</div>
-                <div class="weather-condition">맑음</div>
+                
+                <div class="weather-icon-box">
+                    <img id="w-icon" src="" alt="날씨 아이콘" style="display:none;">
+                </div>
+
+                <div class="weather-location" id="w-loc">위치 찾는 중...</div>
+                <div class="weather-temp" id="w-temp">--°</div>
+                <div class="weather-condition" id="w-desc">정보 로딩 중</div>
+                
                 <div class="weather-detail-box">
-                    <span class="weather-detail">습도 65%</span>
-                    <span class="weather-detail">풍속 2.5m/s</span>
+                    <span class="weather-detail" id="w-humid">습도 --%</span>
+                    <span class="weather-detail" id="w-wind">풍속 --m/s</span>
                 </div>
             </div>
 
@@ -122,5 +130,50 @@
     </div>
 
     <%@ include file="footer.jsp" %>
+
+    <script>
+        $(document).ready(function() {
+            const WEATHER_API_KEY = "db3eed2dbd0118448496db40a470092f";
+
+            function onGeoOk(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                
+                const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + WEATHER_API_KEY + "&units=metric&lang=kr";
+                
+                fetch(weatherUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        $("#w-temp").text(Math.round(data.main.temp) + "°");
+                        $("#w-desc").text(data.weather[0].description);
+                        $("#w-humid").text("습도 " + data.main.humidity + "%");
+                        $("#w-wind").text("풍속 " + data.wind.speed + "m/s");
+                        
+                        const iconCode = data.weather[0].icon;
+                        const iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+                        $("#w-icon").attr("src", iconUrl).show();
+                    });
+
+                
+                naver.maps.Service.reverseGeocode({
+                    coords: new naver.maps.LatLng(lat, lon),
+                }, function(status, response) {
+                    if (status === naver.maps.Service.Status.OK) {
+                        const result = response.v2.results[0];
+                        const si = result.region.area1.name;
+                        const gu = result.region.area2.name;
+                        $("#w-loc").text(si + " " + gu);
+                    }
+                });
+            }
+
+            function onGeoError() {
+                onGeoOk({ coords: { latitude: 37.5665, longitude: 126.9780 } });
+            }
+
+            navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+        });
+    </script>
 </body>
 </html>
