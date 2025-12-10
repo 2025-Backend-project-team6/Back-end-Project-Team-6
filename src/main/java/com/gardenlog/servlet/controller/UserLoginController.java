@@ -39,7 +39,7 @@ public class UserLoginController extends HttpServlet {
 			if ("SUSPENDED".equals(user.getUser_status())) {
 				request.setAttribute("suspendMessage", "정지된 계정입니다. 관리자에게 문의하세요.");
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/JSP/userSuspended.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/JSP/user_Suspended.jsp");
 				rd.forward(request, response);
 			} else {
 			HttpSession session = request.getSession();
