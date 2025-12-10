@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gardenlogdb
 -- ------------------------------------------------------
--- Server version	8.0.32
+-- Server version	8.0.43
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `visit_log` (
   PRIMARY KEY (`log_id`),
   KEY `userid` (`userid`),
   CONSTRAINT `visit_log_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `visit_log` (
 
 LOCK TABLES `visit_log` WRITE;
 /*!40000 ALTER TABLE `visit_log` DISABLE KEYS */;
-INSERT INTO `visit_log` VALUES (1,'testUser','2025-11-01'),(2,'testUser','2025-11-05'),(3,'testUser','2025-11-12'),(4,'testUser','2025-11-20'),(5,'testUser','2025-11-28'),(6,'chohyein','2025-11-02'),(7,'chohyein','2025-11-03'),(8,'leeseyeon','2025-11-15'),(9,'testUser','2025-11-30'),(10,'testUser','2025-12-02'),(11,'testUser','2025-12-02'),(12,'testUser','2025-12-02');
+INSERT INTO `visit_log` VALUES (222,'student','2025-12-01'),(223,'student','2025-12-03'),(224,'student','2025-12-07'),(225,'student','2025-12-11'),(226,'student','2025-12-11');
 /*!40000 ALTER TABLE `visit_log` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 12:24:53
+-- Dump completed on 2025-12-11  0:39:37

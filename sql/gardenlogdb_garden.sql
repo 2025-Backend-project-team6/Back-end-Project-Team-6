@@ -34,7 +34,7 @@ CREATE TABLE `garden` (
   PRIMARY KEY (`gardenid`),
   KEY `userid_idx` (`userid`),
   CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `garden` (
 
 LOCK TABLES `garden` WRITE;
 /*!40000 ALTER TABLE `garden` DISABLE KEYS */;
-INSERT INTO `garden` VALUES (23,'leenayeon','나연 주말농장','서울특별시 구로구 개봉동',5,1,'2025-12-01',NULL);
+INSERT INTO `garden` VALUES (32,'student','동양이 집 베란다','서울특별시 구로구 고척동',3,3,'2025-12-01',NULL),(33,'student','동양이 주말농장','서울특별시 구로구 개봉동',8,2,'2025-12-05',NULL);
 /*!40000 ALTER TABLE `garden` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-08 20:39:31
+-- Dump completed on 2025-12-11  0:39:37

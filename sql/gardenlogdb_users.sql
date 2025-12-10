@@ -43,7 +43,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('chohyein','1114','조혜인','chohyein@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('leenayeon','0915','이나연','leenayeon0915@gmail.com','',1,NULL,'user','ACTIVE','2025-11-24 13:01:19'),('leeseyeon','0919','이세연','leeseyeon@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('testUser','123','테스트유저','test@gmail.com','',1,NULL,'admin','ACTIVE','2025-11-20 08:44:59');
+INSERT INTO `users` VALUES ('chohyein','1114','조혜인','chohyein@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('leenayeon','0915','이나연','leenayeon@gmail.com','',2,NULL,'user','ACTIVE','2025-11-24 13:01:19'),('leeseyeon','0919','이세연','leeseyeon@gmail.com','',1,NULL,'user','ACTIVE','2025-11-25 03:47:04'),('student','0000','김동양','dongyang@gmail.com','서울특별시 구로구',1,NULL,'user','ACTIVE','2025-12-08 15:46:26'),('testUser','123','테스트유저','test@gmail.com','',1,NULL,'admin','ACTIVE','2025-11-20 08:44:59');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-08 20:39:30
+-- Dump completed on 2025-12-11  0:39:38

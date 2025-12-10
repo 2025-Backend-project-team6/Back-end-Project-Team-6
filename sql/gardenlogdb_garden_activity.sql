@@ -33,7 +33,7 @@ CREATE TABLE `garden_activity` (
   PRIMARY KEY (`activityid`),
   KEY `fk_activity_crop` (`cropid`),
   CONSTRAINT `fk_activity_crop` FOREIGN KEY (`cropid`) REFERENCES `my_crop` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `garden_activity` (
 
 LOCK TABLES `garden_activity` WRITE;
 /*!40000 ALTER TABLE `garden_activity` DISABLE KEYS */;
-INSERT INTO `garden_activity` VALUES (9,'leenayeon',23,37,'water','2025-12-08','');
+INSERT INTO `garden_activity` VALUES (28,'student',32,60,'water','2025-12-01',''),(29,'student',32,59,'water','2025-12-01',''),(30,'student',32,58,'water','2025-12-01',''),(31,'student',32,58,'fertilizer','2025-12-03',''),(32,'student',32,60,'manage','2025-12-11','잡초 뽑기'),(33,'student',32,59,'manage','2025-12-11','잡초 뽑기'),(34,'student',33,61,'water','2025-12-05',''),(35,'student',33,62,'water','2025-12-05',''),(36,'student',33,61,'fertilizer','2025-12-05',''),(37,'student',33,61,'manage','2025-12-11','잡초 뽑기');
 /*!40000 ALTER TABLE `garden_activity` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-08 20:39:31
+-- Dump completed on 2025-12-11  0:39:37

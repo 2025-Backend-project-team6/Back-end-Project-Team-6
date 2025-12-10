@@ -43,7 +43,7 @@ CREATE TABLE `my_crop` (
   CONSTRAINT `fk_my_crop_user` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `my_crop_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE RESTRICT,
   CONSTRAINT `my_crop_ibfk_2` FOREIGN KEY (`cropid`) REFERENCES `crop_info` (`cropid`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +52,7 @@ CREATE TABLE `my_crop` (
 
 LOCK TABLES `my_crop` WRITE;
 /*!40000 ALTER TABLE `my_crop` DISABLE KEYS */;
-INSERT INTO `my_crop` VALUES (37,'leenayeon',23,115,'감자','2025-12-08',1,'2025-12-08','growing','2025-12-08 05:05:41','2025-12-08 05:06:07');
+INSERT INTO `my_crop` VALUES (58,'student',32,196,'방울토마토','2025-12-01',1,'2025-12-11','growing','2025-12-10 15:21:00','2025-12-10 15:26:04'),(59,'student',32,174,'상추','2025-12-01',1,'2025-12-11','growing','2025-12-10 15:21:11','2025-12-10 15:26:04'),(60,'student',32,153,'고추','2025-12-01',1,'2025-12-11','growing','2025-12-10 15:21:24','2025-12-10 15:26:04'),(61,'student',33,115,'감자','2025-12-05',1,'2025-12-11','growing','2025-12-10 15:21:43','2025-12-10 15:22:21'),(62,'student',33,186,'오이','2025-12-05',1,'2025-12-11','growing','2025-12-10 15:22:02','2025-12-10 15:22:24');
 /*!40000 ALTER TABLE `my_crop` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -65,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-08 20:39:31
+-- Dump completed on 2025-12-11  0:39:38
