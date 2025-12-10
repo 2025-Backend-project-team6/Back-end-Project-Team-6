@@ -87,7 +87,7 @@ public class FarmSearchServlet extends HttpServlet {
         try {
             System.out.println(">>> [위치찾기] 좌표 확인: lat=" + lat + ", lng=" + lng);
 
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc";
+            String apiURL = "https://maps.apigw.ntruss.com/map-reversegeocode/v2/gc";
             String params = "coords=" + lng + "," + lat + "&sourcecrs=epsg:4326&orders=legalcode&output=json";
             
             URL url = new URL(apiURL + "?" + params);
@@ -102,7 +102,6 @@ public class FarmSearchServlet extends HttpServlet {
             if (responseCode == 200) {
                 br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
             } else {
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
                 return null;
             }
 
@@ -110,7 +109,7 @@ public class FarmSearchServlet extends HttpServlet {
             String line;
             while((line = br.readLine()) != null) sb.append(line);
             br.close();
-
+            
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(sb.toString());
             JSONArray results = (JSONArray) json.get("results");
@@ -118,14 +117,13 @@ public class FarmSearchServlet extends HttpServlet {
             if (results != null && results.size() > 0) {
                 JSONObject result = (JSONObject) results.get(0);
                 JSONObject region = (JSONObject) result.get("region");
-                
-                JSONObject area1 = (JSONObject) region.get("area1");
                 JSONObject area2 = (JSONObject) region.get("area2");
                 
-                String siName = (String) area1.get("name");
                 String guName = (String) area2.get("name");
-
-                return siName + " " + guName; 
+                
+                System.out.println(">>> [성공] 검색할 동네: " + guName);
+                
+                return guName; 
             }
         } catch (Exception e) {
             e.printStackTrace();
