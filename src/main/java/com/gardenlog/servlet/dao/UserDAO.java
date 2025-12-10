@@ -30,6 +30,9 @@ public class UserDAO {
 	final String ADMIN_USER_UPDATE = "UPDATE users SET level = ?, role = ?, user_status = ? WHERE userid = ?";
 	final String USER_UPDATE_STATUS = "UPDATE users SET user_status = ? WHERE userid = ?";
 	
+	final String DELETE_FARMING_LOGS = "DELETE FROM farming_logs WHERE userid = ?";
+	final String DELETE_GARDEN = "DELETE FROM garden WHERE userid = ?";
+	
     /* 로그인 */
 	public UserDTO login(String userid, String password) { 
 	      UserDTO user = null;
@@ -251,12 +254,40 @@ public class UserDAO {
 		int result = 0;
 		try {
 			conn = JdbcConnectUtil.getConnection();
-			pstmt = conn.prepareStatement(USER_DELETE);
-			pstmt.setString(1, userId);
-			result = pstmt.executeUpdate();
+			//자동 커밋 기능 끄기
+			conn.setAutoCommit(false);
+			
+			// 2. [자식 데이터 1] farming_logs 데이터 삭제
+	        pstmt = conn.prepareStatement(DELETE_FARMING_LOGS);
+	        pstmt.setString(1, userId);
+	        pstmt.executeUpdate();
+	        
+	        // 3. [자식 데이터 2] garden 데이터 삭제
+	        pstmt.close();
+	        pstmt = conn.prepareStatement(DELETE_GARDEN);
+	        pstmt.setString(1, userId);
+	        pstmt.executeUpdate();
+	        
+	     // 4. [부모 데이터] users 데이터 삭제 (마지막)
+	        pstmt.close();
+	        pstmt = conn.prepareStatement(USER_DELETE); // USER_DELETE = "DELETE FROM users WHERE userid = ?"
+	        pstmt.setString(1, userId);
+	        result = pstmt.executeUpdate();
+	        
+	        conn.commit();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.err.println("🚨 회원 삭제 트랜잭션 실패: 롤백 실행");
+			try {
+	            if (conn != null) conn.rollback();
+	        } catch (SQLException rollbackEx) {
+	            rollbackEx.printStackTrace();
+	        }
+	        e.printStackTrace();
+	        
+	        // 삭제 실패 시 0 반환
+	        result = 0;
 		} finally {
 			JdbcConnectUtil.close(conn, pstmt);
 		}
