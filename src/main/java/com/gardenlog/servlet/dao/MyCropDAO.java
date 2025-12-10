@@ -211,4 +211,26 @@ public class MyCropDAO {
 		return mcdto;
 	}
 	
+	
+    public int getMyCropCount(String userid) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM my_crop WHERE userid = ?";
+        
+        try {
+            conn = JdbcConnectUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userid);
+            rs = pstmt.executeQuery();
+            
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcConnectUtil.close(conn, pstmt, rs);
+        }
+        return count;
+    }
+	
 }

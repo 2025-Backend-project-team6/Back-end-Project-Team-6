@@ -37,7 +37,7 @@ public class FarmSearchServlet extends HttpServlet {
         String wgsLat = request.getParameter("lat");
         String wgsLng = request.getParameter("lng");
         
-        String regionName = "서대문구";
+        String regionName = "서울";
 
         if (wgsLat != null && wgsLng != null && !wgsLat.isEmpty()) {
             String detectedRegion = getRegionFromCoords(wgsLng, wgsLat);
