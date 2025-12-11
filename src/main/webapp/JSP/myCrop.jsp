@@ -14,13 +14,18 @@
 
 	<div class="page-container">
 		<div class="top-row">
-			<h5 class="page-title">작물 관리 🥕</h5>
+			<div class="page-title">
+				<h2>작물 관리🥕</h2>
+				<p>총 ${totalCropCount}개의 작물을 관리중입니다</p>
+			</div>
 
-			<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
-				<button type="submit" name="action" value="addCropPageBtn" class="btn-add">
-					+ 새 작물 추가
-				</button>
-			</form>
+			<div class="action-buttons">
+				<form action="${pageContext.request.contextPath}/mycrop.do" method="get">
+					<button type="submit" name="action" value="addCropPageBtn" class="btn-add">
+						+ 새 작물 추가
+					</button>
+				</form>
+			</div>
 		</div>
 
 		<form action="${pageContext.request.contextPath}/mycrop.do" method="get" class="search-form">

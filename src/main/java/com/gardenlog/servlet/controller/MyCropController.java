@@ -153,7 +153,10 @@ public class MyCropController extends HttpServlet {
 			
 		} else {
 			List<MyCropDTO> allMyCropList = mcdao.allMyCrop(userid);
+			int totalCropCount = allMyCropList.size();
+			
 			request.setAttribute("allMyCropList", allMyCropList);
+			request.setAttribute("totalCropCount", totalCropCount);
 		}
 		
 		dispatcher = request.getRequestDispatcher("/JSP/myCrop.jsp");
